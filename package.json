@@ -5,7 +5,6 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@creativebulma/bulma-badge": "^1.0.1",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
@@ -15,9 +14,9 @@
     "apollo-link-ws": "^1.0.20",
     "aws-sdk": "^2.675.0",
     "axios": "^0.19.2",
-    "bulma": "^0.8.2",
-    "bulma-calendar": "^6.0.9",
-    "bulma-pageloader": "^0.3.0",
+    "bulma": "^0.9.3",
+    "bulma-calendar": "^6.1.13",
+    "bulma-switch": "^2.0.0",
     "compression": "^1.7.1",
     "crypto-js": "^4.0.0",
     "csvtojson": "^2.0.10",
@@ -58,6 +57,7 @@
     "xlsx-to-json": "^0.3.0"
   },
   "devDependencies": {
+    "@creativebulma/bulma-badge": "^1.0.1",
     "babel-eslint": "^10.0.3",
     "eslint": "5.16.0",
     "grunt-contrib-copy": "^1.0.0"
