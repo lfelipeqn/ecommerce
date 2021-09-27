@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keen-slider@5.5.1/keen-slider.min.css">
         <%let main = null %>
         <%let featured = null %>
         <%let mosaic = null %>
@@ -7,20 +7,12 @@
           <% featured = slider.filter(el => el.position =='featured');%>
           <% mosaic = slider.filter(el => (el.position =='vertical' || el.position =='bottom' || el.position =='wide' || el.position =='middle' || el.position =='tall'));%>
         <%}%>
-            <%if(main!==null && main.length>1){%>
-              <section>
-                <div style="overflow-x: hidden;" class="container">
-                  <div id="carousel" class="carousel">
-                    <%for(let m of main){%>
-                        <a href="<%=m.url%>"><img src="<%= cdnurl%>/images/slides/<%= m.image %>" alt="<%=m.name%>" /></a>
-                    <%}%>
-                  </div>
-                </div>
-              </section>
-            <%}else if(main!==null && main.length==1){%>
-              <section class="hero">
-                <a href="<%=main[0].url%>"><img loading="lazy" src="<%= cdnurl%>/images/slides/<%= main[0].image %>" alt="<%=main[0].name%>"/></a>
-              </section>
+            <%if(main!==null && main.length>=1){%>
+              <div id="carousel" class="keen-slider">
+                <%for(let m of main){%>
+                  <div class="keen-slider__slide"><a href="<%=m.url%>"><img src="<%= cdnurl%>/images/slides/<%= m.image %>" alt="<%=m.name%>" /></a></div>
+                <%}%>
+              </div>
             <%}%>
           <%if(featured!==null && featured.length>=1){%>
           <div class="columns is-centered is-gapless">
@@ -144,20 +136,39 @@
           </div>
           <%}%>
     <hr>
-<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/keen-slider@5.5.1/keen-slider.min.js"></script>
 <script>
-    // Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', {
-        autoplay:true, 
-        slidesToShow:1, 
-        infinite:true, 
-        navigationKeys:false,
-        navigationSwipe:true,
-        slidesToScroll:1,
-        pagination:'HH:mm',
-        autoplaySpeed:4000,
-        pauseOnHover:true});
 
+    var sliderElement = document.getElementById("carousel")
+    var interval = 0
+    let autoplay = (run) => {
+      clearInterval(interval)
+      interval = setInterval(() => {
+        if (run && slider) {
+          slider.next()
+        }
+      }, 2500)
+    }
+    
+    var slider = new KeenSlider('#carousel',{
+      loop: true,
+      duration: 3000,
+      dragStart: () => {
+        autoplay(false)
+      },
+      dragEnd: () => {
+        autoplay(true)
+      },
+    });
+
+    sliderElement.addEventListener("mouseover", () => {
+      autoplay(false)
+    })
+    sliderElement.addEventListener("mouseout", () => {
+      autoplay(true)
+    })
+    autoplay(true)
+    
     live('article > .subtitle','click',e=>{
       let route = e.target.parentNode.getAttribute('destination');
       window.location.href=route;
