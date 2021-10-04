@@ -37,11 +37,11 @@ module.exports = {
     filter.id=cids;
 
     let navbar = `<div class="navbar-item has-dropdown is-hoverable">
-      <div class="navbar-link is-uppercase is-size-7"><a rel="nofollow" class="has-text-dark" href="#">Categorías</a></div>
+      <div class="navbar-link is-uppercase is-size-7"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Categorías</a></div>
         <div class="navbar-dropdown">`;
 
     let navbarmobile =`<aside class="menu">`;
-
+    
     menu = await Category.findOne({
       where:{name:'inicio'},
       select:['name','url']
@@ -61,7 +61,7 @@ module.exports = {
       navbarmobile +=`<ul class="menu-list">`;
 
       if(c.children.length>0){
-        navbarmobile +=`<li class="menu-item menu-item-mobile"><a class="is-inline-block is-size-7" href="/ver/categoria/`+c.url+`">`+c.name.toUpperCase()+`</a></li>`;
+        navbarmobile +=`<li class="menu-item menu-item-mobile"><a class="is-inline-block is-size-7 has-text-white" href="/ver/categoria/`+c.url+`">`+c.name.toUpperCase()+`</a></li>`;
         navbarmobile +=`<ul class="menu-list is-hidden">`;
 
         navbar+=`
@@ -80,7 +80,7 @@ module.exports = {
             });
 
           if(d.children.length>0){
-            navbarmobile +=`<li class="menu-item menu-item-mobile">&nbsp;&nbsp;<a class="is-inline-block is-size-7 menu-item" href="/ver/categoria/`+d.url+`">`+d.name.toUpperCase()+`</a></li>`;
+            navbarmobile +=`<li class="menu-item menu-item-mobile">&nbsp;&nbsp;<a class="is-inline-block has-text-white is-size-7 menu-item" href="/ver/categoria/`+d.url+`">`+d.name.toUpperCase()+`</a></li>`;
             navbarmobile+=`<ul class="menu-list is-hidden">`;
 
             navbar+=`
@@ -92,7 +92,7 @@ module.exports = {
         <div class="dropdown-content">`;
 
             for(let e of d.children){
-              navbarmobile +=`<li class="menu-item menu-item-mobile">&nbsp;&nbsp;&nbsp;&nbsp;<a class="is-inline-block is-size-7" href="/ver/categoria/`+e.url+`">`+e.name.toUpperCase()+`</a></li>`;
+              navbarmobile +=`<li class="menu-item menu-item-mobile">&nbsp;&nbsp;&nbsp;&nbsp;<a class="is-inline-block has-text-white is-size-7" href="/ver/categoria/`+e.url+`">`+e.name.toUpperCase()+`</a></li>`;
               navbar+=`<a rel="nofollow" href="/ver/categoria/`+e.url+`" class="dropdown-item is-uppercase is-size-7">`+e.name.toUpperCase()+`</a>`;
             }
 
@@ -102,7 +102,7 @@ module.exports = {
           </div>
         </div>`;
           }else{
-            navbarmobile +=`<li>&nbsp;&nbsp;<a class="is-size-7" href="/ver/categoria/`+d.url+`">`+d.name.toUpperCase()+`</a></li>`;
+            navbarmobile +=`<li>&nbsp;&nbsp;<a class="is-size-7 has-text-white" href="/ver/categoria/`+d.url+`">`+d.name.toUpperCase()+`</a></li>`;
             navbar+=`<a rel="nofollow" href="/ver/categoria/`+d.url+`" class="dropdown-item is-uppercase is-size-7">`+d.name.toUpperCase()+`</a>`;
           }
         }
@@ -113,7 +113,7 @@ module.exports = {
           </div>
         </div>`;
       }else{
-        navbarmobile +=`<li class="menu-item"><a href="/ver/categoria/`+c.url+`" class="is-size-7">`+c.name.toUpperCase()+`</a></li>`;
+        navbarmobile +=`<li class="menu-item"><a href="/ver/categoria/`+c.url+`" class="is-size-7 has-text-white">`+c.name.toUpperCase()+`</a></li>`;
         navbar+=`<a rel="nofollow" href="/ver/categoria/`+c.url+`" class="dropdown-item is-uppercase is-size-7">`+c.name.toUpperCase()+`</a>`;
       } 
       navbarmobile +=`</ul>`;

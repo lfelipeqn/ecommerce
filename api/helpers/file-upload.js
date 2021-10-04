@@ -30,7 +30,7 @@ module.exports = {
         return exits.badRequest('No file was uploaded');
       } else {
         var params = {
-          Bucket: 'iridio.co',
+          Bucket: sails.config.views.locals.bucket,
           ACL: 'public-read'
         };
         for(let i=0; i<uploadedFiles.length; i++){

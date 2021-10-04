@@ -206,6 +206,7 @@ module.exports.routes = {
   'PUT /removepdiscount' : {controller:'DiscountController',action:'removepdiscount'},
 
   'GET /coupons/:action?/:id?' : {controller:'DiscountController',action:'coupons'},
+  'GET /fidelity/:id?' : {controller:'DiscountController',action:'fidelity'},
   'POST /coupon/create' : {controller:'DiscountController',action:'createcoupon'},
   'POST /coupon/edit/:id' : {controller:'DiscountController',action:'editcoupon'},
   'PUT /random' : {controller:'DiscountController',action:'random'},

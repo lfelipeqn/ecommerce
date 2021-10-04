@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html class="html-front">
   <head>
     <%- partial('../partials/title.ejs') %>
     <%- partial('../partials/tag.ejs') %>
 
     <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
     <%/* <meta name="robots" content="noindex"> */%>
 
@@ -41,162 +40,186 @@
     <!--STYLES END-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   </head>
-  <body>
-
-  <script>
-   /* window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '2898563873704023',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v7.0'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/es_CO/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));*/
-  </script>
-    <div class="columns is-centered is-gapless">
-      <div class="column">
-          <ul class="is-size-7 has-background-grey-lighter is-flex-mobile is-fluid-tablet is-fluid-desktop is-centered has-text-centered">
-            <li class="is-inline">&nbsp;<i class='bx bxs-truck'></i>&nbsp;Envíos a Toda Colombia&nbsp;</li>
-            <li class="is-inline">&nbsp;<i class='bx bxs-credit-card' ></i>&nbsp;Todos los medios de pago&nbsp;</li>
-            <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
-            <li class="is-inline">&nbsp;<i class='bx bxl-whatsapp' ></i> +57 3153177477&nbsp;</li>
-            <li class="is-inline">&nbsp;<i class='bx bxs-envelope'></i> contacto@iridio.co&nbsp;</li>
-            <%}%>
-          </ul>
+  <body class="body-front">
+    <div class="columns is-hidden-mobile is-centered has-background-black">
+      <div class="column is-5-desktop">
+        <ul class="has-text-left-desktop has-text-centered-mobile has-text-white">
+          <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
+          <li class="is-inline">&nbsp;<a class="has-text-white" href=""><i class='bx bxl-facebook-circle is-size-5'></i></a></li>
+          <li class="is-inline"><span class="m-0">|</span></li>
+          <li class="is-inline">&nbsp;<a class="has-text-white" href=""><i class='bx bxl-instagram-alt is-size-5'></i></a></li>
+          <%}%>
+        </ul>
+      </div>
+      <div class="column is-5-desktop">
+        <ul class="has-text-right-desktop has-text-centered-mobile has-text-white">
+          <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
+          <li class="is-inline is-size-7-mobile">&nbsp;<i class='bx bxl-whatsapp has-text-white is-size-5' ></i> +57 3153177477&nbsp;</li>
+          <li class="is-inline is-size-7-mobile">&nbsp;<i class='bx bxs-envelope has-text-white is-size-5'></i> contacto@iridio.co&nbsp;</li>
+          <%}%>
+        </ul>
+      </div>
+    </div>
+    <div class="columns is-centered is-gapless mb-0">
+      <div class="column is-10-desktop ">
         <%- partial('../partials/navbar.ejs') %>
       </div>
     </div>
-    <div class="columns is-gapless">
-      <div class="column">
+    <div class="columns is-centered mb-3">
+      <div class="column is-10-desktop">
          <%- body %>
       </div>
     </div>
-  <script>
-    
-    const toogleMenu = (elm) => {
-      let icon = elm.target.querySelector('span');
-      if(hasClass(elm.target.nextSibling.nextSibling,'is-hidden')){
-        removeClass(elm.target.nextSibling.nextSibling,'is-hidden');
-        icon.innerHTML='<i class="bx bx-caret-down"></i>';
-      }else{
-        addClass(elm.target.nextSibling.nextSibling,'is-hidden');
-        icon.innerHTML='<i class="bx bx-caret-left"></i>';
-      }
-    };
-
-    const elements = document.querySelectorAll('.menu-label');
-    elements.forEach((element) => {
-      element.addEventListener('click', toogleMenu);
-    });
-
-    const socket = io.socket.on('addtocart', function (data){
-        let cart = document.querySelector('#cart-button')
-        cart.querySelector('.badge').innerHTML = data.items;
-    });
-
-    live('.dropdown, .button, .button > span','click', e=>{
-        let elm = e.target;
-        let parent = elm.closest('.dropdown');
-        if(parent && hasClass(parent.querySelector('.dropdown-menu'),'is-invisible')){
-          removeClass(parent.querySelector('.dropdown-menu'),'is-invisible');
-        }
-        if(e.target.tagName==='I'){elm = e.target.parentNode.parentNode}
-        if(e.target.tagName==='SPAN'){elm = e.target.parentNode}
-        let node = elm.parentNode.parentNode;
-        if(!hasClass(node,'is-active')){
-            let id = elm.getAttribute('product');
-            let content = elm.parentNode.parentNode.querySelector('.dropdown-content')
-            if(content && content.children.length<1){
-                io.socket.get('/findproductvariations/'+id,resData=>{
-                    let o = document.createElement('a');
-                    addClass(o,'dropdown-item');
-                    addClass(o,'is-uppercase');
-                    addClass(o,'is-size-7');
-                    o.setAttribute('qty','0');
-                    o.setAttribute('value','0');
-                    o.text='Opciones';
-                    content.prepend(o);
-                    resData.forEach(op =>{
-                        o = document.createElement('a');
-                        addClass(o,'dropdown-item');
-                        addClass(o,'is-uppercase');
-                        addClass(o,'is-size-7');
-                        o.setAttribute('qty',op.quantity);
-                        o.setAttribute('value',op.id);
-                        o.text=op.variation.name;
-                        content.appendChild(o)
-                    });
-                });
-            }
-            addClass(node,'is-active');
+    <div class="columns is-centered is-gapless m-0">
+      <div class="column is-12-desktop m-0">
+        <footer class="footer has-background-dark has-text-white mt-1 p-0">
+          <div class="columns has-text-centered is-size-7 pt-4">
+            <div class="column is-3">
+                <img src="<%=cdnurl ? cdnurl : imgurl%>/logo-white.png" width="70px;"/>
+            </div>
+            <div class="column is-3">
+              <span class="is-uppercase has-text-weight-bold">Contacto</span>
+              <ul class="mt-2 is-size-6">
+                <li><i class='bx bxl-whatsapp has-text-success'></i>&nbsp;+57 123 456 789</li>
+                <li><i class='bx bx-mobile-alt' ></i>&nbsp;+57 123 456 789</li>
+              </ul>
+            </div>
+            <div class="column is-3">
+              <span class="is-uppercase has-text-weight-bold">Nuestras Redes</span>
+              <ul class="mt-2 is-size-6 has-text-left">
+                <li class="ml-6 pl-6"><i class='bx bxl-instagram' ></i>&nbsp;@UltraVapeGlobal</li>
+                <li class="ml-6 pl-6"><i class='bx bxl-facebook-square' ></i>&nbsp;/UltraOficial</li>
+              </ul>
+            </div>
+            <div class="column is-3">
+              <span class="is-uppercase has-text-weight-bold">Presencia Global</span>
+              <br>
+              <img src="<%=cdnurl ? cdnurl : imgurl%>/world.png"/>
+            </div>
+          </div>
+          <div class="columns has-background-black is-gapless">
+            <div class="column is-centered">
+              <p class="is-size-7 has-text-centered has-text-white"><span class="has-text-white"><strong class="has-text-white"><i class='bx bx-copyright' ></i>&nbsp;2021, ULTRA VAPE.</strong> All Rights Reserved </span> - <a class="has-text-white" href="/c/terminos-y-condiciones" target="_blank">Términos y Condiciones</a>&nbsp;-&nbsp;<a class="has-text-white" href="/c/politica-de-datos" target="_blank">Politica de Datos</a></p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script>
+      
+      const toogleMenu = (elm) => {
+        let icon = elm.target.querySelector('span');
+        if(hasClass(elm.target.nextSibling.nextSibling,'is-hidden')){
+          removeClass(elm.target.nextSibling.nextSibling,'is-hidden');
+          icon.innerHTML='<i class="bx bx-caret-down"></i>';
         }else{
+          addClass(elm.target.nextSibling.nextSibling,'is-hidden');
+          icon.innerHTML='<i class="bx bx-caret-left"></i>';
+        }
+      };
+
+      const elements = document.querySelectorAll('.menu-label');
+      elements.forEach((element) => {
+        element.addEventListener('click', toogleMenu);
+      });
+
+      const socket = io.socket.on('addtocart', function (data){
+          let cart = document.querySelector('#cart-button')
+          cart.querySelector('.badge').innerHTML = data.items;
+      });
+
+      live('.dropdown, .button, .button > span','click', e=>{
+          let elm = e.target;
+          let parent = elm.closest('.dropdown');
+          if(parent && hasClass(parent.querySelector('.dropdown-menu'),'is-invisible')){
+            removeClass(parent.querySelector('.dropdown-menu'),'is-invisible');
+          }
+          if(e.target.tagName==='I'){elm = e.target.parentNode.parentNode}
+          if(e.target.tagName==='SPAN'){elm = e.target.parentNode}
+          let node = elm.parentNode.parentNode;
+          if(!hasClass(node,'is-active')){
+              let id = elm.getAttribute('product');
+              let content = elm.parentNode.parentNode.querySelector('.dropdown-content')
+              if(content && content.children.length<1){
+                  io.socket.get('/findproductvariations/'+id,resData=>{
+                      let o = document.createElement('a');
+                      addClass(o,'dropdown-item');
+                      addClass(o,'is-uppercase');
+                      addClass(o,'is-size-7');
+                      o.setAttribute('qty','0');
+                      o.setAttribute('value','0');
+                      o.text='Opciones';
+                      content.prepend(o);
+                      resData.forEach(op =>{
+                          o = document.createElement('a');
+                          addClass(o,'dropdown-item');
+                          addClass(o,'is-uppercase');
+                          addClass(o,'is-size-7');
+                          o.setAttribute('qty',op.quantity);
+                          o.setAttribute('value',op.id);
+                          o.text=op.variation.name;
+                          content.appendChild(o)
+                      });
+                  });
+              }
+              addClass(node,'is-active');
+          }else{
+              removeClass(node,'is-active');
+          }
+      });
+
+      /*live('.dropdown-content','mouseout',e=>{
+            let node = e.target.parentNode.parentNode;
             removeClass(node,'is-active');
-        }
-    });
-
-    /*live('.dropdown-content','mouseout',e=>{
-          let node = e.target.parentNode.parentNode;
-          removeClass(node,'is-active');
-        });*/
-    live('.dropdown-item','click',e=>{
-        let option = e.target
-        let elm = e.target.parentNode.parentNode.parentNode;
-        let selected = elm.querySelector('#drop-selected');
-        io.socket.post('/findprice',{variation:option.getAttribute('value'),hostname:window.location.hostname},(resData) => {
-            if(resData.highPrice){elm.parentNode.querySelector('.highPrice').innerHTML = '$ '+Math.round(resData.highPrice).toLocaleString("es-CO");}
-            if(resData.lowPrice){elm.parentNode.querySelector('.lowPrice').innerHTML = '$ '+Math.round(resData.lowPrice).toLocaleString("es-CO");}
-            if(resData.savings){elm.parentNode.querySelector('.savings').innerHTML = '$ '+Math.round(resData.savings).toLocaleString("es-CO");}
-            if(resData.price){
-              let price = elm.parentNode.querySelector('.bestPrice');
-              price.innerHTML = Math.round(resData.price).toLocaleString("es-CO");
-              price.setAttribute('data-price',Math.round(resData.price));
-              price.setAttribute('content',Math.round(resData.price));
-            }
-        });
-
-        selected.setAttribute('qty',option.getAttribute('qty') ? option.getAttribute('qty') : 0)
-        selected.setAttribute('value',option.getAttribute('value'))
-        selected.innerHTML=option.text;
-        removeClass(elm,'is-active');
-        let button = elm.parentNode.querySelector('#push-to-cart');
-        if(selected.getAttribute('qty')>0){
-            removeClass(button,'is-disabled');
-            button.disabled=false;
-            addClass(button,'is-primary');
-        }else{
-            removeClass(button,'is-primary');
-            addClass(button,'is-disabled');
-            button.disabled=true;
-        }
-        addClass(e.target.parentNode.parentNode,'is-invisible');
-    });
-
-    live('#push-to-cart','click',(e)=>{
-      let vrt = e.target.parentNode.parentNode.querySelector('#drop-selected').getAttribute('value');
-        io.socket.put('/cart',{variation:vrt,quantity:1,action:'create',hostname:window.location.hostname},(resData)=>{
-          dataLayer.push({ ecommerce: null });
-          dataLayer.push({
-              'event': 'add_to_cart',
-              'ecommerce': {
-                  'items': resData.products
+          });*/
+      live('.dropdown-item','click',e=>{
+          let option = e.target
+          let elm = e.target.parentNode.parentNode.parentNode;
+          let selected = elm.querySelector('#drop-selected');
+          io.socket.post('/findprice',{variation:option.getAttribute('value'),hostname:window.location.hostname},(resData) => {
+              if(resData.highPrice){elm.parentNode.querySelector('.highPrice').innerHTML = '$ '+Math.round(resData.highPrice).toLocaleString("es-CO");}
+              if(resData.lowPrice){elm.parentNode.querySelector('.lowPrice').innerHTML = '$ '+Math.round(resData.lowPrice).toLocaleString("es-CO");}
+              if(resData.savings){elm.parentNode.querySelector('.savings').innerHTML = '$ '+Math.round(resData.savings).toLocaleString("es-CO");}
+              if(resData.price){
+                let price = elm.parentNode.querySelector('.bestPrice');
+                price.innerHTML = Math.round(resData.price).toLocaleString("es-CO");
+                price.setAttribute('data-price',Math.round(resData.price));
+                price.setAttribute('content',Math.round(resData.price));
               }
           });
-          window.location.href='/cart';
-        });
-    });
 
-    </script>
+          selected.setAttribute('qty',option.getAttribute('qty') ? option.getAttribute('qty') : 0)
+          selected.setAttribute('value',option.getAttribute('value'))
+          selected.innerHTML=option.text;
+          removeClass(elm,'is-active');
+          let button = elm.parentNode.querySelector('#push-to-cart');
+          if(selected.getAttribute('qty')>0){
+              removeClass(button,'is-disabled');
+              button.disabled=false;
+              addClass(button,'is-primary');
+          }else{
+              removeClass(button,'is-primary');
+              addClass(button,'is-disabled');
+              button.disabled=true;
+          }
+          addClass(e.target.parentNode.parentNode,'is-invisible');
+      });
+
+      live('#push-to-cart','click',(e)=>{
+        let vrt = e.target.parentNode.parentNode.querySelector('#drop-selected').getAttribute('value');
+          io.socket.put('/cart',{variation:vrt,quantity:1,action:'create',hostname:window.location.hostname},(resData)=>{
+            dataLayer.push({ ecommerce: null });
+            dataLayer.push({
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'items': resData.products
+                }
+            });
+            window.location.href='/cart';
+          });
+      });
+
+      </script>
 
 
     <!--
@@ -262,28 +285,5 @@
           + Use a different preprocessor, like TypeScript
 
     -->
-        <footer class="footer">
-            <p class="has-text-centered"><span class="is-x-small has-text-weight-bold">Nuestros medios de pago</span></p>
-            <p class="has-text-centered">
-              <img class="front-payment" src="<%= cdnurl %>/images/cod.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/visa.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/master.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/amex.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/diners.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/pse.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/baloto.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/efecty.webp" />
-              <img class="front-payment" src="<%= cdnurl %>/images/gana.webp" />
-            </p>
-            <hr>
-            <p class="has-text-centered">
-              <span style="display:inline-block; vertical-align: middle; line-height: 58px;" class="is-x-small has-text-weight-bold has-text-centered">Compra segura</span>
-              <img  style="display:inline-block; vertical-align: middle; line-height: 58px;" class="front-payment" src="<%= cdnurl %>/images/ssl.png" />
-              <span style="display:inline-block; vertical-align: middle; line-height: 58px;" class="is-x-small has-text-centered">Sitio protegido con criptografia SSL</span>
-            </p>
-            <br>
-            <% if(req.hostname==='iridio.co' || req.hostname==='localhost'){%><p class="is-size-7 has-text-centered"><span><strong>Iridio</strong> 2020 - 2021. Es una marca registrada de Ingenio Contenido Digital SAS - NIT 900.521.885-1 CRA 15 No. 91 - 30 PISO 4 Bogotá - Colombia - Tel: +57 315 3177477 | +57 1 742 4498</span></p><%}%>
-            <p class="is-size-7 has-text-centered"><a href="/contenido/terminos-y-condiciones" target="_blank">Términos y Condiciones</a>&nbsp;-&nbsp;<a href="/contenido/politica-de-datos" target="_blank">Política de Privacidad</a></p>
-          </footer>
-        </body>
+  </body>
 </html>

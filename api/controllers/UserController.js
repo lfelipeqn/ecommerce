@@ -113,6 +113,13 @@ module.exports = {
           try{
             let country = await Country.findOne({id:req.body.country});
             let profile = await Profile.findOne({name:'customer'});
+            let referalCode = 0;
+            let repeated = 1;
+            do{
+              referalCode = randomize('0',6);
+              repeated = await User.count({referalCode});
+            }while(repeated>0);
+
             let user = await User.create({
               emailAddress:req.body.email,
               emailStatus:status,
@@ -121,6 +128,8 @@ module.exports = {
               verification:verification,
               dniType:req.body.dnitype,
               dni:req.body.dni ? req.body.dni.toString() : '',
+              referalCode: referalCode,
+              referred: req.body.referred ? parseInt(req.body.referred.trim()) : null,
               mobilecountry:country.id,
               mobile:req.body.mobile,
               mobileStatus:'unconfirmed',
@@ -135,6 +144,7 @@ module.exports = {
               return res.redirect('/account');
             }
           }catch(err){
+            console.log(err.message);
             switch(err.code){
               case 'E_UNIQUE':
                 msg = 'El email ya se encuentra registrado';

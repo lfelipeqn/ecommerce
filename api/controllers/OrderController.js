@@ -432,6 +432,7 @@ module.exports = {
     }else{
       await OrderHistory.create({order:order.id,state:req.body.orderState});
     }
+    await sails.helpers.fidelity(order.id);
     return res.send({newstate:newstate,order:order});
   },
   confirmation: async(req, res)=>{
@@ -453,6 +454,7 @@ module.exports = {
             currentstatus: state
           });
         }
+        await sails.helpers.fidelity(orders[o].id);
       }
     }
     return res.ok();

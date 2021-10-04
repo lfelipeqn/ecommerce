@@ -1,8 +1,7 @@
-<div class="container">
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
-        <a class="navbar-item" href="/"><img src="<%=cdnurl%>/iridio.png"></a>
+        <a class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/ultravape.png"></a>
       <%}else if(req.hostname==='1ecommerce.app'){%>
         <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>
       <%}else{%>
@@ -19,6 +18,33 @@
     <div id="navbarContainer" class="navbar-menu">
     </div>
     <div class="navbar-end has-text-right">
+      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Redención</a></div>
+      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>
+      <div class="navbar-item is-size-7 is-uppercase has-text-centered">
+        <div class="dropdown is-right is-hoverable">
+          <div class="dropdown-trigger">
+            <button id="account-menu" class="button is-size-7 is-black" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <% if(session && session.user === undefined) { %>
+                <span class="is-size-7 is-uppercase has-text-centered">INICIAR SESION</span>
+              <%}else{%>
+                <span class="is-size-7 is-uppercase has-text-centered">MI CUENTA</span>
+              <%}%>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+              <% if(session && session.user) { %>
+                <a href="/account" class="dropdown-item is-size-7 has-text-right">Mi Cuenta</a>
+                <a href="/addresses" class="dropdown-item is-size-7 has-text-right">Direcciones</a>
+                <hr class="dropdown-divider">
+                <a href="/logout" class="dropdown-item is-size-7 has-text-right">Cerrar Sesión</a>
+              <% } else { %>
+                <a href="/login" id="login" class="dropdown-item is-size-7 has-text-right">Iniciar Sesión</a>
+              <% }%>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="navbar-item has-text-centered">        
         <div class="field has-addons is-inline">
             <form id="search-form" style="margin-left: auto; margin-right: auto;" class="is-marginless is-paddingless is-flex" method="GET" action="/buscar">
@@ -33,38 +59,14 @@
       </div>
       <div class="navbar-item is-inline-block">
           <div class="buttons">
-            <a href="/cart" id="cart-button" class="button">
-              <span class="badge"><%if(session && session.cart){%><%=session.cart.items%> <%}else{%>0<%}%></span>
+            <a href="/cart" id="cart-button" class="button is-rounded is-danger px-2 mx-2">
+              <span class="badge is-danger"><%if(session && session.cart){%><%=session.cart.items%> <%}else{%>0<%}%></span>
               <i class='is-size-4 bx bxs-cart'></i>
             </a>
-            <div class="dropdown is-right is-hoverable">
-              <div class="dropdown-trigger">
-                <button id="account-menu" class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                  <% if(session && session.user === undefined) { %>
-                    <span><i class='is-size-4 bx bxs-user-detail'></i></span>
-                  <%}else{%>
-                    <span><i class="is-size-4 bx bxs-user"></i></span>
-                  <%}%>
-                </button>
-              </div>
-              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-                <div class="dropdown-content">
-                  <% if(session && session.user) { %>
-                    <a href="/account" class="dropdown-item">Mi Cuenta</a>
-                    <a href="/addresses" class="dropdown-item">Direcciones</a>
-                    <hr class="dropdown-divider">
-                    <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
-                  <% } else { %>
-                    <a href="/login" id="login" class="dropdown-item">Iniciar Sesión</a>
-                  <% }%>
-                </div>
-              </div>
-            </div>
           </div>
       </div>
     </div>
 </nav>
-</div>
 <script>
   live('#search','click',e=>{
     e.preventDefault();

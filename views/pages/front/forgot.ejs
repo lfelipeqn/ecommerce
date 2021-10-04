@@ -10,15 +10,15 @@
         <div class="notification is-warning is-light is-small">
             Enviaremos un código por mensaje de texto SMS al <strong>número móvil registrado</strong> en la cuenta, con el que lograrás modificar tu contraseña.     
         </div>
-        <div class="box">
+        <div class="box has-background-dark">
             <form id="forgot-form" method="POST" action="/forgot/code">
                 <input type="hidden" name="token" />
                 <div class="columns">
                     <div class="column">
                         <div class="field">
-                            <label class="label" for="email">Digita tu email para recuperar el acceso tu cuenta.</label>
+                            <label class="label has-text-white" for="email">Digita tu email para recuperar el acceso tu cuenta.</label>
                             <p class="control has-icons-left">
-                            <input class="input" name="email" type="email" required="required" placeholder="Email">
+                            <input class="input is-danger" name="email" type="email" required="required" placeholder="Email">
                             <span class="icon is-small is-left">
                                 <i class="bx bxs-envelope"></i>
                             </span>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="field">
                     <p class="control has-text-align-right">
-                    <button type="submit" id="submit-forgot" class="button is-info">
+                    <button type="submit" id="submit-forgot" class="button is-danger">
                         Ingresar a mi cuenta
                     </button>
                     </p>

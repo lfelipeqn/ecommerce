@@ -5,39 +5,37 @@
       <%= error %>
   </div>
 <% } %>
-    <h4 class="title is-4">Crear una Dirección</h4>
+    <h4 class="title is-4 has-text-white">Crear una Dirección</h4>
     <hr>
     <div class="columns is-gapless">
         <div class="column is-one-fifth"></div>
         <div class="column is-three-fifths">
-            <div class="box">
+            <div class="box has-background-dark has-text-white">
             <%if(address!==null){%>
             <form action="/address/edit/<%=address.id%><%if(referrer!==null){%>?referrer=<%=referrer%><%}%>" method="POST" id="address-form">
             <%}else{%>
               <form action="/address/create<%if(referrer!==null){%>?referrer=<%=referrer%><%}%>" method="POST" id="address-form">
             <%}%>
                 <div class="field">
-                    <label class="label">Nombre para la Dirección</label>
-                    <div class="control">
-                    <input class="input is-capitalized" required name="name" type="text" placeholder="Asigna un nombre a la dirección para identificarla" <%if(address!==null){%>value="<%=address.name%>"<%}%>/>
-                    </div>
+                    <label class="label has-text-white">Nombre para la Dirección</label>
+                    <input class="input is-capitalized is-danger" required name="name" type="text" placeholder="Asigna un nombre a la dirección para identificarla" <%if(address!==null){%>value="<%=address.name%>"<%}%>/>
                 </div>
                 <div class="field">
-                  <label class="label">Dirección</label>
+                  <label class="label has-text-white">Dirección</label>
                   <div class="control">
-                    <input class="input" required name="addressline1" type="text" placeholder="Calle, Carrera, Avenida, etc..." <%if(address!==null){%>value="<%=address.addressline1%>"<%}%>/>
+                    <input class="input is-danger" required name="addressline1" type="text" placeholder="Calle, Carrera, Avenida, etc..." <%if(address!==null){%>value="<%=address.addressline1%>"<%}%>/>
                   </div>
                   <br>
                   <div class="control">
-                      <input class="input" name="addressline2" type="text" placeholder="Torre, Casa, Piso, Puerta, Edificio..." <%if(address!==null){%>value="<%=address.addressline2%>"<%}%> />
+                      <input class="input is-danger" name="addressline2" type="text" placeholder="Torre, Casa, Piso, Puerta, Edificio..." <%if(address!==null){%>value="<%=address.addressline2%>"<%}%> />
                   </div>
                 </div>
                 <div class="columns">
                     <div class="column">
                       <div class="field">
-                          <label class="label">País</label>
+                          <label class="label has-text-white">País</label>
                           <div class="control">
-                            <div class="select is-fullwidth">
+                            <div class="select is-fullwidth is-danger">
                               <select required class="select is-capitalized" name="country">
                                 <option value="0">Elegir País</option>
                                 <% countries.forEach((country) =>{ %>
@@ -54,8 +52,8 @@
                       <%}else{%>
                         <div class="field is-hidden" id="estados">
                       <%}%>
-                          <label class="label">Estado</label>
-                          <div class="select control is-fullwidth">
+                          <label class="label has-text-white">Estado</label>
+                          <div class="select control is-fullwidth is-danger">
                             <select class="is-capitalized" name="region" required >
                               <option value="">-- Elegir Región --</option>
                               <%if(address!==null){%>
@@ -71,8 +69,8 @@
                       <%}else{%>
                         <div class="field is-hidden" id="ciudades">
                       <%}%>
-                          <label class="label">Ciudad</label>
-                          <div class="control select is-fullwidth">
+                          <label class="label has-text-white">Ciudad</label>
+                          <div class="control select is-fullwidth is-danger">
                             <select class="is-capitalized" name="city" required>
                               <option value="">-- Elegir Ciudad --</option>
                               <%if(address!==null){%>
@@ -84,16 +82,16 @@
                     </div>
                 </div>
                 <div class="field">
-                  <label class="label">Código Postal</label>
+                  <label class="label has-text-white">Código Postal</label>
                   <div class="control">
-                    <input class="input" name="zipcode" type="text" placeholder="Código Postal de la Dirección" <%if(address!==null){%>value="<%=address.zipcode%>"<%}%>/>
+                    <input class="input is-danger" name="zipcode" type="text" placeholder="Código Postal de la Dirección" <%if(address!==null){%>value="<%=address.zipcode%>"<%}%>/>
                   </div>
                 </div>
                 <div class="field">
-                    <h5 class="title is-size-5">Agregar Instrucciones de entrega</h5>
-                  <label class="label">Detalles adicionales para ubicar la dirección</label>
+                    <h5 class="title is-size-5 has-text-white">Agregar Instrucciones de entrega</h5>
+                  <label class="label has-text-white">Detalles adicionales para ubicar la dirección</label>
                   <div class="control">
-                    <textarea class="textarea" name="notes" placeholder="Detalles adicionales que puedan ser de utilidad para localizar esta dirección."><%if(address!==null){%><%-address.notes%><%}%></textarea>
+                    <textarea class="textarea is-danger" name="notes" placeholder="Detalles adicionales que puedan ser de utilidad para localizar esta dirección."><%if(address!==null){%><%-address.notes%><%}%></textarea>
                   </div>
                 </div>
                 <hr>

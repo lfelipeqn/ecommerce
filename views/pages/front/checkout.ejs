@@ -18,7 +18,7 @@
                             </div>
                         </div>
                 </div>
-                <div class="card is-hidden" id="address-message">
+                <div class="card has-backgroun-dark is-hidden" id="address-message">
                     <p class="help is-danger has-text-centered">Elige una dirección de envío</p>
                 </div>
                 <%addresses.forEach((address)=>{%>
@@ -43,7 +43,7 @@
                     </div>
                 <%})%>
                 <p style="margin-top:5px;" class="content has-text-centered">
-                    <a href="/address?referrer=checkout" id="add-address" class="button has-text-weight-bold is-fullwidth"><i class='bx bx-location-plus'></i>&nbsp;Agregar una Dirección</a>
+                    <a href="/address?referrer=checkout" id="add-address" class="button has-text-weight-bold is-fullwidth has-text-black"><i class='bx bx-location-plus'></i>&nbsp;Agregar una Dirección</a>
                 </p>
             </div>
             <div class="column">
@@ -202,7 +202,7 @@
                                     <div class="column">
                                         <div class="field">
                                             <div class="control">
-                                                <div class="select is-small">
+                                                <div class="select is-small" style="max-width: 130px;">
                                                     <select name="bank">
                                                         <option value="0">Por favor elige tu banco</option>
                                                     </select>
@@ -306,7 +306,7 @@
                                     <%if(image.cover==1){%>
                                         <figure class="media-left">
                                             <p class="image is-64x64">
-                                            <img id="main" src="<%=cdnurl%>/images/products/<%=cartproduct.product.id%>/<%= image.file %>" data-zoom="/images/products/<%=cartproduct.product.id%>/<%= image.file %>" alt="<%=cartproduct.product.name%>">
+                                            <img id="main" src="<%=cdnurl ? cdnurl : imgurl%>/images/products/<%=cartproduct.product.id%>/<%= image.file %>" data-zoom="/images/products/<%=cartproduct.product.id%>/<%= image.file %>" alt="<%=cartproduct.product.name%>">
                                             </p>
                                         </figure>     
                                     <%}%>
@@ -314,16 +314,16 @@
                                 <div class="media-content" variation="<%=cartproduct.productvariation.id%>">
                                     <div class="columns is-mobile">
                                         <div class="column">
-                                            <p class="is-uppercase has-text-weight-bold is-size-7"><%=cartproduct.product.name%></p>
-                                            <span class="is-size-7">Talla: <span class="is-uppercase"><%=cartproduct.productvariation.variation.name%></span></span>
-                                            <span id="quantity" class="is-size-7"></span>
+                                            <p class="is-uppercase has-text-weight-bold has-text-black is-size-7"><%=cartproduct.product.name%></p>
+                                            <span class="is-size-7 is-uppercase has-text-black "><%=cartproduct.productvariation.variation.name%></span>
+                                            <span id="quantity" class="is-size-7 has-text-black"></span>
                                         </div>
                                         <div class="column">
                                             <%if(cartproduct.product.discount!==null && cartproduct.product.discount!==undefined){%>
-                                                <p id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-italic is-size-7 has-text-right">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>
-                                                <p id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-right">$&nbsp;<%= Math.round(cartproduct.product.discount.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                                <p id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-italic is-size-7 has-text-right has-text-danger">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>
+                                                <p id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.product.discount.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
                                             <%}else{%>
-                                                <p id="item-price" price="<%=cartproduct.productvariation.price%>" class="has-text-right">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                                <p id="item-price" price="<%=cartproduct.productvariation.price%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
                                             <%}%>
                                         </div>
                                     </div>
@@ -401,7 +401,7 @@
                             </div>
                         </div>
                         <p style="padding:8px;" class="content has-text-centered">
-                            <button id="order" class="button is-primary has-text-weight-bold is-fullwidth">Finalizar compra</button>
+                            <button id="order" class="button is-danger has-text-weight-bold is-fullwidth">Finalizar compra</button>
                         </p>
                     </div>
                 </div>

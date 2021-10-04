@@ -10,7 +10,6 @@ module.exports = {
   attributes: {
 
     name:{type:'string', required:true, unique:true},
-    linioname:{type:'string'},
     logo:{type:'string'},
     description:{type:'string'},
     active:{type:'boolean', required:true},

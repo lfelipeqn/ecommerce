@@ -5,8 +5,8 @@
     </div>
   <% } %>
 <div class="container">
-<div class="box">
-    <h4 class="title is-4">Creación de Cuenta</h4>
+<div class="box has-background-dark">
+    <h4 class="title is-4 has-text-white">Creación de Cuenta</h4>
     <hr>
     <form id="register-form" method="POST" action="/register">
         <input type="hidden" name="token" />
@@ -16,7 +16,7 @@
             <div class="column">
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" name="fullname" type="text" required placeholder="Nombre" value="<%=req.query.name%>" />
+                        <input class="input is-danger" name="fullname" type="text" required placeholder="Nombre" value="<%=req.query.name%>" />
                         <span class="icon is-small is-left">
                             <i class='bx bx-rename'></i>
                         </span>
@@ -26,7 +26,7 @@
             <div class="column">
                 <div class="field has-addons">
                     <p class="control">
-                      <span class="select">
+                      <span class="select is-danger">
                         <select required name="dnitype">
                          <option value="CC">CC</option>
                          <option value="CE">CE</option>
@@ -39,7 +39,7 @@
                       </span>
                     </p>
                     <p class="control has-icons-left is-expanded">
-                        <input class="input" required name="dni" type="number" placeholder="Número de Identificación">
+                        <input class="input is-danger" required name="dni" type="number" placeholder="Número de Identificación">
                         <span class="icon is-small is-left">
                             <i class='bx bx-id-card' ></i>
                         </span>
@@ -51,7 +51,7 @@
             <div class="column">
                 <div class="field">
                     <p class="control has-icons-left">
-                    <input class="input" name="email" type="email" required placeholder="Email" value="<%=req.query.mail%>" />
+                    <input class="input is-danger" name="email" type="email" required placeholder="Email" value="<%=req.query.mail%>" />
                     <span class="icon is-small is-left">
                         <i class="bx bxs-envelope"></i>
                     </span>
@@ -61,7 +61,7 @@
             <div class="column">
                 <div class="field has-addons">
                     <p class="control">
-                      <span class="select">
+                      <span class="select is-danger">
                         <select required name="country">
                           <% countries.forEach((country) =>{ %>
                             <% if(country.active){ %>
@@ -72,7 +72,7 @@
                       </span>
                     </p>
                     <p class="control has-icons-left is-expanded">
-                        <input class="input" required name="mobile" type="number" placeholder="Número Móvil">
+                        <input class="input is-danger" required name="mobile" type="number" placeholder="Número Móvil">
                         <span class="icon is-small is-left">
                             <i class='bx bx-mobile'></i>
                         </span>
@@ -80,29 +80,43 @@
                   </div>                  
             </div>
         </div>
-    <div class="field has-addons">
-        <p class="control has-icons-left is-expanded">
-        <input class="input pass" name="password" type="password" minlength="6" required placeholder="Contraseña Ver / Ocultar" autocomplete="no-fill">
-        <span class="icon is-small is-left">
-            <i class='bx bxs-lock-alt'></i>
-        </span>
-        </p>
-        <p class="control" id="ojo">
-            <a class="button" id="eye">
-                <i class='bx bx-low-vision' ></i>
-            </a>
-            </p>
-    </div>
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input is-danger" name="referred" type="number" maxlength="6" placeholder="Codigo de Referido" value="<%=req.query.referred%>" />
+                        <span class="icon is-small is-left">
+                            <i class='bx bx-share-alt'></i>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field has-addons">
+                    <p class="control has-icons-left is-expanded">
+                    <input class="input pass is-danger" name="password" type="password" minlength="6" required placeholder="Contraseña Ver / Ocultar" autocomplete="no-fill">
+                    <span class="icon is-small is-left">
+                        <i class='bx bxs-lock-alt'></i>
+                    </span>
+                    </p>
+                    <p class="control" id="ojo">
+                        <a class="button" id="eye">
+                            <i class='bx bx-low-vision' ></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
     <div class="field">
         <p class="control has-text-align-right">
-        <button type="submit" id="submit-register" class="button is-info">
+        <button type="submit" id="submit-register" class="button is-danger">
             Crear una Cuenta
         </button>
         </p>
     </div>
     </form>
 </div>
-<p class="has-text-centered is-x-small is-grey-light">Al registrarme manifiesto estar de acuerdo con los <a href="/contenido/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a href="/contenido/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
+<p class="has-text-centered is-x-small is-grey-light">Al registrarme manifiesto estar de acuerdo con los <a class="has-text-white has-text-weight-bold" href="/c/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a class="has-text-white has-text-weight-bold" href="/c/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
 </div>
 <script src="https://www.google.com/recaptcha/api.js?render=<% if(req.hostname=='1ecommerce.app'){%>6Leo7ccZAAAAAEHubAmCnbprfGK-aYZR9eaVaXy-<%}else if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>6LfK2-kUAAAAAHsiKw5JwC4Dd7AZYn3M9qmdJXY1<%}else{%>6Lc4ItEZAAAAAOlvJsd_ygBmVjfHVQ6L2genn9AW<%}%>"></script>
 <script>

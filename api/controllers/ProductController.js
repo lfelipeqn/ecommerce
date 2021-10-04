@@ -454,7 +454,7 @@ module.exports = {
       return res.badRequest();
     }
     let productvariations = await ProductVariation.find({ product: req.param('id'), quantity: { '>': 0 } })
-      .populate('variation');
+      .populate('variation').sort('createdAt ASC');
 
     productvariations = productvariations.sort((a, b) => a.variation.name - b.variation.name);
 

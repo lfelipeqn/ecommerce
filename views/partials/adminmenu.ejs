@@ -52,6 +52,7 @@
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a class="navbar-item" href="/discounts">Descuentos</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a class="navbar-item" href="/coupons">Cupones</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a href="/campaigns">Campañas</a></li><%}%>
+      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a href="/fidelity">Fidelización</a></li><%}%>
     </ul>
     <%}%>
     <p class="menu-label is-size-7">
@@ -120,12 +121,12 @@
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('profiles')){%><li><a href="/profiles">Perfiles</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('permissions')){%><li><a href="/permission">Crear Permisos</a></li><%}%>
       <hr class="navbar-divider">
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/index/add">Indexar Productos</a></li><%}%>
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/index/delete">Eliminar Indice de Productos</a></li><%}%>
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/colorindex/add">Indexar Colores</a></li><%}%>
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/genderindex/add">Indexar Géneros</a></li><%}%>
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/categoryindex/add">Indexar Categorias</a></li><%}%>
-      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/categoryscheme">Reglas de Categoria</a></li><%}%>
+      <!--<%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/index/add">Indexar Productos</a></li><%#}%>
+      <%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/index/delete">Eliminar Indice de Productos</a></li><%#}%>
+      <%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/colorindex/add">Indexar Colores</a></li><%#}%>
+      <%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/genderindex/add">Indexar Géneros</a></li><%#}%>
+      <%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/categoryindex/add">Indexar Categorias</a></li><%#}%>
+      <%#if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('updateindex')){%><li><a href="/categoryscheme">Reglas de Categoria</a></li><%#}%>-->
     </ul>
 
     <%}%>

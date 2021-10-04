@@ -1,8 +1,8 @@
 <% let printed = []; let flag = false; %>
 <div class="container">
-    <div class="columns is-centered is-gapless">
+    <div class="columns is-centered">
         <div class="column is-9">
-            <div class="box">
+            <div class="box has-background-dark">
             <%if(cart===null){%>
                 <section class="hero is-warning">
                     <div class="hero-body">
@@ -33,14 +33,14 @@
                             <% cartproduct.product.images.forEach((image)=>{%>
                                 <%if(image.cover==1){%>
                                     <figure class="image is-128x128 is-relative">
-                                        <img id="main" src="<%=cdnurl%>/images/products/<%=cartproduct.product.id%>/<%= image.file %>" data-zoom="/images/products/<%=cartproduct.product.id%>/<%= image.file %>" alt="<%=cartproduct.product.name%>">
+                                        <img id="main" src="<%=cdnurl ? cdnurl : imgurl %>/images/products/<%=cartproduct.product.id%>/<%= image.file %>" data-zoom="/images/products/<%=cartproduct.product.id%>/<%= image.file %>" alt="<%=cartproduct.product.name%>">
                                     </figure>     
                                 <%}%>
                             <%})%>
                         </div>
                         <div class="column is-three-fifths">
-                            <h5 class="is-size-5"><span class="is-capitalized"><%= cartproduct.product.name %></span>&nbsp;-&nbsp;<span class="is-capitalized"><%= cartproduct.product.mainColor.name%></span>&nbsp;-&nbsp;<span class="is-uppercase"><%=cartproduct.productvariation.variation.name%></span></h5>
-                            <div class="select is-primary is-small">
+                            <h5 class="is-size-5"><span class="is-capitalized has-text-white"><%= cartproduct.product.name %></span>&nbsp;-&nbsp;<span class="is-capitalized has-text-white"><%= cartproduct.product.mainColor.name%></span>&nbsp;-&nbsp;<span class="is-uppercase has-text-white"><%=cartproduct.productvariation.variation.name%></span></h5>
+                            <div class="select is-primary is-small is-danger">
                                 <select name="quantity">
                                 <%for(let i=1; i<=cartproduct.productvariation.quantity;i++){%>
                                     <option value="<%=i%>">Cant:.&nbsp;<%=i%></option>
@@ -72,8 +72,8 @@
         <%if(cart!==null){%>
         <div class="column is-3">
             <div id="order" class="has-text-centered">
-                <div class="box">
-                    <span class="is-centered has-text-weight-bold">Subtotal&nbsp;</span>
+                <div class="box has-background-dark">
+                    <span class="is-centered has-text-weight-bold has-text-white">Subtotal&nbsp;</span>
                     <span id="cart-total" class="has-text-danger is-size-4">$&nbsp;<%= Math.round(session.cart.total).toLocaleString('es-CO')%></span>
                     <hr>
                     <div class="buttons is-centered">

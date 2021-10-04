@@ -14,29 +14,29 @@
     <div class="columns is-centered">
         <div class="column is-2">
             <p></p>
-            <nav class="panel">
+            <nav class="panel has-background-dark has-text-white">
                 <a><p class="panel-heading is-size-7 has-text-centered">Filtrar Productos <span class="icon is-right"><i class='bx bx-filter-alt is-size-7'></i></span></p></a>
                 <div class="panel-container is-hidden-mobile">
                 <p class="panel-tabs">
-                  <a class="group is-size-7 is-active" group="marcas">Marca</a>
-                  <a class="group is-size-7" group="colores">Color</a>
-                  <a class="group is-size-7" group="genero">Género</a>
+                  <!--<a class="group is-size-7 is-active" group="marcas">Marca</a>-->
+                  <a class="group is-size-7 has-text-white" group="colores">Color</a>
+                  <!--<a class="group is-size-7" group="genero">Género</a>-->
                 </p>
-                <div id="marcas">
-                <%brands.forEach(brand =>{%>
-                    <a class="panel-block is-active is-size-7"><label style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="checkbox"><input type="checkbox" name="manufacturer" class="filter is-capitalized" value="<%=brand.name%>">&nbsp;<%=brand.name.toUpperCase()%></label></a>
-                <%}) %>
-                </div>
-                <div id="colores" class="is-hidden">
+                <!--<div id="marcas">
+                <%# brands.forEach(brand =>{ #%>
+                    <a class="panel-block is-active is-size-7"><label style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="checkbox"><input type="checkbox" name="manufacturer" class="filter is-capitalized" value="<%#=brand.name#%>">&nbsp;<%#=brand.name.toUpperCase()#%></label></a>
+                <%#}) #%>
+                </div>-->
+                <div id="colores">
                     <% colors.forEach(color=>{%>
-                        <a class="panel-block is-size-7"><label class="checkbox is-size-7"><input type="checkbox" name="color" class="filter is-capitalized" value="<%=color.name%>">&nbsp;&nbsp;<span class="color-container" style="background-color: <%=color.code%>;border:solid 1px <%=color.code%>;"></span>&nbsp;&nbsp;<%=color.name.toUpperCase()%></label></a>
+                        <a class="panel-block is-size-7"><label class="checkbox is-size-7 has-text-white"><input type="checkbox" name="color" class="filter is-capitalized" value="<%=color.name%>">&nbsp;&nbsp;<span class="color-container" style="background-color: <%=color.code%>;border:solid 1px <%=color.code%>;"></span>&nbsp;&nbsp;<%=color.name.toUpperCase()%></label></a>
                     <%});%>
                 </div>
-                <div id="genero" class="is-hidden">
-                    <%genders.forEach(gender =>{%>
-                        <a class="panel-block is-size-7"><label class="checkbox is-size-7"><input type="checkbox" name="gender" class="filter is-capitalized" value="<%=gender.name%>">&nbsp;<%=gender.name.toUpperCase()%></label></a>
-                    <%}) %>
-                </div>
+                <!--<div id="genero" class="is-hidden">
+                    <%#genders.forEach(gender =>{ #%>
+                        <a class="panel-block is-size-7"><label class="checkbox is-size-7"><input type="checkbox" name="gender" class="filter is-capitalized" value="<%#=gender.name#%>">&nbsp;<%#=gender.name.toUpperCase()#%></label></a>
+                    <%#}) #%>
+                </div>-->
                 <!--
                 <div class="panel-block">
                   <button class="button is-info is-fullwidth is-size-7">
@@ -49,7 +49,7 @@
         </div>
         <div class="column is-10">
             <%if(object.logo!== undefined && object.logo!== null && object.logo!==''){%>
-                <p class="has-text-centered"><img src="<%=cdnurl%><%=object.route%><%= object.logo %>" alt="<%=object.description%>"></p>
+                <p class="has-text-centered"><img src="<%=cdnurl ? cdnurl : imgurl%><%=object.route%><%= object.logo %>" alt="<%=object.description%>"></p>
             <%}%>
             <%if(pages>1){%>
             <div class="container">

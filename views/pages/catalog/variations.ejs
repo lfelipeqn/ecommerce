@@ -24,7 +24,7 @@
                 <label class="label is-inline is-size-7-mobile" for="category">Categoria</label>
                 <div class="control">
                   <div class="select is-fullwidth">
-                    <select class="is-capitalized" name="category" id="category">
+                    <select class="is-capitalized" name="category" id="category" required>
                       <option value="">-- Elegir Categoria --</option>
                       <% categories.forEach(category => { %>
                         <option class="is-capitalized" <% if(action=='edit' && variation.category !== null && category.id==variation.category ){ %> selected <% } %> value="<%= category.id %>" ><%= category.name %></option>
@@ -37,7 +37,7 @@
                 <label class="label is-inline is-size-7-mobile" for="gender">Género</label>
                 <div class="control">
                   <div class="select is-fullwidth">
-                    <select class="is-capitalized" name="gender" id="gender" required>
+                    <select class="is-capitalized" name="gender" id="gender">
                       <option value="">-- Elegir Género --</option>
                       <% genders.forEach(gender => { %>
                         <option class="is-capitalized" <% if(action=='edit' && variation.gender!== null && gender.id==variation.gender.id ){ %> selected <% } %> value="<%= gender.id %>" ><%= gender.name %></option>
@@ -149,6 +149,14 @@
                       </div>
                     </div>
                   </div>   
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Unidades por Empaque</label>
+                    <div class="control">
+                      <input class="input" type="number" name="packageunits" placeholder="Unidades en el Empaque" <% if(action=='edit'){ %>value="<%= variation.packageunits %>"<%}%>/>
+                    </div>
+                  </div>
                 </div>
               </div>
               <br>

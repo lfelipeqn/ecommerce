@@ -1,4 +1,15 @@
+.html-front{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/background.jpg');
+    background-repeat: repeat;
+    color:white;
+}
+.body-front{
+    color:white;
+}
+
+.is-transparent_{background: none !important;}
 .button{font-weight: bold;}
+#colores > a > label:hover{color:black;}
 /** Mega Menu */
 .navbar-item.is-mega {
     position: static;
