@@ -3,7 +3,7 @@
     <% let position = ((page*32)-32)+1; %>
     <% for(let product of object.products){ %>
         <%if(product && product.id){%>               
-            <div style="background:none; border:solid grey 1px;" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product" class="card card-catalog is-size-7 has-text-white">
+            <div style="<% if(product.type==='prize'){ %>background-image: url('https://s3.amazonaws.com/ultravape.co/brillo.gif'); background-size:cover; <%}%> border:solid grey 1px;" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product" class="card card-catalog is-size-7 has-text-white">
                 <span class="is-hidden productid" itemprop="productID"><%=product.id%></span>
                 <span class="is-hidden position"><%=position%></span>
                 <span class="is-hidden category"><%=product.mainCategory.name%></span>
@@ -14,17 +14,17 @@
                 <%if(product.discount.type==='P'){%><% discval= product.discount.value %><%}%>
                 <%}%>
 
-                <div class="card-image" >
+                <div <%if(product.type!='prize'){%>style="background-image: url('https://s3.amazonaws.com/ultravape.co/humo.gif'); background-size:cover;"<%} %>class="card-image" >
                     <%if(product.discount!==null && product.discount!==undefined){%><span style="right: 15px; top:15px;" class="badge is-danger"><%=discval%>%</span><%}%>
-                    <a itemprop="url" href="/list/product/<%=encodeURIComponent((product.name).replace(/\./g, '%2E'))%>/<%=encodeURIComponent(product.reference)%>"><%if(product.cover!==undefined){%><img itemprop="image" src="<%=cdnurl ? cdnurl : imgurl%>/images/products/<%=product.id%>/<%= product.cover.file %>" loading="lazy" alt="<%= product.manufacturer.name %> - <%= product.reference%>"><%}%></a>
+                    <a itemprop="url" href="/list/product/<%=encodeURIComponent((product.name).replace(/\./g, '%2E'))%>/<%=encodeURIComponent(product.reference)%>"><%if(product.cover!==undefined){%><img <% if(product.type=='prize'){%>class="mask"<%}%> itemprop="image" src="<%=cdnurl ? cdnurl : imgurl%>/images/products/<%=product.id%>/<%= product.cover.file %>" loading="lazy" alt="<%= product.manufacturer.name %> - <%= product.reference%>"><%}%></a>
                 </div>
-                <div class="card-content">
+                <div class="card-content <%if(product.type!='prize'){%>has-background-black <%}%>">
                         <div itemprop="description" class="is-hidden"><%-product.description%></div>
                         <div itemprop="disambiguatingDescription" class="is-hidden"><%-product.descriptionShort%></div>
                         <% if(product.mainColor){ %>
                         <p><span class="is-pulled-right"><span class="color is-hidden" itemprop="color"><%=product.mainColor.name%></span><span class="color-container" color="<%=product.mainColor.name%>" style="background-color: <%= product.mainColor.code %>;border:solid 1px <%= product.mainColor.code %>;"></span></span>
                         <%}%>
-                        <span itemprop="brand" brand="<%=product.manufacturer.name%>" class="brand subtitle is-7 is-capitalized has-text-white"><%=product.manufacturer.name%></span></p>
+                        <span itemprop="brand" brand="<%=product.manufacturer.name%>" class="brand is-7 is-capitalized"><%=product.manufacturer.name%></span></p>
                         <p style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span itemprop="name" class="name has-text-weight-bold is-uppercase"><%=product.name%></span></p>
                         <p><span class="sku is-hidden" itemprop="sku"><%=product.reference%></span>
                         <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -39,7 +39,7 @@
                                 </div>
                                 <span itemprop="price" content="<%=Math.round(product.discount.price)%>" data-price="<%=Math.round(product.discount.price)%>" class="is-hidden bestPrice"><%= Math.round(product.discount.price).toLocaleString("es-CO");%></span>
                             <%}else{%>
-                                <span class="is-size-6 has-text-weight-bold">$ </span><span itemprop="price" content="<%= Math.round(product.price)%>" data-price="<%= Math.round(product.price)%>" class="is-size-6 has-text-weight-bold price bestPrice"><%= Math.round(product.price).toLocaleString("es-CO");%></span>
+                                <span class="is-size-6 has-text-weight-bold"><%= product.type=='prize' ? '' : '$'%> </span><span itemprop="price" content="<%= Math.round(product.price)%>" data-price="<%= Math.round(product.price)%>" class="is-size-6 has-text-weight-bold price bestPrice"><%= Math.round(product.price).toLocaleString("es-CO");%></span>
                             <%}%>
                         </div>
                         </p>
@@ -60,7 +60,7 @@
                         </div>
                         <br>
                         <div class="buttons">
-                            <button id="push-to-cart" product="<%=product.id%>" disabled="disabled" class="button is-disabled is-size-7 is-right is-danger is-fullwidth">COMPRAR</button>
+                            <button id="push-to-cart" product="<%=product.id%>" disabled="disabled" class="button is-disabled is-size-7 is-right <% if(product.type=='prize'){ %>is-warning<% }else{ %>is-danger<% } %> is-fullwidth"><% if(product.type==='prize'){ %> REDIMIR <% }else{ %> COMPRAR <% } %></button>
                         </div>
                 </div>
             </div>

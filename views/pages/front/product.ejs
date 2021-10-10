@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/drift-zoom@1.4.0/dist/drift-basic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/drift-zoom@1.4.0/dist/Drift.min.js"></script>
-<div class="container" itemscope itemtype="https://schema.org/Product">
+<div class="container my-6" itemscope itemtype="https://schema.org/Product">
     <div class="columns is-gapless">
         <div class="column is-two-fifths">
             <div style="background: none;" class="box is-transparent">
@@ -23,7 +23,9 @@
                             </div>
                         <%}%>
                     <%})%>
-                    <div style="z-index:30;" class="img-zoom"></div>
+                    <%if(product.type==='product'){%>
+                     <div style="z-index:30;" class="img-zoom"></div>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -48,7 +50,11 @@
                             <span itemprop="price" content="<%= Math.round(discount.price) %>" data-price="<%= Math.round(discount.price) %>" class="is-hidden bestPrice"><%= Math.round(discount.price).toLocaleString("es-CO"); %></span>
                         </div>
                     <%}else{%>
-                      <tr><td>Precio:</td><td class="has-text-right"><span class="is-size-6 has-text-white has-text-weight-bold">$ </span><span itemprop="price" content="<%= Math.round(product.variations[0].price)%>" data-price="<%= Math.round(product.variations[0].price)%>" class="bestPrice"><%= Math.round(product.variations[0].price).toLocaleString("es-CO"); %></span></td></tr>
+                        <% if(product.type==='prize'){ %>
+                            <tr><td>Puntos:</td><td class="has-text-right"><span itemprop="price" content="<%= Math.round(product.variations[0].price/500)%>" data-price="<%= Math.round(product.variations[0].price/500)%>" class="bestPrice"><%= Math.round(product.variations[0].price/500).toLocaleString("es-CO"); %></span></td></tr>
+                        <% } else { %>
+                            <tr><td>Precio:</td><td class="has-text-right"><span class="is-size-6 has-text-white has-text-weight-bold">$ </span><span itemprop="price" content="<%= Math.round(product.variations[0].price)%>" data-price="<%= Math.round(product.variations[0].price)%>" class="bestPrice"><%= Math.round(product.variations[0].price).toLocaleString("es-CO"); %></span></td></tr>
+                        <% } %>
                     <%}%>
                 </table>
                 <hr>
@@ -112,10 +118,12 @@
         f.addEventListener("click",showimage);
     }
     
-    let drift = new Drift(document.querySelector('#main'),{
-        inlineContainer: document.querySelector('.img-zoom'),
-        inlinePane: 320,
-    });
+    <%if(product.type==='product'){%>
+        let drift = new Drift(document.querySelector('#main'),{
+            inlineContainer: document.querySelector('.img-zoom'),
+            inlinePane: 320,
+        });
+    <%}%>
     
     live('select[name="variations"]','change',(e)=>{
         let variation = e.target.options[e.target.selectedIndex].getAttribute('value')!=='0' ? e.target.options[e.target.selectedIndex].getAttribute('value') : e.target.options[1].getAttribute('value');

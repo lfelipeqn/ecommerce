@@ -8,11 +8,14 @@
           <% mosaic = slider.filter(el => (el.position =='vertical' || el.position =='bottom' || el.position =='wide' || el.position =='middle' || el.position =='tall'));%>
         <%}%>
         <%if(main!==null && main.length>=1){%>
-          <div id="carousel" class="keen-slider">
-            <%for(let m of main){%>
-              <div class="keen-slider__slide"><a href="<%=m.url%>"><img src="<%= cdnurl ? cdnurl : imgurl%>/images/slides/<%= m.image %>" alt="<%=m.name%>" /></a></div>
-            <%}%>
+          <div class="navigation-wrapper">
+            <div id="carousel" class="keen-slider">
+              <%for(let m of main){%>
+                <div class="keen-slider__slide"><a href="<%=m.url%>"><img src="<%= cdnurl ? cdnurl : imgurl%>/images/slides/<%= m.image %>" alt="<%=m.name%>" /></a></div>
+              <%}%>
+            </div>
           </div>
+          <div id="dots" class="dots"></div>
         <%}%>
           <%if(featured!==null && featured.length>=1){%>
           <div class="columns is-gapless is-centered m-0">
@@ -123,6 +126,29 @@
             <%}%>
             </div>
           </div>
+          <div class="columns is-centered mb-3">
+            <div class="column is-10-desktop">
+               <section class="my-6 p-5">
+                 <div class="columns is-centered">
+                   <div class="column is-6">
+                    <p class="title has-text-white is-4">Suscríbete a Nuestras Noticias</p>
+                    <p class="subtitle has-text-white is-6 mt-2">Recibe información acerca de nosotros y las últimas novedades de nuestros productos.</p>
+                   </div>
+                   <div class="column is-6">
+                      <form>
+                        <div class="control has-icons-left">
+                          <input class="input is-warning" type="email" placeholder="Correo Electrónico">
+                          <span class="icon is-small is-left">
+                            <i class='bx bx-mail-send'></i>
+                          </span>
+                        </div>
+                        <button class="button is-warning is-fullwidth mt-2">Suscribirme a las Novedades</button>
+                      </form>
+                   </div>
+                 </div>
+               </section>
+            </div>
+          </div>
 <script src="https://cdn.jsdelivr.net/npm/keen-slider@5.5.1/keen-slider.min.js"></script>
 <script>
 
@@ -136,6 +162,16 @@
         }
       }, 2500)
     }
+
+    updateClasses = (instance) => {
+      var slide = instance.details().relativeSlide
+      var dots = document.querySelectorAll(".dot")
+      dots.forEach(function (dot, idx) {
+        idx === slide
+          ? dot.classList.add("dot--active")
+          : dot.classList.remove("dot--active")
+      })
+    }
     
     var slider = new KeenSlider('#carousel',{
       loop: true,
@@ -145,6 +181,22 @@
       },
       dragEnd: () => {
         autoplay(true)
+      },
+      created: (instance) => {
+        var dots_wrapper = document.getElementById("dots")
+        var slides = document.querySelectorAll(".keen-slider__slide")
+        slides.forEach(function (t, idx) {
+          var dot = document.createElement("button")
+          dot.classList.add("dot")
+          dots_wrapper.appendChild(dot)
+          dot.addEventListener("click", function () {
+            instance.moveToSlide(idx)
+          })
+        })
+        updateClasses(instance)
+      },
+      slideChanged(instance) {
+        updateClasses(instance)
       },
     });
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-6">
     <h4 class="title is-4 has-text-white">Tus Direcciones</h4>
     <hr>
     <div class="columns">
@@ -24,9 +24,9 @@
         <% let count =2; %>
         <% addresses.forEach((address) => {%> 
           <div class="column">
-            <div class="card">
+            <div class="card has-background-dark has-text-white">
                 <header class="card-header">
-                  <p class="card-header-title is-capitalized">
+                  <p class="card-header-title is-capitalized has-text-white">
                     <%= address.name %>
                   </p>
                 </header>
@@ -39,8 +39,8 @@
                   </div>
                 </div>
                 <footer class="card-footer">
-                  <a href="/address/<%=address.id%>" class="card-footer-item">Editar</a>
-                  <a href="/address/delete/<%=address.id%>" class="remove card-footer-item">Eliminar</a>
+                  <a href="/address/<%=address.id%>" class="card-footer-item has-text-white">Editar</a>
+                  <a href="/address/delete/<%=address.id%>" class="remove card-footer-item has-text-white">Eliminar</a>
                 </footer>
             </div>
           </div>

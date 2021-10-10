@@ -7,6 +7,7 @@
 
 module.exports = {
   attributes: {
+    type:{type:'string', isIn:['product','prize','service'],defaultsTo:'product'},
     name: {type:'string'},
     reference:{type:'string'},
     description:{type:'string'},

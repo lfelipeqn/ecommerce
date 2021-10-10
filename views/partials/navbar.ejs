@@ -1,7 +1,7 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
-        <a class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/ultravape.png"></a>
+        <a style="background: none;" class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/ultravape.png" width="100px"></a>
       <%}else if(req.hostname==='1ecommerce.app'){%>
         <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>
       <%}else{%>
@@ -18,8 +18,6 @@
     <div id="navbarContainer" class="navbar-menu">
     </div>
     <div class="navbar-end has-text-right">
-      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Redención</a></div>
-      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>
       <div class="navbar-item is-size-7 is-uppercase has-text-centered">
         <div class="dropdown is-right is-hoverable">
           <div class="dropdown-trigger">
@@ -27,7 +25,7 @@
               <% if(session && session.user === undefined) { %>
                 <span class="is-size-7 is-uppercase has-text-centered">INICIAR SESION</span>
               <%}else{%>
-                <span class="is-size-7 is-uppercase has-text-centered">MI CUENTA</span>
+                <span class="is-size-7 is-uppercase has-text-centered">CUENTA</span>
               <%}%>
             </button>
           </div>
@@ -45,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="navbar-item has-text-centered">        
+      <!--<div class="navbar-item has-text-centered">        
         <div class="field has-addons is-inline">
             <form id="search-form" style="margin-left: auto; margin-right: auto;" class="is-marginless is-paddingless is-flex" method="GET" action="/buscar">
               <input style="min-width: 266px;" class="input is-dark is-small" type="text" name="q" placeholder="Buscar Productos" />
@@ -56,7 +54,7 @@
               </div>
             </form>
         </div>
-      </div>
+      </div>-->
       <div class="navbar-item is-inline-block">
           <div class="buttons">
             <a href="/cart" id="cart-button" class="button is-rounded is-danger px-2 mx-2">
@@ -122,10 +120,10 @@
   }
 
   document.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
+      document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
   });
 
   window.addEventListener('resize',() => {
-    document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
+     document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
   });
 </script>

@@ -38,6 +38,7 @@ module.exports = {
           let data = await sails.helpers.fileReader(uploadedFiles[i].fd);
           params.Body=data;
           params.Key= inputs.route+'/'+filename;
+          params.CacheControl = 'max-age=31536000';
           //params.ContentLength=uploadedFiles[i].size;
           await sails.helpers.amazonUpload(params);
           files.push({original:uploadedFiles[i].filename,filename:filename, type:uploadedFiles[i].type});

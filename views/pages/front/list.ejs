@@ -1,4 +1,4 @@
-<div class="container">
+
     <%if(object.products.length<1){%>
     <div class="columns is-gapless">
         <div class="column is-centered is-gapless">
@@ -11,46 +11,86 @@
         </div>
     </div>
     <%}else{%>
+    <%if(object.logo!== undefined && object.logo!== null && object.logo!==''){%>
+    <script src="https://cdn.jsdelivr.net/npm/keen-slider@5.5.1/keen-slider.min.js"></script>
     <div class="columns is-centered">
-        <div class="column is-2">
-            <p></p>
-            <nav class="panel has-background-dark has-text-white">
-                <a><p class="panel-heading is-size-7 has-text-centered">Filtrar Productos <span class="icon is-right"><i class='bx bx-filter-alt is-size-7'></i></span></p></a>
-                <div class="panel-container is-hidden-mobile">
-                <p class="panel-tabs">
-                  <!--<a class="group is-size-7 is-active" group="marcas">Marca</a>-->
-                  <a class="group is-size-7 has-text-white" group="colores">Color</a>
-                  <!--<a class="group is-size-7" group="genero">Género</a>-->
-                </p>
-                <!--<div id="marcas">
-                <%# brands.forEach(brand =>{ #%>
-                    <a class="panel-block is-active is-size-7"><label style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="checkbox"><input type="checkbox" name="manufacturer" class="filter is-capitalized" value="<%#=brand.name#%>">&nbsp;<%#=brand.name.toUpperCase()#%></label></a>
-                <%#}) #%>
-                </div>-->
-                <div id="colores">
-                    <% colors.forEach(color=>{%>
-                        <a class="panel-block is-size-7"><label class="checkbox is-size-7 has-text-white"><input type="checkbox" name="color" class="filter is-capitalized" value="<%=color.name%>">&nbsp;&nbsp;<span class="color-container" style="background-color: <%=color.code%>;border:solid 1px <%=color.code%>;"></span>&nbsp;&nbsp;<%=color.name.toUpperCase()%></label></a>
-                    <%});%>
-                </div>
-                <!--<div id="genero" class="is-hidden">
-                    <%#genders.forEach(gender =>{ #%>
-                        <a class="panel-block is-size-7"><label class="checkbox is-size-7"><input type="checkbox" name="gender" class="filter is-capitalized" value="<%#=gender.name#%>">&nbsp;<%#=gender.name.toUpperCase()#%></label></a>
-                    <%#}) #%>
-                </div>-->
-                <!--
-                <div class="panel-block">
-                  <button class="button is-info is-fullwidth is-size-7">
-                    Aplicar Filtro
-                  </button>
-                </div>
-                -->
-                </div>
-              </nav>
+        <div class="navigation-wrapper">
+            <div id="carousel" class="keen-slider">             
+                <div class="keen-slider__slide"><img class="mask" src="<%=cdnurl ? cdnurl : imgurl%><%=object.route%><%= object.logo %>" alt="<%=object.description%>" /></div>
+            </div>
         </div>
-        <div class="column is-10">
-            <%if(object.logo!== undefined && object.logo!== null && object.logo!==''){%>
-                <p class="has-text-centered"><img src="<%=cdnurl ? cdnurl : imgurl%><%=object.route%><%= object.logo %>" alt="<%=object.description%>"></p>
-            <%}%>
+    </div>
+    <script>
+        var slider = new KeenSlider('#carousel');
+    </script>
+    <%}%>
+    <div class="columns is-centered">
+        <% if(entity=='ver/categoria' && ename=='inicio-redenciones'){ %>
+            <div class="column is-12">
+                <div class="tabs is-centered">
+                    <ul>
+                        <% colors.forEach(color=>{%>
+                            <li class="is-size-7-mobile"><a class="filter-link" filter="<%=color.name%>"><% if(color.name!='dorado'){ %><span class="is-uppercase has-text-white has-text-weight-bold">sueños aspiracionales</span><%}else{%><span class="is-uppercase has-text-white has-text-weight-bold">sueños materiales</span><%}%></a></li>
+                        <%});%>
+                    </ul>
+                </div>
+                <script>
+                    live('.filter-link','click',e=>{
+                        e.preventDefault();
+                        let element = e.target;
+                        if(e.target.tagName=='SPAN'){
+                            element = e.target.parentNode;
+                        }
+                        let filterlist = [];
+                        filterlist.push(element.getAttribute('filter'));
+                        for(let c of cards){
+                            if(filterlist.length<1){
+                                removeClass(c,'is-hidden');
+                            }else{
+                                addClass(c,'is-hidden');
+                                if(filterlist.includes(c.querySelector('.color-container').getAttribute('color'))){removeClass(c,'is-hidden');}    
+                            }
+                        }
+                    });
+                </script>
+        <% } else { %>
+            <div class="column is-2">
+                <p></p>
+                <nav class="panel has-background-dark has-text-white">
+                    <a><p class="panel-heading is-size-7 has-text-centered">Filtrar Productos <span class="icon is-right"><i class='bx bx-filter-alt is-size-7'></i></span></p></a>
+                    <div class="panel-container is-hidden-mobile">
+                    <p class="panel-tabs">
+                      <!--<a class="group is-size-7 is-active" group="marcas">Marca</a>-->
+                      <a class="group is-size-7 has-text-white" group="colores">Color</a>
+                      <!--<a class="group is-size-7" group="genero">Género</a>-->
+                    </p>
+                    <!--<div id="marcas">
+                    <%# brands.forEach(brand =>{ #%>
+                        <a class="panel-block is-active is-size-7"><label style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="checkbox"><input type="checkbox" name="manufacturer" class="filter is-capitalized" value="<%#=brand.name#%>">&nbsp;<%#=brand.name.toUpperCase()#%></label></a>
+                    <%#}) #%>
+                    </div>-->
+                    <div id="colores">
+                        <% colors.forEach(color=>{%>
+                            <a class="panel-block is-size-7"><label class="checkbox is-size-7 has-text-white"><input type="checkbox" name="color" class="filter is-capitalized" value="<%=color.name%>">&nbsp;&nbsp;<span class="color-container" style="background-color: <%=color.code%>;border:solid 1px <%=color.code%>;"></span>&nbsp;&nbsp;<%=color.name.toUpperCase()%></label></a>
+                        <%});%>
+                    </div>
+                    <!--<div id="genero" class="is-hidden">
+                        <%#genders.forEach(gender =>{ #%>
+                            <a class="panel-block is-size-7"><label class="checkbox is-size-7"><input type="checkbox" name="gender" class="filter is-capitalized" value="<%#=gender.name#%>">&nbsp;<%#=gender.name.toUpperCase()#%></label></a>
+                        <%#}) #%>
+                    </div>-->
+                    <!--
+                    <div class="panel-block">
+                      <button class="button is-info is-fullwidth is-size-7">
+                        Aplicar Filtro
+                      </button>
+                    </div>
+                    -->
+                    </div>
+                  </nav>
+            </div>
+            <div class="column is-10">
+        <% } %>
             <%if(pages>1){%>
             <div class="container">
                 <div class="columns">
@@ -115,11 +155,10 @@
                         </div>    
                     </div>
                 </div>
-                <%}%>
+            <%}%>
         </div>
     </div>
     <%}%>
-</div>
 <br><br>
 <script>
     const cards = document.querySelectorAll('.card');

@@ -50,7 +50,7 @@ module.exports = {
       if(pshow.length>0){
         let products = await Product.find({
           where:{id:pshow,active:true},
-          select:['name','description','seller','mainColor','manufacturer','gender','reference','mainCategory'],
+          select:['type','name','description','seller','mainColor','manufacturer','gender','reference','mainCategory'],
           sort: 'updatedAt DESC'
         });
         viewed.products=products;
@@ -78,6 +78,9 @@ module.exports = {
           p.discount = discounts ? discounts[0] : null;
           p.gender = await Gender.findOne({id:p.gender});
           p.price = (await ProductVariation.find({product:p.id}).sort('createdAt ASC'))[0].price;
+          if(p.type==='prize'){
+            p.price = p.price / 500;
+          }
         }
       }
     }
@@ -598,8 +601,11 @@ module.exports = {
       object.products = object.products.slice(skip,limit);
       for(let p in object.products){
         try {
-          object.products[p] = await Product.findOne({where:{id:object.products[p].id},select:['name','tax','description','descriptionShort','seller','mainColor','manufacturer','gender','reference','mainCategory']});
+          object.products[p] = await Product.findOne({where:{id:object.products[p].id},select:['type','name','tax','description','descriptionShort','seller','mainColor','manufacturer','gender','reference','mainCategory']});
           object.products[p].price = (await ProductVariation.find({product:object.products[p].id}).sort('createdAt ASC'))[0].price;
+          if(object.products[p].type==='prize'){
+            object.products[p].price = object.products[p].price / 500;
+          }
           object.products[p].cover= (await ProductImage.find({product:object.products[p].id,cover:1}))[0];
           let discounts = await sails.helpers.discount(object.products[p].id);
           if(iridio && discounts){
@@ -801,6 +807,7 @@ module.exports = {
     }
     let productvariation = await ProductVariation.findOne({ id: req.body.variation});
     if(productvariation){
+      let product = await Product.findOne({id:productvariation.product});
       let discounts = await sails.helpers.discount(productvariation.product,productvariation.id);
       if(iridio && discounts){
         let integrations = await ProductChannel.find({channel:iridio.id,product:productvariation.product});
@@ -808,12 +815,12 @@ module.exports = {
         discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
       }
       let discount = discounts ? discounts[0] : null;
-      prices.price = productvariation.price;
+      prices.price = product.type ==='prize' ? productvariation.price/500 : productvariation.price;
       if(discount){
-        prices.highPrice = productvariation.price;
-        prices.lowPrice = discount.price;
-        prices.savings = discount.amount;
-        prices.price = discount.price;
+        prices.highPrice = product.type ==='prize' ? productvariation.price/500 : productvariation.price;
+        prices.lowPrice = product.type ==='prize' ? discount.price/500 : discount.price;
+        prices.savings = product.type ==='prize' ? discount.amount/500 : discount.amount;
+        prices.price = product.type ==='prize' ? discount.price/500 : discount.price;
       }
     }
     return res.send(prices);
