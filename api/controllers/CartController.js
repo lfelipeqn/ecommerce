@@ -10,7 +10,7 @@ module.exports = {
     let cart = null;
     let seller = null;
     let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -44,7 +44,7 @@ module.exports = {
       return res.badRequest();
     }
     let iridio = null;
-    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.body.hostname==='1ecommerce.app'){
+    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='18.228.46.237' || req.body.hostname==='1ecommerce.app'){
       iridio = await Channel.findOne({name:'iridio'});
     }
     let cart = null;

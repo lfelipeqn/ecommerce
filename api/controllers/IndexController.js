@@ -22,7 +22,7 @@ module.exports = {
     
     if(req.hostname==='1ecommerce.app'){
       return res.redirect('/login');
-    }else if(req.hostname==='iridio.co' || req.hostname==='demo.1ecommerce.app' || req.hostname==='localhost'){
+    }else if(req.hostname==='iridio.co' || req.hostname==='demo.1ecommerce.app' || req.hostname==='localhost' || req.hostname==='18.228.46.237'){
       brands = await Manufacturer.find({active:true}).sort('name ASC');
       cmsfilter['seller'] = null;
       sliderfilter['seller']=null;
@@ -480,7 +480,7 @@ module.exports = {
 
     let seller = null;
     let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -537,7 +537,7 @@ module.exports = {
     if(!req.session.productsFilter || ((now-req.session.productsFilter.updated)<86400000)){
       req.session.productsFilter = {};
       req.session.productsFilter.filter = {active:true};
-      if(req.hostname==='localhost'){sellerfilter.domain = 'ultravape.co';}
+      if(req.hostname==='localhost' || req.hostname==='18.228.46.237'){sellerfilter.domain = 'ultravape.co';}
       seller = await Seller.findOne(sellerfilter);
       if(seller){req.session.productsFilter.filter['seller']=seller.id;}
       req.session.productsFilter.updated = moment().valueOf();
@@ -655,7 +655,7 @@ module.exports = {
     let seller = null;
     let iridio = null;
     let ename=req.param('q');
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -741,7 +741,7 @@ module.exports = {
   listproduct: async function(req, res){
     let seller = null;
     let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -802,7 +802,7 @@ module.exports = {
     }
     let prices ={};
     let iridio = null;
-    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.body.hostname==='1ecommerce.app'){
+    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='18.228.46.237' || req.body.hostname==='1ecommerce.app'){
       iridio = await Channel.findOne({name:'iridio'});
     }
     let productvariation = await ProductVariation.findOne({ id: req.body.variation});
@@ -834,7 +834,7 @@ module.exports = {
       seller:seller
     };
 
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/}); contentfilter.seller=seller.id;}
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/}); contentfilter.seller=seller.id;}
     cms = (await Cms.find(contentfilter))[0];
     return res.view('pages/front/cms',{content:cms.content,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   },
