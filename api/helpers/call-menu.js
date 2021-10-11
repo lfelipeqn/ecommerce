@@ -19,7 +19,7 @@ module.exports = {
     let productfilter={active:true};
 
     let cids = [];
-    if(inputs.hostname !== undefined && inputs.hostname !== '' && inputs.hostname!=='iridio.co' && inputs.hostname!=='demo.1ecommerce.app' && inputs.hostname!=='localhost' && inputs.hostname!=='18.228.46.237' && inputs.hostname!=='1ecommerce.app'){
+    if(inputs.hostname !== undefined && inputs.hostname !== '' && inputs.hostname!=='iridio.co' && inputs.hostname!=='demo.1ecommerce.app' && inputs.hostname!=='localhost' && inputs.hostname!=='pruebas.ultravape.co' && inputs.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:inputs.hostname,active:true});
       productfilter.seller=seller.id;
     }

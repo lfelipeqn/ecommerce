@@ -25,7 +25,7 @@ module.exports = async function unauthorized() {
   var req = this.req;
   var res = this.res;
   let seller = null;
-  if(req.hostname!=='iridio.co' && req.hostname==='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='18.228.46.237' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
+  if(req.hostname!=='iridio.co' && req.hostname==='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='pruebas.ultravape.co' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
   sails.log.verbose('Ran custom response: res.unauthorized()');
 
   /*if (req.wantsJSON) {

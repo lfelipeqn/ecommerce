@@ -1,6 +1,6 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='18.228.46.237'){%>
+      <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='pruebas.ultravape.co'){%>
         <a style="background: none;" class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/ultravape.png" width="100px"></a>
       <%}else if(req.hostname==='1ecommerce.app'){%>
         <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>
@@ -13,8 +13,8 @@
         <span aria-hidden="true"></span>
       </a>
     </div>
-    <div id="navmobile" class="is-hidden"><% if(req.session.menu && req.session.menu.navbarmobile){ %><%- req.session.menu.navbarmobile %><% }else{ %><span></span><%}%></div>
-    <div id="navFull" class="is-hidden"><% if(req.session.menu && req.session.menu.navbar){ %><%- req.session.menu.navbar %><% }else{ %><span></span><%}%></div>
+    <div id="navmobile" class="is-hidden"><% if(req.session && req.session.menu && req.session.menu.navbarmobile){ %><%- req.session.menu.navbarmobile %><% }else{ %><span></span><%}%></div>
+    <div id="navFull" class="is-hidden"><% if(req.session && req.session.menu && req.session.menu.navbar){ %><%- req.session.menu.navbar %><% }else{ %><span></span><%}%></div>
     <div id="navbarContainer" class="navbar-menu">
     </div>
     <div class="navbar-end has-text-right">

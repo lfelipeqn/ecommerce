@@ -67,7 +67,7 @@
   </div>
 </div>
 <script>
-  if (window.location.host === 'localhost:1337' || window.location.host === '1ecommerce.app' || req.hostname==='18.228.46.237') {
+  if (window.location.host === 'localhost:1337' || window.location.host === '1ecommerce.app' || req.hostname==='pruebas.ultravape.co') {
     io.socket.post(`/generatekey`, {name: 'bronce'}, function (resData, jwRes) {
       if(jwRes.statusCode == 200){
         if (resData && resData.key) {
