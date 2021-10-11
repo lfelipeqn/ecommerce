@@ -31,13 +31,14 @@ module.exports = {
       sliderfilter['seller']=null;
       iridio = await Channel.findOne({name:'iridio'});
     }else{
-      seller = await Seller.findOne({
+      seller = await Seller.find({
         where:{domain:req.hostname},
-        select:['name','domain','logo']
+        select:['name','domain','logo'],
+        limit:1
       });
-      if(seller && seller.id){
-        cmsfilter['seller'] = seller.id;
-        sliderfilter['seller']=seller.id;
+      if(seller.length>1){
+        cmsfilter['seller'] = seller[0].id;
+        sliderfilter['seller']=seller[0].id;
       }
     }
     let viewed={products:[]};
