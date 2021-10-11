@@ -6,6 +6,9 @@ let moment = require('moment');
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 module.exports = {
+  health: async (req, res) => {
+    return res.ok();
+  },
   index: async function(req, res){
     let seller = null;
     let slider = null;

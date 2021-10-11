@@ -58,6 +58,7 @@ module.exports.routes = {
   'POST /address/edit/:id' : {controller:'AddressController',action:'editaddress'},
   'GET /address/delete/:id' : {controller:'AddressController',action:'deleteaddress'},
   'GET /checkout' : {controller:'IndexController',action:'checkout'},
+  'GET /health' : {controller:'IndexController',action:'health'},
   'POST /findprice' : {controller: 'IndexController',action:'variationPrices'},
   'POST /order' : {controller:'OrderController',action:'createorder'},
   'POST /downloadordersexcel' : {controller:'OrderController',action:'downloadordersexcel'},
