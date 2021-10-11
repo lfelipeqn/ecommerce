@@ -540,11 +540,13 @@
         document.querySelector('#total').innerHTML = '$&nbsp'+data.cart.total.toLocaleString('es-CO')+'&nbsp;'
     });
 
-    dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-    dataLayer.push({
-        'event': 'checkout_options',
-        'ecommerce': {
-            'items': <%-JSON.stringify(req.session.cart.products)%>
-        }
-    });
+    if(dataLayer){
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+            'event': 'checkout_options',
+            'ecommerce': {
+                'items': <%-JSON.stringify(req.session.cart.products)%>
+            }
+        });
+    }
 </script>

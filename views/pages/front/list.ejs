@@ -236,8 +236,9 @@
     live('.card-image > a', 'click', e => {
         e.preventDefault();
         let card = e.target.parentNode.parentNode.parentNode;
-        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-        dataLayer.push({
+        if(dataLayer){
+            dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+            dataLayer.push({
             'event': 'select_item',
             'ecommerce': {
                 'items': [{
@@ -256,5 +257,6 @@
               document.location = card.querySelector('.card-image > a').href;
             }
         });
+        }
     });
 </script>

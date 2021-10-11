@@ -222,35 +222,38 @@
             let qty = document.querySelector('select[name="quantity"]').value
             let vrt = document.querySelector('select[name="variations"]').value
             io.socket.put('/cart',{variation:vrt,quantity:qty,action:'create',hostname:window.location.hostname},(resData)=>{
-                dataLayer.push({ ecommerce: null });
-                dataLayer.push({
-                    'event': 'add_to_cart',
-                    'ecommerce': {
-                        'items': resData.products
-                    }
-                });
+                if(dataLayer){
+                    dataLayer.push({ ecommerce: null });
+                    dataLayer.push({
+                        'event': 'add_to_cart',
+                        'ecommerce': {
+                            'items': resData.products
+                        }
+                    });
+                }
                 window.location.href='/cart';
             });
         }
     })
-
-    dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-    dataLayer.push({
-    'ecommerce': {
-        'event': 'view_item',
+    if(dataLayer){
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
         'ecommerce': {
-            'items': [{
-                'item_name': '<%= product.name %>',
-                'item_id': '<%= product.id %>',
-                'item_brand': '<%= product.manufacturer.name %>',
-                'item_reference': '<%= product.reference %>',
-                'item_category': '<%= product.mainCategory.name %>',
-                'item_color': '<%= product.mainColor.name %>',
-                'price': '<%= discount && discount.price ? discount.price : product.variations[0].price %>',
-                'quantity':1
-            }]
+            'event': 'view_item',
+            'ecommerce': {
+                'items': [{
+                    'item_name': '<%= product.name %>',
+                    'item_id': '<%= product.id %>',
+                    'item_brand': '<%= product.manufacturer.name %>',
+                    'item_reference': '<%= product.reference %>',
+                    'item_category': '<%= product.mainCategory.name %>',
+                    'item_color': '<%= product.mainColor.name %>',
+                    'price': '<%= discount && discount.price ? discount.price : product.variations[0].price %>',
+                    'quantity':1
+                }]
+            }
         }
+        });
     }
-    });
 </script>
 <br><br>

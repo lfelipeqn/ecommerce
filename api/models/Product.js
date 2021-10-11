@@ -14,7 +14,7 @@ module.exports = {
     descriptionShort:{type:'string'},
     group:{type:'string'},
     active:{type:'boolean',required:true},
-    price:{type:'number',defaultsTo:0},
+    price:{type:'number',defaultsTo:0, allowNull:true},
     tax:{model:'tax'},
     mainCategory: {model:'category'},
     mainColor: {model:'color'},

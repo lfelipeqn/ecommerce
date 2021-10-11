@@ -184,13 +184,15 @@
         e.preventDefault();
         io.socket.post('/cart',resData => {
             if(resData){
-                dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-                dataLayer.push({
-                    'event': 'checkout_begin',
-                    'ecommerce': {
-                        'items': resData
-                    }
-                });
+                if(dataLayer){
+                    dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+                    dataLayer.push({
+                        'event': 'checkout_begin',
+                        'ecommerce': {
+                            'items': resData
+                        }
+                    });
+                }
                window.location.href = '/checkout';
             }
         });
