@@ -540,7 +540,7 @@ module.exports = {
     if(!req.session.productsFilter || ((now-req.session.productsFilter.updated)<86400000)){
       req.session.productsFilter = {};
       req.session.productsFilter.filter = {active:true};
-      if(req.hostname==='localhost' || req.hostname==='pruebas.ultravape.co'){sellerfilter.domain = 'ultravape.co';}
+      if(req.hostname==='localhost' || req.hostname==='pruebas.ultravape.co'){sellerfilter.domain = 'pruebas.ultravape.co';}
       seller = await Seller.findOne(sellerfilter);
       if(seller){req.session.productsFilter.filter['seller']=seller.id;}
       req.session.productsFilter.updated = moment().valueOf();
