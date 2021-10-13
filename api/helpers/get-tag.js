@@ -15,7 +15,7 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     let host = inputs.host;
-    let tag = null;
+    let tag = '<script>dataLayer = [];</script>';
     let tagid=null;
     let seller = await Seller.findOne({domain:host});
     if(seller){
@@ -25,8 +25,7 @@ module.exports = {
     }
 
     if(tagid){
-      tag=`
-        <script>dataLayer = [];</script>
+      tag+=`
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
