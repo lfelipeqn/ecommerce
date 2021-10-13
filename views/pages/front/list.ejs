@@ -30,7 +30,15 @@
                 <div class="tabs is-centered">
                     <ul>
                         <% colors.forEach(color=>{%>
-                            <li class="is-size-7-mobile"><a class="filter-link" filter="<%=color.name%>"><% if(color.name!='dorado'){ %><span class="is-uppercase has-text-white has-text-weight-bold">sueños aspiracionales</span><%}else{%><span class="is-uppercase has-text-white has-text-weight-bold">sueños materiales</span><%}%></a></li>
+                            <li class="is-size-7-mobile"><a class="filter-link" filter="<%=color.name%>">
+                                <% if(color.name==='blanco'){ %>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños aspiracionales</span>
+                                <%}else if(color.name==='verde'){%>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños efectivo</span>
+                                <%}else{%>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños materiales</span>
+                                <%}%></a>
+                            </li>
                         <%});%>
                     </ul>
                 </div>
