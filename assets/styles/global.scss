@@ -207,7 +207,8 @@
     }
 
     .keen-slider{margin-top:-70px;}
-    .navbar{background: transparent !important; border-bottom: solid 1px lightgray; padding-bottom:5px;}
+    .navbar{background: transparent !important; border-bottom: solid 1px lightgray;}
+    .navbar-menu{flex-grow: 1;flex-shrink: 0;align-content: center;justify-content: center;}
     #account-menu{
         background: none;
         color: white;

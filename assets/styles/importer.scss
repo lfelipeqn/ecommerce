@@ -17,6 +17,10 @@ $info: $cyan;
 
 $button-hover-color:$blue-dark;
 
+.navbar-item img{
+    max-height: 50px !important;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import "../../node_modules/bulma/bulma.sass";
 @import "../../node_modules/@creativebulma/bulma-badge/src/sass/index.sass";
