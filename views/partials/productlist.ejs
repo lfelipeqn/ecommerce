@@ -14,7 +14,7 @@
                 <%if(product.discount.type==='P'){%><% discval= product.discount.value %><%}%>
                 <%}%>
 
-                <div <%if(product.type!='prize'){%>style="background-image: url('https://s3.amazonaws.com/ultravape.co/humo.gif'); background-size:cover;"<%} %>class="card-image" >
+                <div class="card-image" >
                     <%if(product.discount!==null && product.discount!==undefined){%><span style="right: 15px; top:15px;" class="badge is-danger"><%=discval%>%</span><%}%>
                     <a itemprop="url" href="/list/product/<%=encodeURIComponent((product.name).replace(/\./g, '%2E'))%>/<%=encodeURIComponent(product.reference)%>"><%if(product.cover!==undefined){%><img <% if(product.type=='prize'){%>class="mask"<%}%> itemprop="image" src="<%=cdnurl ? cdnurl : imgurl%>/images/products/<%=product.id%>/<%= product.cover.file %>" loading="lazy" alt="<%= product.manufacturer.name %> - <%= product.reference%>"><%}%></a>
                 </div>
