@@ -6,7 +6,7 @@
             <div style="background: none;" class="box is-transparent">
                 <span class="is-hidden" itemprop="productID"><%=product.id%></span>
                 <span class="is-hidden" itemprop="sku"><%=product.reference%></span>
-                <div class="media" style="overflow-y: hidden; background-size: cover; background-position:center; background-image: url('<%= cdnurl ? cdnurl : imgurl %>/smoke1.gif');">
+                <div class="media">
                     <div class="media-left">
                         <%product.images.forEach((image)=>{%>
                             <figure class="image is-64x64">
