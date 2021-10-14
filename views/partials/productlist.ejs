@@ -18,7 +18,7 @@
                     <%if(product.discount!==null && product.discount!==undefined){%><span style="right: 15px; top:15px;" class="badge is-danger"><%=discval%>%</span><%}%>
                     <a itemprop="url" href="/list/product/<%=encodeURIComponent((product.name).replace(/\./g, '%2E'))%>/<%=encodeURIComponent(product.reference)%>"><%if(product.cover!==undefined){%><img <% if(product.type=='prize'){%>class="mask"<%}%> itemprop="image" src="<%=cdnurl ? cdnurl : imgurl%>/images/products/<%=product.id%>/<%= product.cover.file %>" loading="lazy" alt="<%= product.manufacturer.name %> - <%= product.reference%>"><%}%></a>
                 </div>
-                <div class="card-content <%if(product.type!='prize'){%>has-background-black <%}%>">
+                <div class="card-content has-background-black">
                         <div itemprop="description" class="is-hidden"><%-product.description%></div>
                         <div itemprop="disambiguatingDescription" class="is-hidden"><%-product.descriptionShort%></div>
                         <% if(product.mainColor){ %>
