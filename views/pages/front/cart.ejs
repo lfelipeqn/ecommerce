@@ -2,7 +2,6 @@
 <div class="container my-6">
     <div class="columns is-centered">
         <div class="column is-9">
-            <div class="box has-background-dark">
             <%if(cart===null){%>
                 <section class="hero is-warning">
                     <div class="hero-body">
@@ -27,18 +26,18 @@
                         <% printed.push({variation:cartproduct.productvariation.id,quantity:1}); %>
                     <%}%>
                     <%if(!flag){%>
-                    <div class="columns is-mobile">
+                    <div style="border-radius:15px;" class="columns is-mobile my-2 has-background-dark p-3 is-vcentered cart-background">
                         <a product="<%=cartproduct.product.id%>" variation="<%=cartproduct.productvariation.id%>" class="delete"></a>
-                        <div class="column is-3">
+                        <div class="column is-3-desktop is-4-mobile">
                             <% cartproduct.product.images.forEach((image)=>{%>
                                 <%if(image.cover==1){%>
-                                    <figure class="image is-square is-relative">
+                                    <figure class="image is-128x128">
                                         <img id="main" src="<%=cdnurl ? cdnurl : imgurl %>/images/products/<%=cartproduct.product.id%>/<%= image.file %>" data-zoom="/images/products/<%=cartproduct.product.id%>/<%= image.file %>" alt="<%=cartproduct.product.name%>">
                                     </figure>     
                                 <%}%>
                             <%})%>
                         </div>
-                        <div class="column is-6">
+                        <div class="column is-5-desktop is-4-mobile">
                             <h5 class="is-size-5 is-size-7-mobile"><span class="is-capitalized has-text-white"><%= cartproduct.product.name %></span>&nbsp;-&nbsp;<span class="is-uppercase has-text-white"><%=cartproduct.productvariation.variation.name%></span></h5>
                             <br>
                             <div class="select is-primary is-small is-danger">
@@ -49,19 +48,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="column is-3 has-text-right">
+                        <div class="column is-4-desktop is-4-mobile has-text-right">
                             <%if(cartproduct.product.discount){%>
-                                <span id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-size-7-mobile mr-4">$&nbsp;<%= Math.round(cartproduct.productvariation.price).toLocaleString("es-CO");%></span>
+                                <span id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-size-6 is-size-7-mobile mr-3">$&nbsp;<%= Math.round(cartproduct.productvariation.price).toLocaleString("es-CO");%></span>
                                 <%if(cartproduct.totalPoints>0){%>
-                                    <span id="item-price" price="<%=cartproduct.totalPoints%>" class="has-text-danger is-size-5 is-size-7-mobile mr-4">&nbsp;<%= Math.round(cartproduct.totalPoints).toLocaleString("es-CO");%></span>
+                                    <span id="item-price" price="<%=cartproduct.totalPoints%>" class="has-text-danger is-size-6 is-size-7-mobile mr-3">&nbsp;<%= Math.round(cartproduct.totalPoints).toLocaleString("es-CO");%></span>
                                 <%}else{%>
-                                    <span id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-danger is-size-5 is-size-7-mobile mr-4">$&nbsp;<%= Math.round(cartproduct.totalPrice).toLocaleString("es-CO");%></span>
+                                    <span id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-danger is-size-6 is-size-7-mobile mr-3">$&nbsp;<%= Math.round(cartproduct.totalPrice).toLocaleString("es-CO");%></span>
                                 <%}%>
                             <%}else{%>
                                 <%if(cartproduct.totalPoints>0){%>
-                                  <span id="item-price" price="<%=cartproduct.totalPoints%>" class="has-text-danger is-size-5 is-size-7-mobile mr-4">&nbsp;<%= Math.round(cartproduct.totalPoints).toLocaleString("es-CO");%></span>
+                                  <span id="item-price" price="<%=cartproduct.totalPoints%>" class="has-text-danger is-size-6 is-size-7-mobile mr-3">&nbsp;<%= Math.round(cartproduct.totalPoints).toLocaleString("es-CO");%></span>
                                 <%}else{%>
-                                  <span id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-danger is-size-5 is-size-7-mobile mr-4">$&nbsp;<%= Math.round(cartproduct.totalPrice).toLocaleString("es-CO");%></span>
+                                  <span id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-danger is-size-6 is-size-7-mobile mr-3">$&nbsp;<%= Math.round(cartproduct.totalPrice).toLocaleString("es-CO");%></span>
                                 <%}%>
                             <%}%>
                         </div>
@@ -76,10 +75,10 @@
                 <%}%>
                 <%})%>
             <% } %>
-            </div>
+            
         </div>
         <%if(cart!==null){%>
-        <div class="column is-3">
+        <div class="column is-3 is-flex">
             <div id="order" class="has-text-centered">
                 <div class="box has-background-dark">
                     <table class="table is-fullwidth has-background-dark">
