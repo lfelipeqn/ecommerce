@@ -29,17 +29,9 @@
             <div class="column is-12">
                 <div class="tabs is-centered">
                     <ul>
-                        <% colors.forEach(color=>{%>
-                            <li class="is-size-7-mobile"><a class="filter-link" filter="<%=color.name%>">
-                                <% if(color.name==='blanco'){ %>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>aspiracionales</span>
-                                <%}else if(color.name==='verde'){%>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>efectivo</span>
-                                <%}else{%>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>materiales</span>
-                                <%}%></a>
-                            </li>
-                        <%});%>
+                        <li class="is-size-7-mobile"><a class="filter-link" filter="dorado"><span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>materiales</span></a></li>
+                        <li class="is-size-7-mobile"><a class="filter-link" filter="blanco"><span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>aspiracionales</span></a></li>
+                        <li class="is-size-7-mobile"><a class="filter-link" filter="verde"><span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>efectivo</span></a></li>
                     </ul>
                 </div>
                 <script>
