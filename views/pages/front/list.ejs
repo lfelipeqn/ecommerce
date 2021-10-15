@@ -32,11 +32,11 @@
                         <% colors.forEach(color=>{%>
                             <li class="is-size-7-mobile"><a class="filter-link" filter="<%=color.name%>">
                                 <% if(color.name==='blanco'){ %>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños aspiracionales</span>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>aspiracionales</span>
                                 <%}else if(color.name==='verde'){%>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños efectivo</span>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>efectivo</span>
                                 <%}else{%>
-                                    <span class="is-uppercase has-text-white has-text-weight-bold">sueños materiales</span>
+                                    <span class="is-uppercase has-text-white has-text-weight-bold"><span class="is-hidden-mobile">sueños </span>materiales</span>
                                 <%}%></a>
                             </li>
                         <%});%>
@@ -57,6 +57,15 @@
                             }else{
                                 addClass(c,'is-hidden');
                                 if(filterlist.includes(c.querySelector('.color-container').getAttribute('color'))){removeClass(c,'is-hidden');}    
+                            }
+                        }
+                    });
+
+                    document.addEventListener('DOMContentLoaded', () => {
+                        let filters = document.querySelectorAll('.filter-link');
+                        for(let filter of filters){
+                            if(filter.getAttribute('filter')==='blanco'){
+                                filter.click();
                             }
                         }
                     });
