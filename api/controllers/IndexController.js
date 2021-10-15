@@ -653,6 +653,8 @@ module.exports = {
     let brands = await Manufacturer.find({where:brandsFilter,select:['name']});
     let genders = await Gender.find(gendersFilter);
 
+    object.products.sort((a,b) => { return a.price - b.price; });
+
     return res.view('pages/front/list',{entity:'ver/'+entity,ename:ename,page:page,pages:pages,object:object,colors:colors,brands:brands,genders:genders,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   },
   search: async(req, res) =>{
