@@ -135,9 +135,9 @@
                     <p class="subtitle has-text-white is-6 mt-2">Recibe información acerca de nosotros y las últimas novedades de nuestros productos.</p>
                    </div>
                    <div class="column is-6">
-                      <form>
+                      <form id="newsletter-form">
                         <div class="control has-icons-left">
-                          <input class="input is-warning" type="email" placeholder="Correo Electrónico">
+                          <input class="input is-warning" type="email" name="newsletter-email" placeholder="Correo Electrónico" autocomplete="off">
                           <span class="icon is-small is-left">
                             <i class='bx bx-mail-send'></i>
                           </span>
@@ -215,5 +215,18 @@
     live('article > .content','click',e=>{
       let route = e.target.parentNode.getAttribute('destination');
       window.location.href=route;
+    });
+
+    live('#newsletter-form > button','click',(e) =>{
+      e.preventDefault();
+      let email = document.querySelector('input[name="newsletter-email"]').value
+      io.socket.post('/newsletter',{email:email},(resData) =>{
+        if(resData){
+          alert(resData.message);
+          document.querySelector('input[name="newsletter-email"]').value = ''
+          /*let newsblock = document.querySelector('#newsletter-form').parentNode.parentNode.parentNode.parentNode.parentNode
+          addClass(newsblock,'is-hidden');*/
+        }
+      });
     });
 </script>

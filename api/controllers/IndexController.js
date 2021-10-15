@@ -1162,5 +1162,25 @@ module.exports = {
   generatelink: async function (req, res) {
     const plans = await Plan.find({});
     res.view('pages/configuration/generatelink', {layout:'layouts/admin', plans});
+  },
+  addnewsletter: async (req, res) =>{
+    if(!req.isSocket){
+      return res.badRequest();
+    }
+    let response = {};
+    try{
+      let exists = await NewsLetter.findOne({emailAddress: req.body.email.toLowerCase().trim()});
+      if(!exists){
+        await NewsLetter.create({emailAddress: req.body.email.toLowerCase().trim(),location:req.ip});
+        response.result = true;
+        response.message = 'usuario registrado exitosamente';
+      }else{
+        throw new Error('usuario ya se encuenta registrado');
+      }
+    }catch(err){
+      response.result = false;
+      response.message = err.message;
+    }
+    return res.send(response);
   }
 };
