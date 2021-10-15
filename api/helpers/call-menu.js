@@ -40,7 +40,7 @@ module.exports = {
       <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="/ver/categoria/inicio-redenciones">Redención</a></div>
       <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>`;
 
-    let navbarmobile =`<aside class="menu"><ul class="menu-list">`;
+    let navbarmobile =`<aside class="menu has-text-centered"><ul class="menu-list">`;
 
 
     navbarmobile +=`

@@ -1,11 +1,11 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='pruebas.ultravape.co'){%>
-        <a style="background: none;" class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/logo-amarillo-112.png" width="112px"></a>
+        <a style="background: none;" class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/logo-amarillo-112.png"></a>
       <%}else if(req.hostname==='1ecommerce.app'){%>
         <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>
       <%}else{%>
-        <%if(typeof seller === 'object' && seller!==null){%><a href="/"><img async src="<%=imgurl%>/images/sellers/<%=seller.logo%>" width="130"></a>&nbsp;&nbsp;&nbsp;<%}%>
+        <%if(typeof seller === 'object' && seller!==null){%><a href="/"><img async src="<%=imgurl%>/images/sellers/<%=seller.logo%>"></a>&nbsp;&nbsp;&nbsp;<%}%>
       <%}%>
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
