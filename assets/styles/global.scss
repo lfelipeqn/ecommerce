@@ -250,10 +250,13 @@
 }
 
 .cart-background{
-    background-image: url('https://s3.amazonaws.com/ultravape.co/fondocarrito.jpg');
+    background-image: url('https://s3.amazonaws.com/ultravape.co/fondocarrito-fire-grey.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    -webkit-box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
+    -moz-box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
+    box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
 }
 
 .mask{
