@@ -7,7 +7,7 @@
           </div>
         <% } %>
         <br><br>
-        <div class="box has-background-dark">
+        <div class="box has-background-dark cart-background">
             <form method="POST" action="/login" id="login-form">
             <input type="hidden" <%if(typeof referer!=='string'){%>value="/"<%}else{%>value="<%=referer%>"<%}%> name="referer" />
             <input type="hidden" name="facebookToken" value="" />
@@ -61,7 +61,7 @@
               -->
             </div>
             </form>
-          </div>
+        </div>
         <p class="has-text-centered is-x-small is-grey-light">Al iniciar sesión manifiesto estar de acuerdo con los <a class="has-text-white has-text-weight-bold" href="/c/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a class="has-text-white has-text-weight-bold" href="/c/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
     </div>
   </div>
