@@ -22,7 +22,7 @@
                         <div itemprop="description" class="is-hidden"><%-product.description%></div>
                         <div itemprop="disambiguatingDescription" class="is-hidden"><%-product.descriptionShort%></div>
                         <% if(product.mainColor){ %>
-                        <p><span class="is-pulled-right"><span class="color is-hidden" itemprop="color"><%=product.mainColor.name%></span><span class="color-container" color="<%=product.mainColor.name%>" style="background-color: <%= product.mainColor.code %>;border:solid 1px <%= product.mainColor.code %>;"></span></span>
+                        <p <%if(product.type=='prize'){%>class="is-invisible" <%}%> ><span class="is-pulled-right"><span class="color is-hidden" itemprop="color"><%=product.mainColor.name%></span><span class="color-container" color="<%=product.mainColor.name%>" style="background-color: <%= product.mainColor.code %>;border:solid 1px <%= product.mainColor.code %>;"></span></span>
                         <%}%>
                         <span itemprop="brand" brand="<%=product.manufacturer.name%>" class="brand is-7 is-capitalized"><%=product.manufacturer.name%></span></p>
                         <p style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span itemprop="name" class="name has-text-weight-bold is-uppercase"><%=product.name%></span></p>
