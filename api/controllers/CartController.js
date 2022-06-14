@@ -10,7 +10,7 @@ module.exports = {
     let cart = null;
     let seller = null;
     let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='pruebas.ultravape.co' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -44,7 +44,7 @@ module.exports = {
       return res.badRequest();
     }
     let iridio = null;
-    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='pruebas.ultravape.co' || req.body.hostname==='1ecommerce.app'){
+    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='ultravape.co' || req.body.hostname==='1ecommerce.app'){
       iridio = await Channel.findOne({name:'iridio'});
     }
     let cart = null;
@@ -122,7 +122,7 @@ module.exports = {
       }else{
         req.session.cart.total = cartvalue+cart.shipping;
       }
-  
+
       if(items<1){
         await Cart.destroyOne({id:cart.id});
         delete req.session.cart;
