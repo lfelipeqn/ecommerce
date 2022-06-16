@@ -44,8 +44,10 @@ module.exports = {
     };
 
     for(let item of citems){
-      cartvalue+=item.totalPrice;
-      if(!sellers.includes(item.product.seller)){sellers.push(item.product.seller)}
+      if(item.product.type!=='prize'){
+        cartvalue+=item.totalPrice;
+        if(!sellers.includes(item.product.seller)){sellers.push(item.product.seller)}
+      }
     }
 
     if(cartvalue>=130000){
@@ -60,7 +62,7 @@ module.exports = {
       for(let seller of allsellers){
         let city = await City.findOne({id:seller.mainAddress.city});
         requestArgs.p.origen = city.code+'000';
-        let sellerproducts = citems.filter(elm => elm.product.seller===seller.id);
+        let sellerproducts = citems.filter(elm => elm.product.seller===seller.id && elm.product.type!=='prize');
         let items = [];
         for(let sp of sellerproducts){
           if(items.length<1){

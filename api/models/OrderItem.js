@@ -16,6 +16,9 @@ module.exports = {
     price:{
       type:'number'
     },
+    points:{
+      type:'number'
+    },
     discount:{
       type:'number'
     },

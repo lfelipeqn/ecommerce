@@ -291,16 +291,19 @@
                         </div>
                     </div>
                     <div class="card-content is-paddingless">
-                        <% cart.forEach((cartproduct)=>{%> 
+                        <% cart.forEach((cartproduct)=>{ %> 
                             <% printed.forEach(elm =>{%>
-                                <%if(elm.variation===cartproduct.productvariation.id){%>
+                                <%if(elm.productvariation.id===cartproduct.productvariation.id){%>
+                                    <% elm.quantity+=1; %>
                                     <% flag = true; %>
                                 <%}%>
                             <%})%>
                             <%if(!flag){%>
-                                <% printed.push({variation:cartproduct.productvariation.id,quantity:1}); %>
+                                <% cartproduct.quantity = 1;%>
+                                <% printed.push(cartproduct); %>
                             <%}%>
-                            <%if(!flag){%>
+                        <%});%>
+                        <% printed.forEach((cartproduct)=>{ %>
                             <article class="media">
                                 <% cartproduct.product.images.forEach((image)=>{%>
                                     <%if(image.cover==1){%>
@@ -319,26 +322,23 @@
                                             <span id="quantity" class="is-size-7 has-text-black"></span>
                                         </div>
                                         <div class="column">
-                                            <%if(cartproduct.product.discount!==null && cartproduct.product.discount!==undefined){%>
-                                                <p id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-italic is-size-7 has-text-right has-text-danger">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>
-                                                <p id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.product.discount.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                            <%if(cartproduct.product.type==='prize'){%>
+                                                <% let points = (cartproduct.productvariation.price/500); %>
+                                                <p id="item-points" price="<%=points%>" class="has-text-right has-text-black">&nbsp;<%= Math.round(points*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p> 
                                             <%}else{%>
-                                                <p id="item-price" price="<%=cartproduct.productvariation.price%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                                <%if(cartproduct.product.discount!==null && cartproduct.product.discount!==undefined){%>
+                                                    <p id="item-old" price="<%=cartproduct.productvariation.price%>" style="text-decoration: line-through;" class="is-italic is-size-7 has-text-right has-text-danger">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>
+                                                    <p id="item-price" price="<%=cartproduct.totalPrice%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.product.discount.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                                <%}else{%>
+                                                    <p id="item-price" price="<%=cartproduct.productvariation.price%>" class="has-text-right has-text-black">$&nbsp;<%= Math.round(cartproduct.productvariation.price*cartproduct.quantity).toLocaleString("es-CO");%>&nbsp;</p>  
+                                                <%}%>
                                             <%}%>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                             </article>
-                            <%}else{%>
-                                <% printed.forEach(elm =>{%>
-                                    <%if(elm.variation===cartproduct.productvariation.id){%>
-                                        <% elm.quantity+=1;%>
-                                        <% flag = false; %>
-                                    <%}%>
-                                <%})%>
-                            <%}%>
-                        <%})%>
+                        <% }); %>
                         <div class="columns is-marginless is-paddingless is-size-7">
                             <div class="column">
                                 <div id="code-section" class="container">
@@ -368,6 +368,16 @@
                             </div>
                             <div class="column">
                                 <p class="has-text-weight-bold has-text-right">$&nbsp;<%= Math.round(session.cart.totalProducts).toLocaleString('es-CO')%></p>
+                            </div>
+                        </div>
+                        <div class="columns is-mobile is-marginless is-paddingles is-size-7">
+                            <div class="column">
+                                <div class="container">
+                                    <p class="has-text-left has-text-weight-bold">&nbsp;Puntos:</p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <p class="has-text-weight-bold has-text-right">&nbsp;<%= Math.round(session.cart.totalPoints).toLocaleString('es-CO')%></p>
                             </div>
                         </div>
                         <div class="columns is-mobile is-marginless is-paddingles is-size-7">
@@ -414,11 +424,11 @@
     let totals = <%- JSON.stringify(printed) %>;
 
     const quantites = () =>{
-        let list = document.querySelectorAll('.media-content');
+        let list = document.querySelectorAll('article > .media-content');
         for(let row of list){
             let select = row.querySelector('#quantity')
             totals.forEach(el =>{
-                if(el.variation.toString()===row.getAttribute('variation')){
+                if(el.id.toString()===row.getAttribute('variation')){
                     select.innerHTML='Cant: '+el.quantity;
                     let itemPrice = row.querySelector('#item-price')
                     itemPrice.innerHTML = '$ '+Math.round(itemPrice.getAttribute('price')*el.quantity).toLocaleString('es-CO')+'&nbsp;';
