@@ -38,12 +38,12 @@
     </div>
     <div class="column is-3"></div>
 </div>
-<script src="https://www.google.com/recaptcha/api.js?render=6LfK2-kUAAAAAHsiKw5JwC4Dd7AZYn3M9qmdJXY1"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3"></script>
 <script>
    live('#submit-forgot','click', e => {
         e.preventDefault();
         if(validateForm(document.querySelector('#forgot-form'))){
-            grecaptcha.execute('6LfK2-kUAAAAAHsiKw5JwC4Dd7AZYn3M9qmdJXY1', {action: 'forgot'}).then(token => {
+            grecaptcha.execute('6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3', {action: 'forgot'}).then(token => {
                 document.querySelector('input[name="token"]').value=token;
                 let rform = document.querySelector('#forgot-form');
                 rform.submit();

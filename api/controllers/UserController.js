@@ -20,7 +20,7 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='1ecommerce.app'){secret = '6Leo7ccZAAAAAFZspurQhYQ8NGn58vZiNqovrSKf'}else{secret = '6LfK2-kUAAAAAF6eGv3Ykl2hiz1nxw7FexjIrqOt'}
+    if(req.hostname==='ultravape.co'){secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';}
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',
@@ -81,12 +81,8 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='1ecommerce.app'){
-      secret = '6Leo7ccZAAAAAFZspurQhYQ8NGn58vZiNqovrSKf'
-    }else if(req.hostname==='iridio.co' || req.hostname==='demo.1ecommerce.app' || req.hostname==='localhost' || req.hostname==='ultravape.co'){
-      secret = '6LfK2-kUAAAAAF6eGv3Ykl2hiz1nxw7FexjIrqOt'
-    }else if(req.hostname==='sanpolos.com'){
-      secret = '6Lc4ItEZAAAAALMZ79KoHAM2NK6gIS3WJTBl5X8f'
+    if(req.hostname==='ultravape.co'){
+      secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';
     }
     let data = {secret:secret,response:req.body.token};
     let options = {
