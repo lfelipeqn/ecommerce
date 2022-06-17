@@ -53,7 +53,7 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     let AWS = require('aws-sdk');
-    AWS.config.loadFromPath('./config.json');
+    AWS.config.loadFromPath('./config1.json');
 
     var path = require('path');
     var url = require('url');
@@ -89,7 +89,7 @@ module.exports = {
       Destination: { /* required */
         ToAddresses: [inputs.to]
       },
-      Source: 'contacto@iridio.co', /* required */
+      Source: 'sales@ultrapharmacorp.us', /* required */
       /*ReplyToAddresses: [
         'EMAIL_ADDRESS',
       ],*/

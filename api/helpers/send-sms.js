@@ -18,7 +18,7 @@ module.exports = {
   },
   fn: async function (inputs,exits) {
     let AWS = require('aws-sdk');
-    AWS.config.loadFromPath('./config.json');
+    AWS.config.loadFromPath('./config1.json');
     let params = {
       Message: inputs.message,
       PhoneNumber: (inputs.destination).toString()

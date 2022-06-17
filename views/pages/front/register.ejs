@@ -135,6 +135,7 @@
         e.preventDefault();
         if(validateForm(document.querySelector('#register-form'))){
             grecaptcha.execute('6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3', {action: 'register'}).then(token => {
+                console.log(token);
                 document.querySelector('input[name="token"]').value=token;
                 let rform = document.querySelector('#register-form');
                 rform.submit();

@@ -20,7 +20,7 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='ultravape.co'){secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';}
+    /*if(req.hostname==='ultravape.co'){*/secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';/*}*/
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',
@@ -81,9 +81,9 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='ultravape.co'){
+    /*if(req.hostname==='ultravape.co'){*/
       secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';
-    }
+    /*}*/
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',
