@@ -1,4 +1,3 @@
-const { defaultOptionListAppearanceProvider } = require("pdf-lib");
 
 module.exports = {
   friendlyName: 'Fidelity',
