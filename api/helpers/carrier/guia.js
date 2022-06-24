@@ -14,16 +14,16 @@ module.exports = {
   },
   fn: async function (inputs,exits) {
     let soap = require('strong-soap').soap;
-    //let url = 'http://sandbox.coordinadora.com/agw/ws/guias/1.6/server.php?wsdl';
-    let url = 'http://guias.coordinadora.com/ws/guias/1.6/server.php?wsdl';
+    let url = 'http://sandbox.coordinadora.com/agw/ws/guias/1.6/server.php?wsdl';
+    //let url = 'http://guias.coordinadora.com/ws/guias/1.6/server.php?wsdl';
     let requestArgs={
       'p':{
         'codigo_remision': inputs.tracking,
         'margen_izquierdo':0,
         'margen_superior':0,
         'formato_impresion':null,
-        'usuario':'contenidodigital.ws',
-        'clave':'e8c5ad7349c80f352b916a5213f95d692813e370300240f947bc28b781e0dd7e',
+        'usuario':'ultrapharma.ws',
+        'clave':'0ca0f3400231bba13faabca2982ae051ace67713345bb797adad70d3220ec9a3',
       }
     };
     let options = {};

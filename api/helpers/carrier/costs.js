@@ -35,8 +35,8 @@ module.exports = {
         'detalle':{
           'item':[]
         },
-        'apikey':'154a892e-9909-11ea-bb37-0242ac130002',
-        'clave':'1V2JqxYZwtLVuY',
+        'apikey':'a91872a2-59cd-11ec-bf63-0242ac130002',
+        'clave':'iV3mS8qV8uE4pI5m',
       }
     };
     let items = [];
@@ -71,7 +71,7 @@ module.exports = {
       }
     }
     requestArgs.p.detalle.item = items;
-    let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','prod','tracking');
+    let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','test',/*'prod',*/'tracking');
     await Order.updateOne({id:order.id}).set({fleteFijo:parseFloat(result.Cotizador_cotizarResult.flete_fijo),fleteVariable:parseFloat(result.Cotizador_cotizarResult.flete_variable),fleteTotal:parseFloat(result.Cotizador_cotizarResult.flete_total)});
     return exits.success();
   }

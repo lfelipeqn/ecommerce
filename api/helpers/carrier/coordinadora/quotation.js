@@ -38,8 +38,8 @@ module.exports = {
         'detalle':{
           'item':[]
         },
-        'apikey':'154a892e-9909-11ea-bb37-0242ac130002',
-        'clave':'1V2JqxYZwtLVuY',
+        'apikey':'a91872a2-59cd-11ec-bf63-0242ac130002',
+        'clave':'iV3mS8qV8uE4pI5m',
       }
     };
 
@@ -97,7 +97,7 @@ module.exports = {
         }
         requestArgs.p.detalle.item = items;
         requestArgs.p.valoracion = ((sellervalue/1.19)*0.7).toString();
-        let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','prod','tracking');
+        let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','test',/*'prod',*/'tracking');
         shipping+=result.Cotizador_cotizarResult.flete_total;
       }
       await Cart.updateOne({id:cart.id}).set({shipping:shipping});

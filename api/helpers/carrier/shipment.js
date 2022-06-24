@@ -108,8 +108,8 @@ module.exports = {
           'nro_doc_radicados' : null,
           'nro_sobre' : null,
           'codigo_vendedor' : 0,
-          'usuario':'contenidodigital.ws',
-          'clave':'e8c5ad7349c80f352b916a5213f95d692813e370300240f947bc28b781e0dd7e',
+          'usuario':'ultrapharma.ws',
+          'clave':'0ca0f3400231bba13faabca2982ae051ace67713345bb797adad70d3220ec9a3',
         }
       };
       let items=[];
@@ -157,7 +157,7 @@ module.exports = {
        *   Guias_liquidacionGuia - Consultar el Valor de la Guía
        */
 
-      let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Guias_generarGuia','prod','guides')
+      let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Guias_generarGuia','test',/*'prod',*/'guides')
       .tolerate(() =>{ return; });
       if(result){
         const order = await Order.updateOne({id:inputs.order}).set({tracking:result.return.codigo_remision.$value});
