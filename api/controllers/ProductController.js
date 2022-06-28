@@ -249,6 +249,7 @@ module.exports = {
         .populate('channels');
       for (let pv in product.variations) {
         product.variations[pv].variation = await Variation.findOne({ id: product.variations[pv].variation });
+        product.variations[pv].package = product.variations[pv].package ? await Packages.findOne({ id: product.variations[pv].package }) : '';
       }
       for (let c of product.categories) {
         let cat = await Category.findOne({id: c.id}).populate('features');
@@ -427,11 +428,11 @@ module.exports = {
     let error = false;
     let product = await Product.findOne({ id: req.body[0].product }).populate('seller');
     for (let list of req.body) {
-      ProductVariation.findOrCreate({ id: list.productvariation }, { product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id })
+      ProductVariation.findOrCreate({ id: list.productvariation }, { product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id, package: list.package })
         .exec(async (err, record, wasCreated) => {
           if (err) { error = true; return res.send('error'); }
           if (!wasCreated) {
-            await ProductVariation.updateOne({ id: record.id }).set({ product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id });
+            await ProductVariation.updateOne({ id: record.id }).set({ product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id, package: list.package });
           }
         });
     }
@@ -448,6 +449,13 @@ module.exports = {
     let level2 = product.categories.map(c => c.id);
     let variations = await Variation.find({ where: { manufacturer: product.manufacturer, gender: product.gender, seller: product.seller, category: { in: level2 } } });
     return res.send(variations);
+  },
+  findpackages: async (req, res) => {
+    if (!req.isSocket) {
+      return res.badRequest();
+    }
+    let packages = await Packages.find({}).sort('updatedAt DESC');
+    return res.send(packages);
   },
   findproductvariations: async (req, res) => {
     if (!req.isSocket) {

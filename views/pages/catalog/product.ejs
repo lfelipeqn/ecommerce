@@ -346,6 +346,7 @@
                     <th scope="col" class="is-primary is-size-7">UPC</th>
                     <th scope="col" class="is-primary is-size-7">Precio</th>
                     <th scope="col" class="is-primary is-size-7">Cantidad</th>
+                    <th scope="col" class="is-primary is-size-7">Empaque</th>
                     <th scope="col" class="is-primary is-size-7"></th>
                 </tr>
                 </thead>
@@ -354,10 +355,10 @@
                     <% var rowcount=0; %>
                     <% product.variations.forEach((pv)=>{%>
                       <tr productv="<%= pv.id %>">
-                        <td scope="row" class="align-middle"><div class="field"><div class="dropdown is-small is-fullwidth">
+                        <td scope="row" class="align-middle"><div class="field"><div class="variation dropdown is-small is-fullwidth">
                           <input type="hidden" field="variation" name="variations[<%=rowcount%>][variation]" value="<%=pv.variation.id%>" />
                           <div class="dropdown-trigger">
-                              <button style="border:solid 1px #00d1b2;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
+                              <button style="border:solid 1px #006BF8;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
                                   <span id="drop-selected" class="is-uppercase is-size-7" value="<%=pv.variation.id%>" ><%=pv.variation.name%></span>
                                   <span class="icon is-small">
                                       <i class='bx bx-chevron-down'></i>
@@ -365,8 +366,8 @@
                               </button>
                           </div>
                           <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                              <!--<div class="dropdown-content">
-                              </div>-->
+                              <div class="dropdown-content">
+                              </div>
                           </div>
                           </div></div>
                         </td>
@@ -415,6 +416,22 @@
                             </div>
                           </div>
                         </td>
+                        <td scope="row" class="align-middle"><div class="package dropdown is-small is-fullwidth is-hoverable">
+                          <input type="hidden" field="package" name="variations[<%=rowcount%>][package]" <%if(action==='edit' && pv.package ){%>value="<%=pv.package.id %>"<%}else{%>value=""<%}%> />
+                          <div class="dropdown-trigger">
+                              <button style="border:solid 1px #006BF8;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
+                                  <span id="drop-selected" class="is-uppercase is-size-7" <%if(action==='edit' && pv.package ){%>value="<%=pv.package.id %>"<%}else{%>value=""<%}%> ><%if(action==='edit' && pv.package ){%><%=pv.package.packageName%><%}else{%>Elegir Empaque<%}%></span>
+                                  <span class="icon is-small">
+                                      <i class='bx bx-chevron-down'></i>
+                                  </span>
+                              </button>
+                          </div>
+                          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                              <div class="dropdown-content">
+                              </div>
+                          </div>
+                        </div>
+                      </td>
                         <td scope="row" class="align-middle"><a class="delete-row"><i class="bx bx-trash"></i></a></td>
                       </tr>
                       <% rowcount++%>
@@ -446,11 +463,11 @@
           rowprice = lastrow.value;
         }
         let newrow=[
-          `<td scope="row" class="align-middle"><div class="dropdown is-small is-fullwidth is-hoverable">
+          `<td scope="row" class="align-middle"><div class="variation dropdown is-small is-fullwidth is-hoverable">
               <input type="hidden" field="variation" name="variations[`+rowid+`][variation]" value="0" />
               <div class="dropdown-trigger">
-                  <button style="border:solid 1px #00d1b2;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
-                      <span id="drop-selected" class="is-uppercase is-size-7" value="0" >-- Elegir Variación --</span>
+                  <button style="border:solid 1px #006BF8;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span id="drop-selected" class="is-uppercase is-size-7" value="0" >Elegir Variación</span>
                       <span class="icon is-small">
                           <i class='bx bx-chevron-down'></i>
                       </span>
@@ -468,6 +485,22 @@
           '<td scope="row" class="align-middle"><div class="field is-small"><div class="control"><input class="input is-primary is-small has-text-right" type="number" min="111111111111" max="999999999999" field="upc" name="variations['+rowid+'][upc]" value="" placeholder="UPC"/></div></div></td>',
           '<td scope="row" class="align-middle"><div class="field"><div class="control has-icons-left"><input required class="input is-primary is-small has-text-right prices" type="number" field="price" name="variations['+rowid+'][price]" value="'+rowprice+'" placeholder="Precio"/><span class="icon is-small is-left"><i class="bx bx-dollar"></i></span></div></div></td>',
           '<td scope="row" class="align-middle"><div class="field is-small"><div class="control"><input class="input is-primary is-small has-text-right" type="number" field="quantity" name="variations['+rowid+'][quantity]" value="0" placeholder="Cantidad"/></div></div></td>',
+          `<td scope="row" class="align-middle"><div class="package dropdown is-small is-fullwidth is-hoverable">
+              <input type="hidden" field="package" name="variations[`+rowid+`][package]" value="0" />
+              <div class="dropdown-trigger">
+                  <button style="border:solid 1px #006BF8;" class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span id="drop-selected" class="is-uppercase is-size-7" value="0" >Elegir Empaque</span>
+                      <span class="icon is-small">
+                          <i class='bx bx-chevron-down'></i>
+                      </span>
+                  </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content">
+                  </div>
+              </div>
+            </div>
+          </td>`,
           '<td scope="row" class="align-middle"><a class="delete-row"><i class="bx bx-trash"></i></a></td>'
         ];
         let row = variations.tBodies[0].insertRow(variations.tBodies[0].rows.length);
@@ -492,8 +525,54 @@
             variations.deleteRow(row.rowIndex);
           }
         });
-
-        live('.dropdown > .button, .button > span','click', e=>{
+        live('.package .button #drop-selected ','click', e=>{          
+          e.preventDefault();
+          let elm = e.target;
+          let parent = elm.closest('.dropdown');
+          elm = parent;
+          if(hasClass(parent.querySelector('.dropdown-menu'),'is-invisible')){
+            removeClass(parent.querySelector('.dropdown-menu'),'is-invisible');
+          }
+          let node = elm.parentNode.parentNode;
+          let id = document.querySelector('#product-data').value;
+          let oplist = document.querySelectorAll('.dropdown input');
+          let opcheck = [];
+          for(let ol of oplist){
+            if(!opcheck.includes(ol.value)){
+              opcheck.push(ol.value);
+            }
+          }
+          if(!hasClass(node,'is-active')){
+              let content = elm.querySelector('.dropdown-content');
+              let svalue = elm.querySelector('input');
+              if(content.children.length<1){
+                  io.socket.get('/findpackages/'+id,resData=>{
+                      let o = document.createElement('a');
+                      addClass(o,'dropdown-item');
+                      addClass(o,'is-uppercase');
+                      addClass(o,'is-size-7');
+                      o.setAttribute('value','0');
+                      o.text='Elegir Empaque';
+                      content.prepend(o);
+                      resData.forEach(op =>{
+                        /*if(!opcheck.includes(op.id)){*/
+                          o = document.createElement('a');
+                          addClass(o,'dropdown-item');
+                          addClass(o,'is-uppercase');
+                          addClass(o,'is-size-7');
+                          o.setAttribute('value',op.id);
+                          o.text=op.packageName;
+                          content.appendChild(o)
+                          /*}*/
+                      });
+                  });
+              }
+              addClass(node,'is-active');
+            }else{
+              removeClass(node,'is-active');
+            }
+        });
+        live('.variation .button #drop-selected','click', e=>{
           e.preventDefault();
           let elm = e.target;
           let parent = elm.closest('.dropdown');
@@ -520,7 +599,7 @@
                       addClass(o,'is-uppercase');
                       addClass(o,'is-size-7');
                       o.setAttribute('value','0');
-                      o.text='-- Elegir Variación --';
+                      o.text='Elegir Variación';
                       content.prepend(o);
                       resData.forEach(op =>{
                         if(!opcheck.includes(op.id)){
@@ -540,7 +619,7 @@
               removeClass(node,'is-active');
           }
     });
-    live('.dropdown-item','click',e=>{
+        live('.dropdown-item','click',e=>{
         let option = e.target
         let elm = e.target.parentNode.parentNode.parentNode;
         let selected = elm.querySelector('#drop-selected');

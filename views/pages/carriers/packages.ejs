@@ -1,0 +1,123 @@
+<div class="container">
+  <% if (error != undefined || error != null) { %>
+    <div class="notification is-danger is-light" id="error">
+        <%= error %>
+    </div>
+  <% } %>
+  <% if(action=='create' || action=='edit'){ %>  
+        <div class="container">
+            <br />
+            <h4 class="title is-4">Crear Empaque</h4>
+            <hr>
+            <% if(action=='create') { %>
+              <form action="/packets/create" method="POST">
+            <% } %>
+            <% if(action=='edit') { %>
+              <form action="/packets/edit/<%= pack.id %>" method="POST">
+            <% } %>
+              <div class="box">
+                <div class="columns">
+                  <div class="column">
+                    <div class="field">
+                      <label class="label">Nombre del Empaque</label>
+                      <div class="control">
+                        <input class="input is-capitalized" type="text" name="packageName" required="true" placeholder="Nombre del Empaque" <% if(action=='edit'){ %>value="<%= pack.packageName %>"<% }%>/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Ancho de Paquete en CM</label>
+                  <div class="control">
+                    <input class="input" type="number" min="0" max="120" step="0.01" name="width" required="true" placeholder="Ancho del Paquete" <% if(action=='edit'){ %>value="<%= pack.width %>"<% }%>/>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Alto de Paquete en CM</label>
+                  <div class="control">
+                    <input class="input" type="number" min="0" max="120" step="0.01" name="height" required="true" placeholder="Alto del Paquete" <% if(action=='edit'){ %>value="<%= pack.height %>"<% }%>/>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Largo de Paquete en CM</label>
+                  <div class="control">
+                    <input class="input" type="number" min="0" max="120" step="0.01" name="length" required="true" placeholder="Largo del Paquete" <% if(action=='edit'){ %>value="<%= pack.length %>"<% }%>/>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Peso de Paquete en KG</label>
+                  <div class="control">
+                    <input class="input" type="number" min="0" max="20" step="0.01" name="weight" required="true" placeholder="Peso del Paquete en KG" <% if(action=='edit'){ %>value="<%= pack.weight %>"<% }%>/>
+                  </div>
+                </div>
+                <div class="control buttons is-right">
+                  <% if(action=='edit'){ %> 
+                    <button type="submit" class="button is-primary"><i class="bx bxs-pencil"></i>&nbsp;Modificar Empaque</button>
+                  <% }else if (action=='create'){ %>
+                    <button type="submit" class="button is-primary"><i class="bx bx-plus-circle"></i>&nbsp;Crear Empaque</button>
+                  <% } %>
+                </div>
+              </div>
+            </form>
+          </div>
+    <% } else { %>
+        <p style="text-align: right;font-size: 20px; margin-right: 5px;">
+            <a href="/packets/create" class="has-text-primary"><i class='bx bxs-plus-square'></i></a>
+        </p>
+        <div class="table-container">
+            <table class="table is-hoverable" id="packages-table">
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Ancho</th>
+                    <th scope="col">Alto</th>
+                    <th scope="col">Largo</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% packages.forEach(function(pack){ %>
+                        <tr>
+                            <td class="align-middle is-capitalized"><%= pack.packageName %></td>
+                            <td class="align-middle"><%= pack.width %>&nbsp;CM</td>
+                            <td class="align-middle"><%= pack.height %>&nbsp;CM</td>
+                            <td class="align-middle"><%= pack.length %>&nbsp;CM</td>
+                            <td class="align-middle"><%= pack.weight %>&nbsp;KG</td>
+                            <td class="align-middle">
+                            <a href="/packets/edit/<%= pack.id %>" class="button is-small">
+                                <span class="icon">
+                                <i class="bx bxs-edit"></i>
+                                </span>
+                            </a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                let table = new simpleDatatables.DataTable('#packages-table',{
+                searchable:true,
+                sortable:true,
+                paging:true,
+                labels: {
+                    placeholder: "Buscar...",
+                    perPage: "{select} registros por página",
+                    noRows: "No se encontraron datos",
+                    info: "Mostrando {start} a {end} de {rows} registros",
+                }
+                });  
+            });
+        </script>
+    <% } %>
+    <script>
+      setTimeout(function() {
+        var el = document.getElementById('error');
+        if(el){
+          el.style.display='none';
+        }
+      }, 4500);
+    </script>
+</div>

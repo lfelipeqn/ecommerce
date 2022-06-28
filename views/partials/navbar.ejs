@@ -1,6 +1,6 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='ultravape.co'){%>
+      <%if(req.hostname==='localhost' || req.hostname==='ultravape.co'){%>
         <a style="background: none;" class="navbar-item" href="/"><img src="<%=cdnurl ? cdnurl : imgurl%>/logo-amarillo-112.png"></a>
       <%}else if(req.hostname==='1ecommerce.app'){%>
         <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>

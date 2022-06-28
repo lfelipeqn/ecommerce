@@ -63,6 +63,7 @@
     </p>
     <ul class="menu-list">
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('showcarriers')){%><li><a href="/carriers">Transporte</a></li><%}%>
+      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('showpackages')){%><li><a href="/packets">Paquetes</a></li><%}%>
       <%if(req.session.user.rights.name !== 'superadmin' && req.session.user.rights.name !== 'admin'){%><li><a href="/generateguides">Envíos</a></li><%}%>
       <%if(req.session.user.rights.name !== 'superadmin' && req.session.user.rights.name !== 'admin'){%><li><a href="/channelmessages/<%=session.user.seller%>">Mensajería</a></li><%}%>
       <%if(req.session.user.rights.name !== 'superadmin' && req.session.user.rights.name !== 'admin'){%><li><a href="/messages">Mensajes predeterminados</a></li><%}%>

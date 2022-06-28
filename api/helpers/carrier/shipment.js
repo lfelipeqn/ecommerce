@@ -57,7 +57,7 @@ module.exports = {
         'Guias_generarGuia':{
           'codigo_remision' : null,
           'fecha' : null,
-          'id_cliente' : order && order.paymentMethod==='COD' ? 37508 : 37507,
+          'id_cliente' : 37508/* : 37507*/,
           'id_remitente' : 0,
           'nit_remitente' : seller.dni,
           'nombre_remitente' : seller.name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,''),

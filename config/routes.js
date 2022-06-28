@@ -137,6 +137,7 @@ module.exports.routes = {
   'POST /products/variations/:id' : {controller:'ProductController',action:'productvariations'},
   'DELETE /variations/remove/:id' : {controller:'ProductController',action:'deletevariations'},
   'GET /findvariations/:id' : {controller:'ProductController',action:'findvariations'},
+  'GET /findpackages/:id' : {controller:'ProductController',action:'findpackages'},
   'GET /findproductvariations/:id' : {controller:'ProductController',action:'findproductvariations'},
   'POST /import-products' : {controller:'ProductController',action:'importProducts'},
   'POST /import-images' : {controller:'ProductController',action:'importImages'},
@@ -177,6 +178,9 @@ module.exports.routes = {
   'GET /find/brand/:id' : {controller:'ManufacturersController',action:'findbrands'},
 
   'GET /carriers/:action?/:id?' : {controller:'CarrierController',action:'showcarriers'},
+  'GET /packets/:action?/:id?' : {controller:'CarrierController',action:'showpackets'},
+  'POST /packets/create' : {controller:'CarrierController',action:'createpackage'},
+  'POST /packets/edit/:id' : {controller:'CarrierController',action:'editpackage'},
   'POST /carrier/create' : {controller:'CarrierController',action:'createcarrier'},
   'PUT /carrier/:id' : {controller:'CarrierController',action:'carrierstate'},
   'POST /carrier/edit/:id' : {controller:'CarrierController',action:'editcarrier'},
