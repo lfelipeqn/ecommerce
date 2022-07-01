@@ -1,3 +1,5 @@
+const { disableExperimentalFragmentVariables } = require("graphql-tag");
+
 module.exports = {
   friendlyName: 'Quotation',
   description: 'Quotation coordinadora.',
@@ -23,7 +25,13 @@ module.exports = {
 
     let cartvalue = 0;let sellervalue = 0;
     let shipping = 0;
-    let citems = await CartProduct.find({cart:cart.id}).populate('product');
+    let citems = await CartProduct.find({cart:cart.id})
+    .populate('product')
+    .populate('productvariation');
+
+    for(let pkg of citems){
+      pkg.productvariation.package = pkg.productvariation.package ? await Packages.findOne({id: pkg.productvariation.package}): '';
+    }
 
     let requestArgs={
       'p':{
@@ -49,60 +57,40 @@ module.exports = {
         if(!sellers.includes(item.product.seller)){sellers.push(item.product.seller)}
       }
     }
-
-    if(cartvalue>=130000){
+    //Esto se habilita para no cobrar transporte
+    /*if(cartvalue>=130000){
       await Cart.updateOne({id:cart.id}).set({shipping:0});
       return exits.success({cartvalue:cartvalue,shipping:0});
-    }else{
-      let allsellers = await Seller.find({
-        where:{id:sellers},
-        select:['mainAddress']
-      }).populate('mainAddress');
+    }else{*/
+    let allsellers = await Seller.find({
+      where:{id:sellers},
+      select:['mainAddress']
+    }).populate('mainAddress');
 
-      for(let seller of allsellers){
-        let city = await City.findOne({id:seller.mainAddress.city});
-        requestArgs.p.origen = city.code+'000';
-        let sellerproducts = citems.filter(elm => elm.product.seller===seller.id && elm.product.type!=='prize');
-        let items = [];
-        for(let sp of sellerproducts){
-          if(items.length<1){
-            items.push({
-              'ubl':'0',
-              'alto':(sp.product.height).toString(),
-              'ancho':(sp.product.width).toString(),
-              'largo':(sp.product.length).toString(),
-              'peso': (sp.product.weight).toString(),
-              'unidades':'1',
-            });
-          }else{
-            let added = false;
-            for(let it of items){
-              if(it.alto===(sp.product.height).toString() && it.ancho===(sp.product.width).toString() && it.largo===(sp.product.length).toString() && it.peso===(sp.product.weight).toString()){
-                it.unidades= (parseInt(it.unidades)+1).toString();
-                added=true;
-              }
-            }
-            if(!added){
-              items.push({
-                'ubl':'0',
-                'alto':(sp.product.height).toString(),
-                'ancho':(sp.product.width).toString(),
-                'largo':(sp.product.length).toString(),
-                'peso': (sp.product.weight).toString(),
-                'unidades':'1',
-              });
-            }
-          }
-          sellervalue+=sp.totalPrice;
-        }
-        requestArgs.p.detalle.item = items;
-        requestArgs.p.valoracion = ((sellervalue/1.19)*0.7).toString();
-        let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','test',/*'prod',*/'tracking');
-        shipping+=result.Cotizador_cotizarResult.flete_total;
+    for(let seller of allsellers){
+      let city = await City.findOne({id:seller.mainAddress.city});
+      requestArgs.p.origen = city.code+'000';
+      let sellerproducts = citems.filter(elm => elm.product.seller===seller.id && elm.product.type!=='prize');
+      let items = [];
+      for(let sp of sellerproducts){
+        items.push({
+          'ubl':'0',
+          'alto':(sp.productvariation.package.height).toString(),
+          'ancho':(sp.productvariation.package.width).toString(),
+          'largo':(sp.productvariation.package.length).toString(),
+          'peso': (sp.productvariation.package.weight).toString(),
+          'unidades':'1',
+        });
+        sellervalue+=sp.totalPrice;
       }
-      await Cart.updateOne({id:cart.id}).set({shipping:shipping});
-      return exits.success({cartvalue:cartvalue+shipping,shipping:shipping});
+      requestArgs.p.detalle.item = items;
+      requestArgs.p.valoracion = ((sellervalue/1.19)*0.7).toString();
+      let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Cotizador_cotizar','test',/*'prod',*/'tracking');
+      shipping+=result.Cotizador_cotizarResult.flete_total;
     }
+    await Cart.updateOne({id:cart.id}).set({shipping:shipping});
+    return exits.success({cartvalue:cartvalue+shipping,shipping:shipping});
+    /*}*/
   }
 };
 
