@@ -313,11 +313,7 @@ module.exports = {
           manufacturer: req.body.manufacturer,
           activity: req.body.activity || '',
           gender: req.body.gender,
-          seller: req.body.seller,
-          width: req.body.width,
-          height: req.body.height,
-          length: req.body.length,
-          weight: req.body.weight
+          seller: req.body.seller
         }).fetch();
         await Product.addToCollection(product.id, 'categories', JSON.parse(req.body.categories));
       } else {
@@ -335,10 +331,6 @@ module.exports = {
           activity: req.body.activity || '',
           gender: req.body.gender,
           seller: req.body.seller,
-          width: req.body.width,
-          height: req.body.height,
-          length: req.body.length,
-          weight: req.body.weight
         });
         await Product.replaceCollection(product.id, 'categories').members(JSON.parse(req.body.categories));
         await sails.helpers.tools.productState(product.id,product.active,true,seller.active);
@@ -1328,10 +1320,6 @@ module.exports = {
         if (gender.length > 0) { prod.gender = gender[0]; gen = await Gender.findOne({id:gender[0]});} else { throw new Error('No logramos identificar el género para este producto.'); }
         let eval = req.body.product.active.toLowerCase().trim();
         prod.active = (eval === 'true' || eval === '1' || eval === 'verdadero' || eval === 'si' || eval === 'sí') ? true : false;
-        prod.width = parseFloat(req.body.product.width.replace(',', '.'));
-        prod.height = parseFloat(req.body.product.height.replace(',', '.'));
-        prod.length = parseFloat(req.body.product.length.replace(',', '.'));
-        prod.weight = parseFloat(req.body.product.weight.replace(',', '.'));
         prod.seller = seller;
         prod.group = req.body.product.group || '';
         prod.description = req.body.product.description;
@@ -1498,10 +1486,6 @@ module.exports = {
       prod.externalId = req.body.product.externalId || '';
       prod.group = req.body.product.group || '';
       prod.active = req.body.product.active;
-      prod.width = (req.body.product.width === undefined || req.body.product.width === null || req.body.product.width < 1) ? 15 : req.body.product.width;
-      prod.height = (req.body.product.height === undefined || req.body.product.height === null || req.body.product.height < 1) ? 15 : req.body.product.height;
-      prod.length = (req.body.product.length === undefined || req.body.product.length === null || req.body.product.length < 1) ? 32 : req.body.product.length;
-      prod.weight = (req.body.product.weight === undefined || req.body.product.weight === null || req.body.product.weight === 0) ? 1 : req.body.product.weight;
       prod.description = req.body.product.description;
       prod.descriptionShort = req.body.product.descriptionShort;
       prod.seller = seller;

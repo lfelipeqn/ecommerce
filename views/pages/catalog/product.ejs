@@ -104,30 +104,6 @@
               <input class="input is-capitalized is-size-7" <%if(action=='edit'){%>readonly<%}%> type="text" placeholder="Referencia del Producto" name="reference" <% if(action=='edit'){ %> value="<%= product.reference %>" <% } %> />
             </div>
           </div>
-          <div class="column">
-            <div class="control">
-              <label class="label is-inline is-size-7" for="reference">Ancho del empaque (cm)</label>
-              <input class="input is-size-7" type="number" placeholder="Ancho del Empaque" name="width" <% if(action=='edit'){ %> value="<%= product.width %>" <% } %> />
-            </div>
-          </div>
-          <div class="column">
-            <div class="control">
-              <label class="label is-inline is-size-7" for="reference">Alto del empaque (cm)</label>
-              <input class="input is-size-7" type="number" placeholder="Alto del Empaque" name="height" <% if(action=='edit'){ %> value="<%= product.height %>" <% } %> />
-            </div>
-          </div>
-          <div class="column">
-            <div class="control">
-              <label class="label is-inline is-size-7" for="reference">Largo del empaque (cm)</label>
-              <input class="input is-size-7" type="number" placeholder="Largo" name="length" <% if(action=='edit'){ %> value="<%= product.length %>" <% } %> />
-            </div>
-          </div>
-          <div class="column">
-            <div class="control">
-              <label class="label is-inline is-size-7" for="reference">Peso Empacado (kg)</label>
-              <input class="input is-size-7" type="number" placeholder="Peso" name="weight" <% if(action=='edit'){ %> value="<%= product.weight %>" <% } %> />
-            </div>
-          </div>
         </div>
         <div class="columns">
           <div class="column">
@@ -1275,10 +1251,6 @@
           gender:form.querySelector('select[name="gender"]').value,
           categories:lcat,
           tax:form.querySelector('select[name="tax"]').value,
-          width:form.querySelector('input[name="width"]').value,
-          height:form.querySelector('input[name="height"]').value,
-          length:form.querySelector('input[name="length"]').value,
-          weight:form.querySelector('input[name="weight"]').value,
           descriptionshort:textdescriptionshort,
           description:textdescription,
           group:form.querySelector('input[name="group"]').value
