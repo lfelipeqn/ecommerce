@@ -15,11 +15,16 @@ module.exports = {
     .populate('customer')
     .populate('currentstatus');
 
-    let orderdetail = await OrderItem.find({order:order.id});
+    let orderdetail = await OrderItem.find({order:order.id})
+    .populate('product')
+    .populate('productvariation');
     let quantity = 0;
+    let points = 0;
     for(let item of orderdetail){
-      let variation = await ProductVariation.findOne({id:item.productvariation}).populate('variation');
-      quantity+= variation.variation.packageunits ? variation.variation.packageunits : 1;
+      item.product.fidelityplan = await FidelityPlan.findOne({id:item.product.fidelityplan});
+      item.productvariation.package = await Packages.findOne({id:item.productvariation.package});
+      quantity+= item.productvariation.package.packageunits ? item.productvariation.package.packageunits : 1;
+      points += quantity*item.product.fidelityplan.amount;
     }
 
     let fidelity = null;
@@ -28,7 +33,7 @@ module.exports = {
       status:order.currentstatus.id,
       pointvalue:500
     };
-    points = quantity*2;
+
     let userfilter = [{id:order.customer.id}];
     if(order.customer.referred){
       userfilter[1]={referred:order.customer.referred};
@@ -39,7 +44,7 @@ module.exports = {
     });
 
     if(users.lenght>1){
-      points = points/2;
+      points = points/users.lenght;
     }
     switch(order.currentstatus.name){
       case 'aceptado':

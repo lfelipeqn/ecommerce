@@ -22,6 +22,7 @@ module.exports = {
     externalId:{type:'string'},
     stock:{type:'boolean',defaultsTo:false},
     seller: {model:'seller'},
+    fidelityplan:{model:'fidelityplan'},
     activity:{type:'string'},
     categories:{
       collection:'category',

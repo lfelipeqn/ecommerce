@@ -49,6 +49,7 @@ module.exports = {
         height:req.body.height,
         length:req.body.length,
         weight:req.body.weight,
+        packageunits: req.body.packageunits
       });
     }catch(err){
       error=err;
@@ -74,6 +75,7 @@ module.exports = {
         height:req.body.height,
         length:req.body.length,
         weight:req.body.weight,
+        packageunits: req.body.packageunits
       });
 
     }catch(err){
@@ -84,7 +86,9 @@ module.exports = {
           width:req.body.width,
           height:req.body.height,
           length:req.body.length,
-          weight:req.body.weight,});
+          weight:req.body.weight,
+          packageunits: req.body.packageunits
+        });
       }
     }
 

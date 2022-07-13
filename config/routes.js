@@ -206,16 +206,19 @@ module.exports.routes = {
   'POST /confirmationinvoice/:action' : {controller:'SellerController', action:'confirmationinvoice', csrf:false},
   'POST /verifyorder' : {controller:'OrderController', action:'verifyorder'},
   'POST /guideprocess/:id' : {controller:'OrderController', action:'guideprocess'},
+
   'GET /discounts/:action?/:id?' : {controller:'DiscountController',action:'discounts'},
   'POST /discount/:action/:id?' : {controller:'DiscountController',action:'creatediscount'},
   'POST /productdiscount' : {controller:'DiscountController',action:'productdiscount'},
   'PUT /removepdiscount' : {controller:'DiscountController',action:'removepdiscount'},
-
   'GET /coupons/:action?/:id?' : {controller:'DiscountController',action:'coupons'},
   'GET /fidelity/:id?' : {controller:'DiscountController',action:'fidelity'},
   'POST /coupon/create' : {controller:'DiscountController',action:'createcoupon'},
   'POST /coupon/edit/:id' : {controller:'DiscountController',action:'editcoupon'},
   'PUT /random' : {controller:'DiscountController',action:'random'},
+  'GET /fidelityplan/:action?/:id?' : {controller:'DiscountController',action:'fidelityplan'},
+  'POST /fidelityplan/:action/:id?' : {controller:'DiscountController',action:'createfidelityplan'},
+
   'PUT /order/update' : {controller:'OrderController',action:'updateorder'},
   'PUT /order/update/coppel' : {controller:'OrderController',action:'updatecoppel'},
   'GET /users/:action?/:id?' : {controller:'UserController',action:'users'},

@@ -63,7 +63,6 @@ module.exports = {
         wide:req.body.wide ? req.body.wide : null,
         unit:req.body.unit ? req.body.unit : 1,
         measure:req.body.measure ? req.body.measure : 'unidad',
-        packageunits: req.body.packageunits ? req.body.packageunits : 1,
         manufacturer: req.body.brand ? req.body.brand : null,
       });
     }catch(err){
@@ -95,7 +94,6 @@ module.exports = {
         wide:req.body.wide ? req.body.wide : null,
         unit:req.body.unit ? req.body.unit : 1,
         measure:req.body.measure ? req.body.measure : 'unidad',
-        packageunits: req.body.packageunits ? req.body.packageunits : 1,
         manufacturer: req.body.brand ? req.body.brand : null,
       });
     }catch(err){

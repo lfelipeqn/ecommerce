@@ -17,7 +17,6 @@ module.exports = {
     wide:{type:'number', allowNull:true},
     unit:{type:'number', allowNull:true},
     measure:{type:'string', isIn:['centímetro', 'gramo','mililitro','unidad']},
-    packageunits:{type:'number', defaultsTo:1},
     gender:{model:'gender'},
     category:{model:'category'},
     seller:{model:'seller'},

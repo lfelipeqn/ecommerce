@@ -202,6 +202,7 @@ module.exports = {
     const brands = await Manufacturer.find();
     const colors = await Color.find();
     const genders = await Gender.find();
+    const fidelityplan = await FidelityPlan.find();
     let sellers = null;
     let helper = 'catalog';
     let integrations = null;
@@ -273,6 +274,7 @@ module.exports = {
       brands: brands,
       colors: colors,
       genders: genders,
+      fidelityplan,
       sellers: sellers,
       integrations: integrations,
       taxes: taxes,
@@ -305,15 +307,16 @@ module.exports = {
           reference: req.body.reference.toUpperCase().trim(),
           description: req.body.description,
           descriptionShort: req.body.descriptionshort,
-          group:req.body.group ? req.body.group : '',
+          group:req.body.group,
           active: req.body.active,
           tax: req.body.tax,
           mainCategory: req.body.mainCategory,
           mainColor: req.body.mainColor,
           manufacturer: req.body.manufacturer,
-          activity: req.body.activity || '',
+          activity: req.body.activity,
           gender: req.body.gender,
-          seller: req.body.seller
+          seller: req.body.seller,
+          fidelityplan: req.body.fidelityplan,
         }).fetch();
         await Product.addToCollection(product.id, 'categories', JSON.parse(req.body.categories));
       } else {
@@ -322,15 +325,16 @@ module.exports = {
           reference: req.body.reference.toUpperCase().trim(),
           description: req.body.description,
           descriptionShort: req.body.descriptionshort,
-          group:req.body.group ? req.body.group : '',
+          group:req.body.group,
           active: req.body.active,
           tax: req.body.tax,
           mainCategory: req.body.mainCategory,
           mainColor: req.body.mainColor,
           manufacturer: req.body.manufacturer,
-          activity: req.body.activity || '',
+          activity: req.body.activity,
           gender: req.body.gender,
           seller: req.body.seller,
+          fidelityplan: req.body.fidelityplan
         });
         await Product.replaceCollection(product.id, 'categories').members(JSON.parse(req.body.categories));
         await sails.helpers.tools.productState(product.id,product.active,true,seller.active);

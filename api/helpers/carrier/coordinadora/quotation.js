@@ -1,4 +1,3 @@
-const { disableExperimentalFragmentVariables } = require("graphql-tag");
 
 module.exports = {
   friendlyName: 'Quotation',

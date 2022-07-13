@@ -1,0 +1,123 @@
+<div class="container">
+    <% if (error != undefined || error != null) { %>
+      <div class="notification is-danger is-light" id="error">
+          <%= error %>
+      </div>
+    <% } %>
+    <% if(action=='create' || action=='edit'){ %>  
+          <div class="container">
+              <br />
+              <h4 class="title is-4">Crear Plan de Fidelización</h4>
+              <hr>
+              <% if(action=='create') { %>
+                <form action="/fidelityplan/create" method="POST">
+              <% } %>
+              <% if(action=='edit') { %>
+                <form action="/fidelityplan/edit/<%= planid.id %>" method="POST">
+              <% } %>
+              <div class="columns">
+                  <div class="column">
+                    <div class="field">
+                        <label class="label">Nombre de Plan de Fidelizacion</label>
+                        <div class="control">
+                            <input class="input" type="text" name="fidelityPlan" required="true" placeholder="Nombre del Plan de Fidelización" <% if(action=='edit'){ %>value="<%= planid.fidelityPlan %>"<% }%>/>
+                        </div>
+                    </div>
+                      <div class="columns is-mobile">
+                          <div class="column">
+                            <div class="field">
+                                <label class="label">Tipo</label>
+                                <div class="select control">
+                                    <select name="typeFidelity">
+                                    <option value="Q" <%if(action=='edit' && planid.typeFidelity=='Q'){ selected="selected"}%>>Puntos por Cantidad comprada</option>
+                                    <option value="C" <%if(action=='edit' && planid.typeFidelity=='C'){ selected="selected"}%>>Puntos por Valor comprado</option>
+                                    </select>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="field">
+                                <label class="label">Cantidad de Puntos</label>
+                                <div class="control">
+                                  <input class="input" type="number" name="amount" required="true" placeholder="Cantidad de Puntos" <% if(action=='edit'){ %>value="<%= planid.amount %>"<% }%>/>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            <div class="control buttons is-right">
+                <% if(action=='edit'){ %> 
+                    <button type="submit" class="button is-primary"><i class="bx bxs-pencil"></i>&nbsp;Modificar Plan de Fidelización</button>
+                <% }else if (action=='create'){ %>
+                    <button type="submit" class="button is-primary"><i class="bx bx-plus-circle"></i>&nbsp;Crear Plan de Fidelización</button>
+                <% } %>
+            </div>
+            </form>
+        </div>
+      <% } else { %>
+          <p style="text-align: right;font-size: 20px; margin-right: 5px;">
+              <a href="/fidelityplan/create" class="button is-primary is-size-7"><i class='bx bxs-discount is-size-5'></i></i>&nbsp;&nbsp;Crear Plan de Fidelización</a>
+          </p>
+          <div class="table-container">
+              <table class="table is-hoverable" id="fidelityplan-table">
+                  <thead>
+                  <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Puntos</th>
+                      <th scope="col">Opciones</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <% fidelityplan.forEach(function(fidelityp){ %>
+                          <tr>
+                              <td class="align-middle is-capitalized"><%= fidelityp.fidelityPlan %></td>
+                              <td class="align-middle">
+                                <% if(fidelityp.typeFidelity==='Q'){%>
+                                  <span>Puntos por Cantidad</span>
+                                <%}else{%>
+                                  <span>Puntos por Valor</span>
+                                <%} %>
+                              </td>
+                              <td class="align-middle"><%= fidelityp.amount %></td>
+                              <td class="align-middle">
+                              <a href="/fidelityplan/edit/<%= fidelityp.id %>" class="button is-small">
+                                  <span class="icon">
+                                  <i class="bx bxs-edit"></i>
+                                  </span>
+                              </a>
+                              </td>
+                          </tr>
+                      <% }); %>
+                  </tbody>
+              </table>
+          </div>
+          <script>
+              document.addEventListener('DOMContentLoaded', function(){
+                  let table = new simpleDatatables.DataTable('#fidelityplan-table',{
+                  searchable:true,
+                  sortable:true,
+                  paging:true,
+                  perPageSelect:[5,10,20,30,50],
+                  perPage:50,
+                  labels: {
+                      placeholder: "Buscar...",
+                      perPage: "{select} registros por página",
+                      noRows: "No se encontraron datos",
+                      info: "Mostrando {start} a {end} de {rows} registros",
+                  }
+                  });  
+              });
+          </script>
+      <% } %>
+      <script>
+        setTimeout(function() {
+          var el = document.getElementById('error');
+          if(el){
+            el.style.display='none';
+          }
+        }, 6000);
+  
+      </script>
+  </div>

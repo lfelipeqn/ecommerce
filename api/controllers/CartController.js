@@ -10,7 +10,7 @@ module.exports = {
     let cart = null;
     let seller = null;
     let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='localhost' && req.hostname!=='ultravape.co'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});

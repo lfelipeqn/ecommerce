@@ -52,6 +52,7 @@
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a class="navbar-item" href="/discounts">Descuentos</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a class="navbar-item" href="/coupons">Cupones</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a href="/campaigns">Campañas</a></li><%}%>
+      <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a href="/fidelityplan">Planes de Fidelización</a></li><%}%>
       <%if(req.session.user.rights.name=='superadmin' || req.session.user.rights.permissions.includes('discounts')){%><li><a href="/fidelity">Fidelización</a></li><%}%>
     </ul>
     <%}%>

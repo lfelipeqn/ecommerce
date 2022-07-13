@@ -13,6 +13,7 @@ module.exports = {
     height:{type:'number'},
     length:{type:'number'},
     weight:{type:'number'},
+    packageunits:{type:'number', defaultsTo:1},
     variations:{
       collection:'productvariation',
       via:'package'
