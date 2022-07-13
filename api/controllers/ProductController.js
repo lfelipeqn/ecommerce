@@ -174,7 +174,7 @@ module.exports = {
         `<td class="align-middle is-uppercase"><a href="#" class="product-image" data-product="` + p.id + `">` + p.name + `</a></td>`,
         `<td class="align-middle">` + p.reference + `</td>`,
         `<td class="align-middle is-capitalized">` + (p.manufacturer ? p.manufacturer.name : '') + `</td>`,
-        `<td class="align-middle"> ` + (price ? formatter.format(price) : formatter.format(0)) + `</td>`,
+        /*`<td class="align-middle"> ` + (price ? formatter.format(price) : formatter.format(0)) + `</td>`,*/
         `<td class="align-middle is-capitalized">` + (p.mainColor ? p.mainColor.name : '') + `</td>`,
         `<td class="align-middle is-capitalized">` + (p.mainCategory ? p.mainCategory.name : '') + `</td>`,
         `<td class="align-middle">` + p.stock + `</td>`,
