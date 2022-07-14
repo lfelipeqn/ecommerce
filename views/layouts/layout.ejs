@@ -41,25 +41,7 @@
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body class="body-front">
-    <div class="columns is-hidden-mobile is-centered has-background-black">
-      <div class="column is-5-desktop">
-        <ul class="has-text-left-desktop has-text-centered-mobile has-text-white">
-          <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='ultravape.co'){%>
-          <!--<li class="is-inline">&nbsp;<a class="has-text-white" href=""><i class='bx bxl-facebook-circle is-size-5'></i></a></li>
-          <li class="is-inline"><span class="m-0">|</span></li>-->
-          <li class="is-inline">&nbsp;<a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><i class='bx bxl-instagram-alt is-size-5'></i></a></li>
-          <%}%>
-        </ul>
-      </div>
-      <div class="column is-5-desktop">
-        <ul class="has-text-right-desktop has-text-centered-mobile has-text-white">
-          <%if(req.hostname==='iridio.co' || req.hostname==='localhost' || req.hostname==='ultravape.co'){%>
-          <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+573134666598">&nbsp;<i class='bx bxl-whatsapp has-text-warning is-size-5 has-text-weight-bold' ></i> +57 313 466 6598&nbsp;</a></li>
-          <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="mailto:sales@ultrapharmacorp.us">&nbsp;<i class='bx bxs-envelope has-text-warning is-size-5 has-text-weight-bold'></i>&nbsp;sales@ultrapharmacorp.us&nbsp;</a></li>
-          <%}%>
-        </ul>
-      </div>
-    </div>
+    <%- partial('../partials/header.ejs') %>
     <div class="columns is-centered is-gapless mb-0">
       <div class="column is-10-desktop ">
         <%- partial('../partials/navbar.ejs') %>
@@ -71,69 +53,7 @@
       </div>
     </div>
     <div class="columns is-centered is-gapless m-0">
-      <div class="column is-12-desktop m-0">
-          <div class="columns pie has-text-centered is-size-7 m-0 is-gapless">
-            <div class="column is-3">
-                <img src="<%=cdnurl ? cdnurl : imgurl%>/logo-white.png" width="70px;"/>
-            </div>
-            <div class="column is-3">
-              <span class="is-uppercase has-text-weight-bold">Contacto</span>
-              <div class="columns is-mobile is-vcentered is-gapless py-6">
-                <div class="column is-4 has-text-right mr-2">
-                    <figure class="image is-32x32 is-inline-block">
-                      <img src="<%=cdnurl ? cdnurl : imgurl%>/whatsapp.png">
-                    </figure>
-                </div>
-                <div class="column is-8 has-text-left">
-                  <a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+573134666598"><span class="is-size-5">&nbsp;+57 313 466 6598</span></a>
-                </div>
-              </div>
-              <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
-                <div class="column is-4 has-text-right mr-2">
-                    <figure class="image is-32x32 is-inline-block">
-                      <img src="<%#=cdnurl ? cdnurl : imgurl#%>/smartphone.png">
-                    </figure>
-                </div>
-                <div class="column is-8 has-text-left">
-                  <span class="is-size-5">&nbsp;+57 313 466 6598</span>
-                </div>
-              </div>-->
-            </div>
-            <div class="column is-3">
-              <span class="is-uppercase has-text-weight-bold">Nuestras Redes</span>
-              <div class="columns is-mobile is-vcentered is-gapless py-6">
-                <div class="column is-4 has-text-right mr-2">
-                    <figure class="image is-32x32 is-inline-block">
-                      <img src="<%=cdnurl ? cdnurl : imgurl%>/instagram.png">
-                    </figure>
-                </div>
-                <div class="column is-8 has-text-left">
-                  <a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><span class="is-size-5 has-text-white">&nbsp;@UltraVapeGlobal</span></a>
-                </div>
-              </div>
-              <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
-                <div class="column is-4 has-text-right mr-2">
-                    <figure class="image is-32x32 is-inline-block">
-                      <img src="<%#=cdnurl ? cdnurl : imgurl#%>/facebook.png">
-                    </figure>
-                </div>
-                <div class="column is-8 has-text-left">
-                  <span class="is-size-5">&nbsp;/UltraOficial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-              </div>-->
-            </div>
-            <div class="column is-3">
-              <span class="is-uppercase has-text-weight-bold">Presencia Global</span>
-              <br>
-              <img src="<%=cdnurl ? cdnurl : imgurl%>/world-white.png"/>
-            </div>
-          </div>
-          <div class="columns has-background-black is-gapless">
-            <div class="column is-centered">
-              <p class="is-size-7 has-text-centered has-text-white"><span class="has-text-white"><strong class="has-text-white"><i class='bx bx-copyright' ></i>&nbsp;2021, ULTRA VAPE.</strong> All Rights Reserved </span> - <a class="has-text-white" href="/c/terminos-y-condiciones" target="_blank">Términos y Condiciones</a>&nbsp;-&nbsp;<a class="has-text-white" href="/c/politica-de-datos" target="_blank">Politica de Datos</a></p>
-            </div>
-          </div>
-      </div>
+      <%- partial('../partials/footer.ejs') %>
     </div>
     <script>
       

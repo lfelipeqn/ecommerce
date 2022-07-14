@@ -16,31 +16,32 @@ module.exports = {
     let cmsfilter = {position:'home',active:true};
     let sliderfilter = {active:true};
     let brands = null;
-    let iridio = null;
+
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+
+    //let iridio = null;
 
     //let now = moment().valueOf();
     //if(!req.session.menu || (req.session.menu && !req.session.menu.updated) || (req.session.menu && req.session.menu.updated && (now-req.session.menu.updated)>=259200000)){
-    req.session.menu = await sails.helpers.callMenu(req.hostname);
+    req.session.menu = await sails.helpers.callMenu(filterdomain);
     //}
-    
-    if(req.hostname==='1ecommerce.app'){
-      return res.redirect('/login');
-    }else if(req.hostname==='iridio.co' || req.hostname==='demo.1ecommerce.app' || req.hostname==='localhost' || req.hostname==='ultravape.co'){
-      brands = await Manufacturer.find({active:true}).sort('name ASC');
-      cmsfilter['seller'] = null;
-      sliderfilter['seller']=null;
-      iridio = await Channel.findOne({name:'iridio'});
-    }else{
-      seller = await Seller.find({
-        where:{domain:req.hostname},
-        select:['name','domain','logo'],
-        limit:1
-      });
-      if(seller.length>1){
-        cmsfilter['seller'] = seller[0].id;
-        sliderfilter['seller']=seller[0].id;
-      }
+
+    brands = await Manufacturer.find({active:true}).sort('name ASC');
+    cmsfilter['seller'] = null;
+    sliderfilter['seller']=null;
+    //iridio = await Channel.findOne({name:'iridio'});
+
+    seller = await Seller.find({
+      where:{domain:filterdomain},
+      select:['name','domain','logo'],
+      limit:1
+    });
+
+    if(seller.length>=1){
+      cmsfilter['seller'] = seller[0].id;
+      sliderfilter['seller']=seller[0].id;
     }
+
     let viewed={products:[]};
     let pshow =[];
     if(req.session.viewed && req.session.viewed.length>0){
@@ -74,7 +75,7 @@ module.exports = {
             select:['name']
           });
           let discounts = await sails.helpers.discount(p.id);
-          if(iridio && discounts){
+          if(discounts){
             let integrations = await ProductChannel.find({channel:iridio.id,product:p.id});
             integrations = integrations.map(itg => itg.integration);
             discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
@@ -89,7 +90,7 @@ module.exports = {
       }
     }
 
-    cms = (await Cms.find(cmsfilter))[0];
+    cms = await Cms.find(cmsfilter);
     slider = await Slider.find(sliderfilter).populate('textColor');
 
     return res.view('pages/homepage',{slider:slider,tag:await sails.helpers.getTag(req.hostname),object:viewed,page:1,brands:brands, seller:seller,cms:cms});
@@ -213,7 +214,7 @@ module.exports = {
           const commissioniva = commissionFee * 0.19;
           const retefte = (commissionFee) * retFte;
           let product = await Product.findOne({id: item.product}).populate('mainColor').populate('seller');
-          let productVariation = await ProductVariation.findOne({id: item.productvariation}).populate('variation');        
+          let productVariation = await ProductVariation.findOne({id: item.productvariation}).populate('variation');
           item.id = order.id;
           item.seller = product.seller.name;
           item.dni = product.seller.dni;
@@ -746,12 +747,12 @@ module.exports = {
   },
   listproduct: async function(req, res){
     let seller = null;
-    let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
-      seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
-    }else{
-      iridio = await Channel.findOne({name:'iridio'});
+    sellerdomain = req.hostname;
+    if(req.hostname!=='localhost'){
+      sellerdomain = 'ultravape.co';
     }
+
+    seller = await Seller.findOne({domain:sellerdomain});
     let product = await Product.findOne({name:decodeURIComponent(req.param('name')),reference:decodeURIComponent(req.param('reference'))})
       .populate('manufacturer')
       .populate('mainColor')
@@ -760,7 +761,7 @@ module.exports = {
       .populate('variations',{sort: 'createdAt ASC'})
       .populate('images')
       .populate('seller');
-      
+
     if(req.session.viewed===undefined){
       req.session.viewed=[];
     }else{

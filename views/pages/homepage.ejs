@@ -43,13 +43,13 @@
               <%}%>
             </div>
           </div>
-          <div class="columns is-gapless is-centered m-0">
-            <div class="column">
-              <%if(cms){%>
-                <%- cms.content %>
-              <%}%>
+          <%for(let cm of cms){%>
+            <div class="columns is-gapless is-centered m-0">
+              <div class="column">
+              <%- cm.content %>
+              </div>
             </div>
-          </div>
+          <%}%>
           <div class="columns is-gapless is-centered m-0">
             <div class="column">
             <%if(mosaic!==null && mosaic.length>=1){%>
