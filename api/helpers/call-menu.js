@@ -19,10 +19,9 @@ module.exports = {
     let productfilter={active:true};
 
     let cids = [];
-    if(inputs.hostname !== undefined && inputs.hostname !== '' && inputs.hostname!=='iridio.co' && inputs.hostname!=='demo.1ecommerce.app' && inputs.hostname!=='localhost' && inputs.hostname!=='ultravape.co' && inputs.hostname!=='1ecommerce.app'){
-      seller = await Seller.findOne({domain:inputs.hostname,active:true});
-      productfilter.seller=seller.id;
-    }
+
+    seller = await Seller.findOne({domain:inputs.hostname,active:true});
+    productfilter.seller=seller.id;
 
     let categories = await Category.find({
       where: {active:true},
@@ -48,7 +47,7 @@ module.exports = {
         <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="/ver/marca/ultra-vape">Productos</a></li>
         <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="/ver/categoria/inicio-redenciones">Redención</a></li>
         <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="#">Contacto</a></li>`;
- 
+
     navbarmobile +=`</ul></aside>`;
 
     navmenu.navbar = navbar;
