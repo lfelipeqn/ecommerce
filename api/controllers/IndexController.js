@@ -538,16 +538,17 @@ module.exports = {
     let iridio = null;
     let skip = ((page-1)*perPage);
     let limit = (((page-1)*perPage)+perPage);
-    let now = moment().valueOf();
-    if(!req.session.productsFilter || ((now-req.session.productsFilter.updated)<86400000)){
-      req.session.productsFilter = {};
-      req.session.productsFilter.filter = {active:true};
-      console.log(domainActive);
-      sellerfilter.domain = domainActive;
-      seller = await Seller.find(sellerfilter);
-      if(seller){req.session.productsFilter.filter['seller']=seller[0].id;}
-      req.session.productsFilter.updated = moment().valueOf();
-    }
+    //let now = moment().valueOf();
+
+    sellerfilter.domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+
+    seller = await Seller.find(sellerfilter);
+
+    req.session.productsFilter = {};
+    req.session.productsFilter.filter = {active:true};
+
+    if(seller){req.session.productsFilter.filter['seller']=seller[0].id;}
+    req.session.productsFilter.updated = moment().valueOf();
 
     switch(entity){
       case 'categoria':
@@ -749,11 +750,11 @@ module.exports = {
   listproduct: async function(req, res){
     let seller = null;
     sellerdomain = req.hostname;
-    if(req.hostname!=='localhost'){
-      sellerdomain = 'ultravape.co';
+    if(req.hostname==='localhost'){
+      sellerdomain = 'pruebas.ultraglobaldistribucion.com';
     }
 
-    seller = await Seller.findOne({domain:sellerdomain});
+    seller = await Seller.find({domain:sellerdomain});
     let product = await Product.findOne({name:decodeURIComponent(req.param('name')),reference:decodeURIComponent(req.param('reference'))})
       .populate('manufacturer')
       .populate('mainColor')
