@@ -542,9 +542,10 @@ module.exports = {
     if(!req.session.productsFilter || ((now-req.session.productsFilter.updated)<86400000)){
       req.session.productsFilter = {};
       req.session.productsFilter.filter = {active:true};
-      if(req.hostname==='localhost' || req.hostname==='ultravape.co'){sellerfilter.domain = 'ultravape.co';}
-      seller = await Seller.findOne(sellerfilter);
-      if(seller){req.session.productsFilter.filter['seller']=seller.id;}
+      console.log(domainActive);
+      sellerfilter.domain = domainActive;
+      seller = await Seller.find(sellerfilter);
+      if(seller){req.session.productsFilter.filter['seller']=seller[0].id;}
       req.session.productsFilter.updated = moment().valueOf();
     }
 
@@ -577,9 +578,9 @@ module.exports = {
         }
         break;
       case 'seller':
-        seller = await Seller.findOne({id:ename,active:true});
+        seller = await Seller.find({id:ename,active:true});
         if(seller){
-          req.session.productsFilter.filter['seller'] = seller.id;
+          req.session.productsFilter.filter['seller'] = seller[0].id;
           object = {};
           object.products = await Product.find({
             where:req.session.productsFilter.filter,
@@ -662,7 +663,7 @@ module.exports = {
     let seller = null;
     let iridio = null;
     let ename=req.param('q');
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
+    if(req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
       seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
     }else{
       iridio = await Channel.findOne({name:'iridio'});
@@ -775,8 +776,8 @@ module.exports = {
       if(!exists){req.session.viewed.push({viewedAt:moment().valueOf(),product:product.id});}
     }
     let discounts = await sails.helpers.discount(product.id);
-    if(iridio && discounts){
-      let integrations = await ProductChannel.find({channel:iridio.id,product:product.id});
+    if(discounts){
+      let integrations = await ProductChannel.find({product:product.id});
       integrations = integrations.map(itg => itg.integration);
       discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
     }
