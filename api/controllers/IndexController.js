@@ -33,7 +33,7 @@ module.exports = {
 
     seller = await Seller.find({
       where:{domain:filterdomain},
-      select:['name','domain','logo'],
+      select:['name','domain','logo','phone','email'],
       limit:1
     });
 
