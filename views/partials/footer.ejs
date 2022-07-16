@@ -6,14 +6,16 @@
       <div class="column is-3">
         <span class="is-uppercase has-text-weight-bold">Contacto</span>
         <div class="columns is-mobile is-vcentered is-gapless py-6">
-          <div class="column is-4 has-text-right mr-2">
-              <figure class="image is-32x32 is-inline-block">
-                <img src="<%=cdnurl ? cdnurl : imgurl%>/whatsapp.png">
-              </figure>
-          </div>
-          <div class="column is-8 has-text-left">
-            <a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57<%=seller[0].phone%>"><span class="is-size-5">&nbsp;+57<%=seller[0].phone%></span></a>
-          </div>
+          <%if(req.hostname!=='localhost'){%>
+            <div class="column is-4 has-text-right mr-2">
+                <figure class="image is-32x32 is-inline-block">
+                  <img src="<%=cdnurl ? cdnurl : imgurl%>/whatsapp.png">
+                </figure>
+            </div>
+            <div class="column is-8 has-text-left">
+              <a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57<%=seller[0].phone%>"><span class="is-size-5">&nbsp;+57<%=seller[0].phone%></span></a>
+            </div>
+          <%}%>
         </div>
         <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
           <div class="column is-4 has-text-right mr-2">
@@ -29,14 +31,16 @@
       <div class="column is-3">
         <span class="is-uppercase has-text-weight-bold">Nuestras Redes</span>
         <div class="columns is-mobile is-vcentered is-gapless py-6">
-          <div class="column is-4 has-text-right mr-2">
-              <figure class="image is-32x32 is-inline-block">
-                <img src="<%=cdnurl ? cdnurl : imgurl%>/instagram.png">
-              </figure>
-          </div>
-          <div class="column is-8 has-text-left">
-            <a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><span class="is-size-5 has-text-white">&nbsp;@UltraVapeGlobal</span></a>
-          </div>
+          <%if(req.hostname!=='localhost'){%>
+            <div class="column is-4 has-text-right mr-2">
+                <figure class="image is-32x32 is-inline-block">
+                  <img src="<%=cdnurl ? cdnurl : imgurl%>/instagram.png">
+                </figure>
+            </div>
+            <div class="column is-8 has-text-left">
+              <a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><span class="is-size-5 has-text-white">&nbsp;@UltraVapeGlobal</span></a>
+            </div>
+          <%}%>
         </div>
         <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
           <div class="column is-4 has-text-right mr-2">
