@@ -542,7 +542,7 @@ module.exports = {
     req.session.productsFilter = {};
     req.session.productsFilter.filter = {active:true};
 
-    if(seller){req.session.productsFilter.filter['seller']=seller[0].id;}
+    req.session.productsFilter.filter['seller']=seller[0].id;
     req.session.productsFilter.updated = moment().valueOf();
 
     switch(entity){
@@ -574,9 +574,7 @@ module.exports = {
         }
         break;
       case 'seller':
-        seller = await Seller.find({id:ename,active:true});
         if(seller){
-          req.session.productsFilter.filter['seller'] = seller[0].id;
           object = {};
           object.products = await Product.find({
             where:req.session.productsFilter.filter,
@@ -610,7 +608,7 @@ module.exports = {
           }
           object.products[p].cover= (await ProductImage.find({product:object.products[p].id,cover:1}))[0];
           let discounts = await sails.helpers.discount(object.products[p].id);
-          if(iridio && discounts){
+          if(discounts){
             let integrations = await ProductChannel.find({channel:iridio.id,product:object.products[p].id});
             integrations = integrations.map(itg => itg.integration);
             discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
