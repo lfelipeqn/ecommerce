@@ -17,7 +17,7 @@ module.exports = {
     let sliderfilter = {active:true};
     let brands = null;
 
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? 'pruebas.ultraglobaldistribucion.com' : req.hostname;
 
     //let iridio = null;
 

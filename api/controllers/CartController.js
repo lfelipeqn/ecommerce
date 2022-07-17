@@ -9,12 +9,11 @@ module.exports = {
   viewcart: async function(req, res){
     let cart = null;
     let seller = null;
-    let iridio = null;
-    if(req.hostname!=='localhost' && req.hostname!=='ultravape.co'){
-      seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
-    }else{
-      iridio = await Channel.findOne({name:'iridio'});
-    }
+    
+    let filterdomain = req.hostname ==='localhost' ? 'pruebas.ultraglobaldistribucion.com' : req.hostname;
+    seller = await Seller.find({domain:filterdomain});
+    
+    
     if(req.session.cart!==undefined){
       cart = await CartProduct.find({cart:req.session.cart.id}).sort('createdAt ASC')
       .populate('product')
