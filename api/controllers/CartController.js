@@ -42,10 +42,7 @@ module.exports = {
     if (!req.isSocket) {
       return res.badRequest();
     }
-    let iridio = null;
-    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='ultravape.co' || req.body.hostname==='1ecommerce.app'){
-      iridio = await Channel.findOne({name:'iridio'});
-    }
+    
     let cart = null;
     let products = null;
     let action = req.body.action;
@@ -62,7 +59,7 @@ module.exports = {
       }else{
         await CartProduct.destroy({cart:cart.id,product:productvariation.product.id,productvariation:productvariation.id});
         let discounts = await sails.helpers.discount(productvariation.product.id,productvariation.id);
-        if(iridio && discounts){
+        if(discounts){
           let integrations = await ProductChannel.find({channel:iridio.id,product:productvariation.product.id});
           integrations = integrations.map(itg => itg.integration);
           discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});

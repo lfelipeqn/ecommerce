@@ -17,7 +17,7 @@ module.exports = {
     let sliderfilter = {active:true};
     let brands = null;
 
-    let filterdomain = req.hostname ==='localhost' ? 'pruebas.ultraglobaldistribucion.com' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
 
     //let iridio = null;
 
@@ -484,12 +484,8 @@ module.exports = {
     }
 
     let seller = null;
-    let iridio = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
-      seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
-    }else{
-      iridio = await Channel.findOne({name:'iridio'});
-    }
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:filterdomain});
 
     let addresses = null;
     addresses = await Address.find({user:req.session.user.id})
@@ -511,7 +507,7 @@ module.exports = {
         .populate('manufacturer')
         .populate('tax');
         let discounts = await sails.helpers.discount(cartproduct.product.id);
-        if(iridio && discounts){
+        if(discounts){
           let integrations = await ProductChannel.find({channel:iridio.id,product:cartproduct.product.id});
           integrations = integrations.map(itg => itg.integration);
           discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
@@ -535,7 +531,6 @@ module.exports = {
     let seller = null;
     let sellerfilter = {active:true};
     let object = null;
-    let iridio = null;
     let skip = ((page-1)*perPage);
     let limit = (((page-1)*perPage)+perPage);
     //let now = moment().valueOf();
@@ -662,13 +657,12 @@ module.exports = {
   },
   search: async(req, res) =>{
     let seller = null;
-    let iridio = null;
+
     let ename=req.param('q');
-    if(req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){
-      seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});
-    }else{
-      iridio = await Channel.findOne({name:'iridio'});
-    }
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+
+    seller = await Seller.find({domain:filterdomain});
+
     let AWS = require('aws-sdk');
     AWS.config.loadFromPath('./config.json');
     let csd = new AWS.CloudSearchDomain({endpoint: 'search-iridio-kqxoxbqunm62wui765a5ms5nca.us-east-1.cloudsearch.amazonaws.com'});
@@ -692,7 +686,7 @@ module.exports = {
       stats: 'STRING_VALUE'*/
     };
     if(seller!==null){
-      params.filterQuery = 'seller:\''+seller.name+'\'';
+      params.filterQuery = 'seller:\''+seller[0].name+'\'';
     }
 
     let exists = async (element,compare) =>{
@@ -731,7 +725,7 @@ module.exports = {
         for(let p of set){
           p.cover= (await ProductImage.find({product:p.id,cover:1}))[0];
           let discounts = await sails.helpers.discount(p.id);
-          if(iridio && discounts){
+          if(discounts){
             let integrations = await ProductChannel.find({channel:iridio.id,product:p.id});
             integrations = integrations.map(itg => itg.integration);
             discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
@@ -810,15 +804,12 @@ module.exports = {
       return res.badRequest();
     }
     let prices ={};
-    let iridio = null;
-    if(req.body.hostname==='iridio.co' || req.body.hostname==='demo.1ecommerce.app' || req.body.hostname==='localhost' || req.hostname==='ultravape.co' || req.body.hostname==='1ecommerce.app'){
-      iridio = await Channel.findOne({name:'iridio'});
-    }
+    
     let productvariation = await ProductVariation.findOne({ id: req.body.variation});
     if(productvariation){
       let product = await Product.findOne({id:productvariation.product});
       let discounts = await sails.helpers.discount(productvariation.product,productvariation.id);
-      if(iridio && discounts){
+      if(discounts){
         let integrations = await ProductChannel.find({channel:iridio.id,product:productvariation.product});
         integrations = integrations.map(itg => itg.integration);
         discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
@@ -842,8 +833,9 @@ module.exports = {
       url:req.param('route'),
       seller:seller
     };
-
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/}); contentfilter.seller=seller.id;}
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:filterdomain});
+    contentfilter.seller=seller[0].id;
     cms = (await Cms.find(contentfilter))[0];
     return res.view('pages/front/cms',{content:cms.content,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   },
