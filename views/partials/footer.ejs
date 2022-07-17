@@ -6,6 +6,7 @@
       <div class="column is-3">
         <span class="is-uppercase has-text-weight-bold">Contacto</span>
         <div class="columns is-mobile is-vcentered is-gapless py-6">
+          <%if(req.hostname!=='localhost' && seller){%>
             <div class="column is-4 has-text-right mr-2">
                 <figure class="image is-32x32 is-inline-block">
                   <img src="<%=cdnurl ? cdnurl : imgurl%>/whatsapp.png">
@@ -14,6 +15,7 @@
             <div class="column is-8 has-text-left">
               <a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57"><span class="is-size-5">&nbsp;+57</span></a>
             </div>
+            <%}%>
         </div>
         <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
           <div class="column is-4 has-text-right mr-2">

@@ -545,6 +545,7 @@ module.exports = {
     req.session.productsFilter.filter['seller']=seller[0].id;
     req.session.productsFilter.updated = moment().valueOf();
 
+
     switch(entity){
       case 'categoria':
         try{

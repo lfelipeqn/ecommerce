@@ -27,7 +27,7 @@ module.exports = {
         .populate('manufacturer')
         .populate('tax');
         let discounts = await sails.helpers.discount(cartproduct.product.id);
-        if(iridio && discounts){
+        if(discounts){
           let integrations = await ProductChannel.find({channel:iridio.id,product:cartproduct.product.id});
           integrations = integrations.map(itg => itg.integration);
           discounts = discounts.filter((ad)=>{if(ad.integrations && ad.integrations.length > 0 && integrations.length>0 && ad.integrations.some(ai => integrations.includes(ai.id))){return ad;}});
