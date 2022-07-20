@@ -1176,5 +1176,10 @@ module.exports = {
       response.message = err.message;
     }
     return res.send(response);
+  },
+  login: async (req, res) =>{
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let seller = await Seller.find({domain:filterdomain});
+    return res.view('pages/configuration/login',{error:null,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   }
 };

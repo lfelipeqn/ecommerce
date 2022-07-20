@@ -29,7 +29,7 @@ module.exports.routes = {
   'POST /generateinvoice': {controller:'IndexController', action:'generateinvoice'},
   'GET /showreport/:seller': {controller:'IndexController', action:'showreport'},
   'POST /newsletter': {controller:'IndexController', action:'addnewsletter'},
-  'GET /login' : {view:'pages/configuration/login', locals:{error:null}},
+  'GET /login' : {controller:'IndexController', action:'login'},
   'POST /login' : {action:'login'},
   '/logout' : {action:'logout'},
   'POST /dafitisync' : {controller:'IndexController',action:'dafitisync'},

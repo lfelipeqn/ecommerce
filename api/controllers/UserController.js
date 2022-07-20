@@ -90,9 +90,14 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    /*if(req.hostname==='ultravape.co'){*/
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let seller = await Seller.find({domain:filterdomain});
+
+    if(seller[0].domain==='ultravape.co'){
       secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';
-    /*}*/
+    }else{
+      secret = '6Lc_lAMhAAAAAJukpBFzMbNacIQSRvTNqhsn1LKS';
+    }
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',
