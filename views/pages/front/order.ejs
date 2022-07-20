@@ -1,3 +1,4 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js' integrity='sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==' crossorigin='anonymous'></script>
 <%let total = 0; let shipping = 0;%>
 <%order.forEach(o =>{%>
   <% total += o.totalOrder %>
@@ -98,6 +99,63 @@
                     </div>
                   </div>
             <%}%>
+            <%if(order[0].paymentMethod=='BTC'){%>
+              <div class="columns is-vcentered is-centered has-text-centered">
+                <div class="column">
+                  <p class="heading">Medio de Pago</p>
+                  <p class="is-size-5 has-text-white">Bitcoin</p>
+                </div>
+                <div class="column">
+                  <div class="columns is-vcentered is-centered has-text-centered">
+                    <div class="column"><figure id="qrcode" class="image is-96x96 is-inline-block">
+                    </figure></div>
+                    <div class="column"><p class="is-size-5 is-size-7-mobile has-text-white code">1k452Yv1WJu5hKSWD4Q4JEuqqDD1EyeQi</p></div>
+                  </div>
+                </div>
+                <div class="column">
+                  <p class="heading">Total</p>
+                  <p class="is-size-5 has-text-white">$&nbsp;<%=Math.round(total+shipping).toLocaleString('es-CO')%></p>
+                </div>
+              </div>
+            <%}%>
+            <%if(order[0].paymentMethod=='USDT-TRON20'){%>
+              <div class="columns is-vcentered is-centered has-text-centered">
+                <div class="column">
+                  <p class="heading">Medio de Pago</p>
+                  <p class="is-size-5 has-text-white">USDT Red Tron</p>
+                </div>
+                <div class="column">
+                  <div class="columns is-vcentered is-centered has-text-centered">
+                    <div class="column"><figure id="qrcode" class="image is-96x96 is-inline-block">
+                    </figure></div>
+                    <div class="column"><p class="is-size-5 is-size-7-mobile has-text-white code">TBDBkNrMD1p7t5SjD9JpPb8bv27cSGVuQ5</p></div>
+                  </div>
+                </div>
+                <div class="column">
+                  <p class="heading">Total</p>
+                  <p class="is-size-5 has-text-white">$&nbsp;<%=Math.round(total+shipping).toLocaleString('es-CO')%></p>
+                </div>
+              </div>
+            <%}%>
+            <%if(order[0].paymentMethod=='USDT-ERC20'){%>
+              <div class="columns is-vcentered is-centered has-text-centered">
+                <div class="column">
+                  <p class="heading">Medio de Pago</p>
+                  <p class="is-size-5 has-text-white">USDT Red Ethereum</p>
+                </div>
+                <div class="column">
+                  <div class="columns is-vcentered is-centered has-text-centered">
+                    <div class="column"><figure id="qrcode" class="image is-96x96 is-inline-block">
+                    </figure></div>
+                    <div class="column"><p class="is-size-5 is-size-7-mobile has-text-white code">0x71c44fa27cc1cc6908431b13a86e276c877c23a6</p></div>
+                  </div>
+                </div>
+                <div class="column">
+                  <p class="heading">Total</p>
+                  <p class="is-size-5 has-text-white">$&nbsp;<%=Math.round(total+shipping).toLocaleString('es-CO')%></p>
+                </div>
+              </div>
+            <%}%>
             </nav>
           <section class="hero 
             <%if(order[0].currentstatus.name==='aceptado'){%>is-success<%}%>
@@ -177,4 +235,18 @@
       });
     <%}%>
   }
+
+  let qrCode = ()=>{
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    let code = document.querySelector('.code').innerHTML
+    qr.addData(code);
+    qr.make();
+    document.getElementById('qrcode').innerHTML = qr.createImgTag();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    qrCode();
+    }, false);
 </script>

@@ -70,7 +70,8 @@ module.exports = {
   },
   createorder:async function(req, res){
     let seller = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='ultravape.co' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.findOne({domain:domain});
     let order = [];
     let payment = null;
     let address = await Address.findOne({id:req.body.deliveryAddress})
@@ -254,6 +255,18 @@ module.exports = {
       case 'COD':
         payment={data:{estado:'Pendiente',ref_payco:''}};
         order = await sails.helpers.order({address:address,user:user,cart:cart,method:paymentmethod,payment:payment,extra:req.body.codOp,carrier:'coordinadora'});
+        break;
+      case 'BTC':
+        payment={data:{estado:'Pendiente',ref_payco:''}};
+        order = await sails.helpers.order({address:address,user:user,cart:cart,method:paymentmethod,payment:payment,carrier:'coordinadora'});
+        break;
+      case 'USDT-TRON20':
+        payment={data:{estado:'Pendiente',ref_payco:''}};
+        order = await sails.helpers.order({address:address,user:user,cart:cart,method:paymentmethod,payment:payment,carrier:'coordinadora'});
+        break;
+      case 'USDT-ERC20':
+        payment={data:{estado:'Pendiente',ref_payco:''}};
+        order = await sails.helpers.order({address:address,user:user,cart:cart,method:paymentmethod,payment:payment,carrier:'coordinadora'});
         break;
     }
     delete req.session.cart;
