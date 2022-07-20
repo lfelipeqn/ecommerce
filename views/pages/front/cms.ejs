@@ -14,5 +14,26 @@
       let obj = document.querySelector('#'+e.target.getAttribute('target'))
       removeClass(obj,'is-hidden')
     })
+    
+    let landing = () =>{
+      let land = document.querySelector('.landing');
+      let header = document.querySelector('#header');
+      let pie = document.querySelector('#footer');
+      let navbar = document.querySelector('.navbar'); 
+
+      if(land){
+        addClass(header,'is-invisible');
+        addClass(pie,'is-invisible');
+        addClass(navbar,'is-invisible');
+      }else{
+        removeClass(header,'is-invisible');
+        removeClass(footer,'is-invisible');
+        removeClass(navbar,'is-invisible');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      landing();
+    }, false);
+
 </script>
 <%}%>
