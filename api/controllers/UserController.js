@@ -9,7 +9,14 @@ module.exports = {
   registerform: async function(req, res){
     let countries = await Country.find();
     let referer = req.param('referer') ? req.param('referer') : '/';
-    return res.view('pages/front/register',{referer:referer,countries:countries});
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
+    if(seller[0].domain='ultravape.co'){
+      seller[0].domain='6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3';
+    }else{
+      seller[0].domain='6Lc_lAMhAAAAALo4hSJvYIY7iVi0Sl2_LsH7YXGR';
+    }
+    return res.view('pages/front/register',{referer:referer,countries:countries,seller});
   },
   forgot: async (req, res)=>{
     return res.view('pages/front/forgot');
@@ -20,7 +27,9 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    /*if(req.hostname==='ultravape.co'){*/secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';/*}*/
+    if(req.hostname==='ultravape.co'){secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';}
+    if(req.hostname==='fidelizacion.ultraglobaldistribucion.com'){secret = '6Lc_lAMhAAAAAJukpBFzMbNacIQSRvTNqhsn1LKS';}
+
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',

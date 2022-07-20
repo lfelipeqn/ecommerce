@@ -118,7 +118,7 @@
 </div>
 <p class="has-text-centered is-x-small is-grey-light">Al registrarme manifiesto estar de acuerdo con los <a class="has-text-white has-text-weight-bold" href="/c/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a class="has-text-white has-text-weight-bold" href="/c/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
 </div>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=<%=seller[0].key%>"></script>
 <script>
     live('#eye','click',e =>{
         let pass = document.querySelector('.pass');
@@ -134,7 +134,7 @@
    live('#submit-register','click', e => {
         e.preventDefault();
         if(validateForm(document.querySelector('#register-form'))){
-            grecaptcha.execute('6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3', {action: 'register'}).then(token => {
+            grecaptcha.execute('<%=seller[0].key%>', {action: 'register'}).then(token => {
                 console.log(token);
                 document.querySelector('input[name="token"]').value=token;
                 let rform = document.querySelector('#register-form');
