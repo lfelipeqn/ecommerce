@@ -530,12 +530,12 @@
         let name = e.target.getAttribute('name');
         switch(name){
             case 'deliveryAddress':
-                io.socket.post('/shippingquote',{address:e.target.value},resData =>{
+                /*io.socket.post('/shippingquote',{address:e.target.value},resData =>{
                     if(resData){
                         document.querySelector('#shipment').innerHTML = '$&nbsp;'+Math.round(resData.shipping).toLocaleString('es-CO');
                         document.querySelector('#total').innerHTML = '$&nbsp;'+Math.round(resData.cartvalue).toLocaleString('es-CO');
                     }
-                });
+                });*/
                 break;
             case 'paymentMethod':
                 if(e.target.value=='PSE'){

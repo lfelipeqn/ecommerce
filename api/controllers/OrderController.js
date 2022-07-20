@@ -71,7 +71,7 @@ module.exports = {
   createorder:async function(req, res){
     let seller = null;
     domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.findOne({domain:domain});
+    seller = await Seller.find({domain:domain});
     let order = [];
     let payment = null;
     let address = await Address.findOne({id:req.body.deliveryAddress})
