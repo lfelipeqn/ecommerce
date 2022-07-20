@@ -156,7 +156,7 @@
       });
 
       live('#push-to-cart','click',(e)=>{
-        let vrt = e.target.parentNode.parentNode.querySelector('#drop-selected').getAttribute('value');
+        let vrt = e.target.hasAttribute('variation') ? e.target.getAttribute('variation') : e.target.parentNode.parentNode.querySelector('#drop-selected').getAttribute('value');
           io.socket.put('/cart',{variation:vrt,quantity:1,action:'create',hostname:window.location.hostname},(resData)=>{
             if(dataLayer){
               dataLayer.push({ ecommerce: null });
