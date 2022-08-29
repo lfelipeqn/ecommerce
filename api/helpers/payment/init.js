@@ -16,8 +16,8 @@ module.exports = {
     let publicKey = '';
     let privateKey = '';
 
-    publicKey = '83a2b717a6452fe08697f2a15b9d1a4d';
-    privateKey = '84715e7c2726aa1c54b366c564ac7c6d';
+    publicKey = 'af9068694b6f52fb537cb8fc0d4571b2';
+    privateKey = 'fbda2a06312c6917057ca6e120232ff2';
 
     const epayco = require('epayco-sdk-node')({
       apiKey: publicKey,
