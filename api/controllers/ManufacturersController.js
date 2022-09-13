@@ -35,7 +35,6 @@ module.exports = {
       await Manufacturer.create({
         name:req.body.nombre.trim().toLowerCase(),
         logo: filename[0].filename,
-        linioname: await sails.helpers.channel.linio.checkBrand(req.body.nombre.trim().toLowerCase()),
         description:req.body.descripcion,
         url:((req.body.nombre.trim().toLowerCase()).replace(/\s/gi,'-')).replace(/[^a-zA-Z0-9_-]/g,''),
         active:isActive
@@ -45,7 +44,6 @@ module.exports = {
       if(err.code==='badRequest'){
         await Manufacturer.create({
           name:req.body.nombre.trim().toLowerCase(),
-          linioname: await sails.helpers.channel.linio.checkBrand(req.body.nombre.trim().toLowerCase()),
           description:req.body.descripcion,
           active:isActive,
           url:((req.body.nombre.trim().toLowerCase()).replace(/\s/gi,'-')).replace(/[^a-zA-Z0-9_-]/g,'')
@@ -85,7 +83,6 @@ module.exports = {
       let filename = await sails.helpers.fileUpload(req,'logo',2000000,'images/brands');
       await Manufacturer.updateOne({id:id}).set({
         name:req.body.nombre.trim().toLowerCase(),
-        linioname: await sails.helpers.channel.linio.checkBrand(req.body.nombre.trim().toLowerCase()),
         description:req.body.description,
         logo: filename[0].filename,
         active:isActive,
@@ -95,7 +92,6 @@ module.exports = {
       if(err.code==='badRequest'){
         await Manufacturer.updateOne({id:id}).set({
           name:req.body.nombre.trim().toLowerCase(),
-          linioname: await sails.helpers.channel.linio.checkBrand(req.body.nombre.trim().toLowerCase()),
           description:req.body.description,
           url:((req.body.nombre.trim().toLowerCase()).replace(/\s/gi,'-')).replace(/[^a-zA-Z0-9_-]/g,''),
           active:isActive});

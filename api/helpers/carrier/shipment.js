@@ -26,7 +26,14 @@ module.exports = {
     seller.mainAddress = await Address.findOne({id:seller.mainAddress.id}).populate('city');
 
     let city = await City.findOne({id:order.addressDelivery.city});
-    let oitems = await OrderItem.find({order:order.id}).populate('product');
+    let oitems = await OrderItem.find({order:order.id})
+    .populate('product')
+    .populate('productvariation');
+
+    for(let pkg of oitems){
+      pkg.productvariation.package = pkg.productvariation.package ? await Packages.findOne({id: pkg.productvariation.package}): '';
+    }
+
     let integration = await Integrations.findOne({id: order.integration}).populate('channel');
 
     if(order.channel==='direct' || order.channel==='iridio' || (order.transport && order.transport === 'coordinadora')){
@@ -57,7 +64,7 @@ module.exports = {
         'Guias_generarGuia':{
           'codigo_remision' : null,
           'fecha' : null,
-          'id_cliente' : 33152,
+          'id_cliente' : 37508/* : 37507*/,
           'id_remitente' : 0,
           'nit_remitente' : seller.dni,
           'nombre_remitente' : seller.name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,''),
@@ -108,44 +115,22 @@ module.exports = {
           'nro_doc_radicados' : null,
           'nro_sobre' : null,
           'codigo_vendedor' : 0,
-          'usuario':'contenidodigital.ws',
-          'clave':'e8c5ad7349c80f352b916a5213f95d692813e370300240f947bc28b781e0dd7e',
+          'usuario':'ultrapharma.ws',
+          'clave':'0ca0f3400231bba13faabca2982ae051ace67713345bb797adad70d3220ec9a3',
         }
       };
       let items=[];
       for(let p of oitems){
-        if(items.length<1){
-          items.push({
-            'ubl':'0',
-            'alto':(p.product.height).toString(),
-            'ancho':(p.product.width).toString(),
-            'largo':(p.product.length).toString(),
-            'peso':(p.product.weight).toString(),
-            'unidades':'1',
-            'referencia':null,
-            'nombre_empaque':null
-          });
-        }else{
-          let added = false;
-          for(let it of items){
-            if(it.alto===(p.product.height).toString() && it.ancho===(p.product.width).toString() && it.largo===(p.product.length).toString() && it.peso===(p.product.weight).toString()){
-              it.unidades= (parseInt(it.unidades)+1).toString();
-              added=true;
-            }
-          }
-          if(!added){
-            items.push({
-              'ubl':'0',
-              'alto':(p.product.height).toString(),
-              'ancho':(p.product.width).toString(),
-              'largo':(p.product.length).toString(),
-              'peso':(p.product.weight).toString(),
-              'unidades':'1',
-              'referencia':null,
-              'nombre_empaque':null
-            });
-          }
-        }
+        items.push({
+          'ubl':'0',
+          'alto':(p.productvariation.package.height).toString(),
+          'ancho':(p.productvariation.package.width).toString(),
+          'largo':(p.productvariation.package.length).toString(),
+          'peso':(p.productvariation.package.weight).toString(),
+          'unidades':'1',
+          'referencia':null,
+          'nombre_empaque':null
+        });
       }
       requestArgs.Guias_generarGuia.detalle.Agw_typeGuiaDetalle=items;
       /**
@@ -157,7 +142,7 @@ module.exports = {
        *   Guias_liquidacionGuia - Consultar el Valor de la Guía
        */
 
-      let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Guias_generarGuia','prod','guides')
+      let result = await sails.helpers.carrier.coordinadora.soap(requestArgs,'Guias_generarGuia','test',/*'prod',*/'guides')
       .tolerate(() =>{ return; });
       if(result){
         const order = await Order.updateOne({id:inputs.order}).set({tracking:result.return.codigo_remision.$value});

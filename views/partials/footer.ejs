@@ -1,0 +1,71 @@
+<div id="footer" class="column is-12-desktop m-0">
+    <div class="columns pie has-text-centered is-size-7 m-0 is-gapless">
+      <div class="column is-3">
+        <%if(req.hostname!=='localhost' && seller && seller[0].domain==='ultravape.co'){%>
+            <img src="<%=cdnurl ? cdnurl : imgurl%>/logo-white.png" width="100;"/>
+          <%}else{%>
+            <img src="<%=cdnurl ? cdnurl : imgurl%>/UltraGlobalDistribucionFooter.png" width="100;" />
+          <%}%>
+      </div>
+      <div class="column is-3">
+        <span class="is-uppercase has-text-weight-bold">Contacto</span>
+        <div class="columns is-mobile is-vcentered is-gapless py-6">
+          <%if(req.hostname!=='localhost' && seller){%>
+            <div class="column is-4 has-text-right mr-2">
+                <figure class="image is-32x32 is-inline-block">
+                  <img src="<%=cdnurl ? cdnurl : imgurl%>/whatsapp.png">
+                </figure>
+            </div>
+            <div class="column is-8 has-text-left">
+              <a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57<%=seller[0].phone%>"><span class="is-size-5">&nbsp;+57<%=seller[0].phone%></span></a>
+            </div>
+            <%}%>
+        </div>
+        <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
+          <div class="column is-4 has-text-right mr-2">
+              <figure class="image is-32x32 is-inline-block">
+                <img src="<%#=cdnurl ? cdnurl : imgurl#%>/smartphone.png">
+              </figure>
+          </div>
+          <div class="column is-8 has-text-left">
+            <span class="is-size-5">&nbsp;+57 313 466 6598</span>
+          </div>
+        </div>-->
+      </div>
+      <div class="column is-3">
+        <span class="is-uppercase has-text-weight-bold">Nuestras Redes</span>
+        <%if(req.hostname!=='localhost' && seller){%>
+        <div class="columns is-mobile is-vcentered is-gapless py-6">
+            <div class="column is-4 has-text-right mr-2">
+                <figure class="image is-32x32 is-inline-block">
+                  <img src="<%=cdnurl ? cdnurl : imgurl%>/instagram.png">
+                </figure>
+            </div>
+            <div class="column is-8 has-text-left">
+              <a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><span class="is-size-5 has-text-white">&nbsp;@UltraVapeGlobal</span></a>
+            </div>
+        </div>
+        <%}%>
+        <!--<div class="columns is-mobile is-vcentered is-gapless mt-4">
+          <div class="column is-4 has-text-right mr-2">
+              <figure class="image is-32x32 is-inline-block">
+                <img src="<%#=cdnurl ? cdnurl : imgurl#%>/facebook.png">
+              </figure>
+          </div>
+          <div class="column is-8 has-text-left">
+            <span class="is-size-5">&nbsp;/UltraOficial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
+        </div>-->
+      </div>
+      <div class="column is-3">
+        <span class="is-uppercase has-text-weight-bold">Presencia Global</span>
+        <br>
+        <img src="<%=cdnurl ? cdnurl : imgurl%>/world-white.png"/>
+      </div>
+    </div>
+    <div class="columns has-background-black is-gapless">
+      <div class="column is-centered">
+        <p class="is-size-7 has-text-centered has-text-white"><span class="has-text-white"><strong class="has-text-white"><i class='bx bx-copyright' ></i>&nbsp;2021, ULTRA VAPE.</strong> All Rights Reserved </span> - <a class="has-text-white" href="/c/terminos-y-condiciones" target="_blank">Términos y Condiciones</a>&nbsp;-&nbsp;<a class="has-text-white" href="/c/politica-de-datos" target="_blank">Politica de Datos</a></p>
+      </div>
+    </div>
+</div>

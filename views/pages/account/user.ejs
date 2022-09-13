@@ -1,7 +1,7 @@
-<div class="container">
-    <h6 class="title is-6">Información de tu cuenta</h6>
+<div class="container my-6">
+    <h6 class="title is-6 has-text-white">Información de tu cuenta</h6>
     <hr>
-    <div class="card">
+    <div class="card has-background-dark has-text-white">
         <div class="card-image">
         </div>
         <div class="card-content">
@@ -12,15 +12,15 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4"><%=user.fullName%></p>
-              <p class="subtitle is-6"><%=user.emailAddress%></p>
+              <p class="title is-4 has-text-white"><%=user.fullName%></p>
+              <p class="subtitle is-6 has-text-white"><%=user.emailAddress%></p>
             </div>
           </div>
       
           <div class="content">
             <p class="is-size-7">Identificación:&nbsp;<%=user.dniType%>&nbsp;-&nbsp;<%=user.dni%></p>
             <p class="is-size-7">Teléfono:&nbsp;<%=user.mobile%></p>
-            <a href="/addresses">Administrar Direcciones</a>
+            <a class="has-text-white" href="/addresses">Administrar Direcciones</a>
             <br>
           </div>
         </div>

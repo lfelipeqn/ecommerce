@@ -7,25 +7,22 @@
 
 module.exports = {
   attributes: {
+    type:{type:'string', isIn:['product','prize','service'],defaultsTo:'product'},
     name: {type:'string'},
     reference:{type:'string'},
     description:{type:'string'},
     descriptionShort:{type:'string'},
     group:{type:'string'},
     active:{type:'boolean',required:true},
-    price:{type:'number',defaultsTo:0},
     tax:{model:'tax'},
     mainCategory: {model:'category'},
     mainColor: {model:'color'},
     manufacturer: {model:'manufacturer'},
     gender:{model:'gender'},
-    width:{type:'number'},
-    height:{type:'number'},
-    length:{type:'number'},
-    weight:{type:'number'},
     externalId:{type:'string'},
     stock:{type:'boolean',defaultsTo:false},
     seller: {model:'seller'},
+    fidelityplan:{model:'fidelityplan'},
     activity:{type:'string'},
     categories:{
       collection:'category',

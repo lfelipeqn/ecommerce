@@ -20,6 +20,8 @@ module.exports = {
     mobileStatus: {type:'string', isIn: ['unconfirmed',  'confirmed'], defaultsTo:'unconfirmed'},
     mobileverification:{type:'string', minLength:6, maxLength:6, defaultsTo:''},
     active:{type:'boolean',defaultsTo:true,},
+    referalCode:{type:'number', allowNull:true, unique:true},
+    referred:{type:'number', allowNull:true},
     seller:{model:'seller'},
     profile:{model:'profile'}
   },

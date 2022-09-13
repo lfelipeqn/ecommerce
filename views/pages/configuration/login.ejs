@@ -7,25 +7,25 @@
           </div>
         <% } %>
         <br><br>
-        <div class="box">
+        <div class="box has-background-dark cart-background">
             <form method="POST" action="/login" id="login-form">
             <input type="hidden" <%if(typeof referer!=='string'){%>value="/"<%}else{%>value="<%=referer%>"<%}%> name="referer" />
             <input type="hidden" name="facebookToken" value="" />
             <input type="hidden" name="facebookName" value="" />
-              <a class="link is-pulled-right" id="createAccount" href="">Crear una cuenta</a>
+              <a class="link is-pulled-right has-text-weight-bold has-text-white" id="createAccount" href="/register">Crear una cuenta</a>
               <div class="field">
-                <label class="label">Email</label>
+                <label class="label has-text-white">Email</label>
                 <div class="control has-icons-left has-icons-right">
-                  <input class="input" name="emailAddress" type="email" required placeholder="Ingresa Email" />
+                  <input class="input is-danger" name="emailAddress" type="email" required placeholder="Ingresa Email" />
                   <span class="icon is-small is-left">
                     <i class="bx bx-envelope"></i>
                   </span>
                 </div>
               </div>
-              <label class="label">Contraseña<a class="link is-pulled-right has-text-weight-normal" href="/forgot">Olvidé mi contraseña </a></label>
+              <label class="label has-text-white">Contraseña<a class="link is-pulled-right has-text-weight-bold has-text-white" href="/forgot">Olvidé mi contraseña </a></label>
               <div class="field has-addons">
                 <p class="control has-icons-left is-expanded">
-                <input class="input pass" name="password" type="password" required placeholder="Contraseña Ver / Ocultar" autocomplete="no-fill">
+                <input class="input pass is-danger" name="password" type="password" required placeholder="Contraseña Ver / Ocultar" autocomplete="no-fill">
                 <span class="icon is-small is-left">
                     <i class='bx bxs-lock-alt'></i>
                 </span>
@@ -40,7 +40,7 @@
               <div class="column">
                 <div class="field is-grouped">
                   <div class="control">
-                    <button id="enter" class="button is-info">Entrar</button>
+                    <button id="enter" class="button is-danger">Entrar</button>
                   </div>
                   <div class="control">
                     <a href="/" id="cancel" class="button is-light">Cancelar</a>
@@ -61,13 +61,13 @@
               -->
             </div>
             </form>
-          </div>
-        <p class="has-text-centered is-x-small is-grey-light">Al iniciar sesión manifiesto estar de acuerdo con los <a href="/c/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a href="/c/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
+        </div>
+        <p class="has-text-centered is-x-small is-grey-light">Al iniciar sesión manifiesto estar de acuerdo con los <a class="has-text-white has-text-weight-bold" href="/c/terminos-y-condiciones" target="_blank">términos y condiciones</a> y <a class="has-text-white has-text-weight-bold" href="/c/politica-de-datos" target="_blank">política de privacidad</a> de datos.</p>
     </div>
   </div>
 </div>
 <script>
-  if (window.location.host === 'localhost:1337' || window.location.host === '1ecommerce.app') {
+  if (window.location.host === 'localhost:1337' || window.location.host === '1ecommerce.app' || req.hostname==='ultravape.co') {
     io.socket.post(`/generatekey`, {name: 'bronce'}, function (resData, jwRes) {
       if(jwRes.statusCode == 200){
         if (resData && resData.key) {

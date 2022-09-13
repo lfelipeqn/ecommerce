@@ -5,34 +5,34 @@
     </div>
 <% } %>
 <div class="container">
-    <div class="box">
+    <div class="box has-background-black">
         <form id="verify-form" method="POST" action="/verify">
             <input type="hidden" name="method" <%if(typeof method ==='string' && method==='mobile'){%>value="mobile"<%}else{%>value="email"<%}%>/>
             <input type="hidden" name="email" <%if(typeof method ==='string' && method==='mobile'){%>value="<%=user.emailAddress%>"<%}else{%>value="<%=session.user.emailAddress%>"<%}%>/>
             <input type="hidden" name="referer" <%if(typeof referer ==='string'){%>value="<%=referer%>"<%}else{%>value="/"<%}%>/>
             <div class="field">
-                <h4 class="title is-size-4">Verifica tu cuenta</h4>
+                <h4 class="title is-size-4 has-text-white">Verifica tu cuenta</h4>
                 <%if(typeof method ==='string' && method==='mobile'){%>
-                    <h2 class="subtitle is-size-6">Ingresa el Código que enviamos vía <strong>mensaje de texto SMS</strong> a tu número *******<%=user.mobile.toString().substring((user.mobile.toString()).length-4)%> para validar tu cuenta. Puede tardar unos minutos en llegar.</h2>
+                    <h2 class="subtitle is-size-6 has-text-white">Ingresa el Código que enviamos vía <span class="has-text-white has-text-weight-bold">>mensaje de texto SMS</span> a tu número *******<%=user.mobile.toString().substring((user.mobile.toString()).length-4)%> para validar tu cuenta. Puede tardar unos minutos en llegar.</h2>
                 <%}else{%>
-                    <h2 class="subtitle is-size-6">Ingresa el Código que enviamos a tu <strong>Email <%=session.user.emailAddress.substring(0,3)%>*****@******<%=session.user.emailAddress.substring(session.user.emailAddress.length-4)%></strong> para validar tu cuenta. Es posible que debas revisar también en SPAM. Puede tardar unos minutos en llegar.</h2>
+                    <h2 class="subtitle is-size-6 has-text-white">Ingresa el Código que enviamos a tu <span class="has-text-white has-text-weight-bold">Email <%=session.user.emailAddress.substring(0,3)%>*****@******<%=session.user.emailAddress.substring(session.user.emailAddress.length-4)%></span> para validar tu cuenta. Es posible que debas revisar también en SPAM. Puede tardar unos minutos en llegar.</h2>
                 <%}%>
                 <hr>
             </div>
             <div class="field">
                 <ul class="is-flex is-centered">
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code1" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code2" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code3" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code4" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code5" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
-                    <li style="padding:3px;"><input class="code input is-info has-text-centered" name="code6" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code1" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code2" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code3" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code4" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code5" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
+                    <li style="padding:3px;"><input class="code input is-danger has-text-centered" name="code6" type="number" maxlength="1" required placeholder="0" autocomplete="no-fill"></li>
                 </ul>                        
             </div>
             <br>
             <div class="field">
                 <div class="control has-text-centered">
-                <button id="submit-verify" class="button is-success">
+                <button id="submit-verify" class="button is-danger">
                     <%if(typeof method==='string' && method==='mobile'){%>
                         Validar Cuenta
                     <%}else{%>
@@ -44,7 +44,7 @@
         </form>
     </div>
 </div>
-<script src="https://www.google.com/recaptcha/api.js?render=<% if(req.hostname=='1ecommerce.app'){%>6Leo7ccZAAAAAEHubAmCnbprfGK-aYZR9eaVaXy-}else{%>6LfK2-kUAAAAAHsiKw5JwC4Dd7AZYn3M9qmdJXY1<%}%>"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3"></script>
 <script>
     live('#submit-verify','click',e => {
         e.preventDefault();

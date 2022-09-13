@@ -21,6 +21,83 @@ module.exports = {
     }
     res.view('pages/carriers/carriers',{layout:'layouts/admin',carriers:carriers,action:action,carrier:carrier,error:error});
   },
+  showpackets: async function(req, res){
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'showpackets')){
+      throw 'forbidden';
+    }
+    let error= req.param('error') ? req.param('error') : null;
+    let pack = null;
+    let action = req.param('action') ? req.param('action') : null;
+    let id = req.param('id') ? req.param('id') : null;
+    let packages = await Packages.find();
+    if(id){
+      pack = await Packages.findOne({id:id});
+    }
+    res.view('pages/carriers/packages',{layout:'layouts/admin',packages:packages,action:action,pack:pack,error:error});
+  },
+  createpackage: async function(req, res){
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'createpackage')){
+      throw 'forbidden';
+    }
+    let error=null;
+    try{
+      await Packages.create({
+        packageName:req.body.packageName,
+        width:req.body.width,
+        height:req.body.height,
+        length:req.body.length,
+        weight:req.body.weight,
+        packageunits: req.body.packageunits
+      });
+    }catch(err){
+      error=err;
+    }
+    if (error===undefined || error===null){
+      return res.redirect('/packets');
+    }else{
+      return res.redirect('/packets?error='+error);
+    }
+  },
+  editpackage: async function(req, res){
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'editpackage')){
+      throw 'forbidden';
+    }
+    let error=null;
+    let id = req.param('id');
+    try{
+
+      await Packages.updateOne({id:id}).set({
+        packageName:req.body.packageName,
+        width:req.body.width,
+        height:req.body.height,
+        length:req.body.length,
+        weight:req.body.weight,
+        packageunits: req.body.packageunits
+      });
+
+    }catch(err){
+      error=err;
+      if(error.code==='badRequest'){
+        await Packages.updateOne({id:id}).set({
+          packageName:req.body.packageName,
+          width:req.body.width,
+          height:req.body.height,
+          length:req.body.length,
+          weight:req.body.weight,
+          packageunits: req.body.packageunits
+        });
+      }
+    }
+
+    if (error===undefined || error===null || error.code==='badRequest'){
+      return res.redirect('/packets');
+    }else{
+      return res.redirect('/packets?error='+error);
+    }
+  },
   createcarrier: async function(req, res){
     let rights = await sails.helpers.checkPermissions(req.session.user.profile);
     if(rights.name!=='superadmin' && !_.contains(rights.permissions,'createcarrier')){
@@ -313,7 +390,7 @@ module.exports = {
         return res.send({guia: null, error: 'No se encontró pedidos para procesar'});
       }
     } catch (error) {
-      return res.send({guia: null, error: 'Error al procesar guias'});
+      return res.send({guia: null, error: error+' '+'Error al procesar guias'});
     }
   },
   shipmentcrossdocking: async function(req, res){

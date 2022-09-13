@@ -147,7 +147,7 @@ module.exports = {
       discount = await CartDiscount.findOne({id:id});
     }
     let discounts = await CartDiscount.find().sort([{createdAt: 'DESC'}]);
-    return res.view('pages/discounts/coupons', {layout:'layouts/admin',error:error, discounts:discounts, action:action, discount:discount, moment:moment, root:root});
+    return res.view('pages/discounts/coupons', {layout:'layouts/admin',error:error, discounts:discounts, action:action, discount:discount, moment:moment});
   },
   createcoupon:async (req, res)=>{
     let rights = await sails.helpers.checkPermissions(req.session.user.profile);
@@ -266,7 +266,62 @@ module.exports = {
     let seller= req.param('seller');
     let integrations = await Integrations.find({where:{seller:seller},select:['name']});
     return res.send(integrations);
-  }
+  },
+  fidelity: async (req, res) =>{
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'discounts')){
+      throw 'forbidden';
+    }
+    let error = req.param('error') ? req.param('error') : null;
+    let moment = require('moment');
+    let fidelities = await Fidelity.find({})
+    .populate('user')
+    .populate('order');
 
+    return res.view('pages/discounts/fidelity', {layout:'layouts/admin',error:error,fidelities:fidelities,moment:moment});
+  },
+  fidelityplan: async function(req, res){
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'fideliyplan')){
+      throw 'forbidden';
+    }
+    let error = req.param('error') ? req.param('error') : null;
+    let action = req.param('action') ? req.param('action') : null;
+    let id = req.param('id') ? req.param('id') : null;
+
+    let fidelityplan = await FidelityPlan.find({});
+    let planid = null;
+    if(id){
+      planid = await FidelityPlan.findOne({id:id});
+    }
+
+    return res.view('pages/discounts/fidelityplan', {layout:'layouts/admin',error, fidelityplan, planid, action});
+  },
+  createfidelityplan: async (req, res) => {
+    let rights = await sails.helpers.checkPermissions(req.session.user.profile);
+    if(rights.name!=='superadmin' && !_.contains(rights.permissions,'fideliyplan')){
+      throw 'forbidden';
+    }
+    let action = req.param('action');
+
+    try{
+      if(action==='edit'){
+        await FidelityPlan.updateOne({id:req.param('id')}).set({
+          fidelityPlan:req.body.fidelityPlan.toLowerCase().trim(),
+          typeFidelity:req.body.typeFidelity,
+          amount:req.body.amount,
+        });
+      }else{
+        await FidelityPlan.create({
+          fidelityPlan:req.body.fidelityPlan.toLowerCase().trim(),
+          typeFidelity:req.body.typeFidelity,
+          amount:req.body.amount,
+        });
+      }
+    }catch(err){
+      return res.redirect('/fidelityplan?error='+err);
+    }
+    return res.redirect('/fidelityplan');
+  },
 };
 

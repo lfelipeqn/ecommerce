@@ -1,25 +1,43 @@
-<div class="container">
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <%if(req.hostname==='iridio.co' || req.hostname==='localhost'){%>
-        <a class="navbar-item" href="/"><img src="<%=cdnurl%>/iridio.png"></a>
-      <%}else if(req.hostname==='1ecommerce.app'){%>
-        <a class="navbar-item" href="/"><img src="/images/1ecommerce-logo.png"></a>
-      <%}else{%>
-        <%if(typeof seller === 'object' && seller!==null){%><a href="/"><img async src="<%=imgurl%>/images/sellers/<%=seller.logo%>" width="130"></a>&nbsp;&nbsp;&nbsp;<%}%>
-      <%}%>
+      <%if(typeof seller === 'object' && seller!==null){%><a href="/"><img src="<%=imgurl%>/images/sellers/<%=seller[0].logo%>"></a>&nbsp;&nbsp;&nbsp;<%}%>
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
-    <div id="navmobile" class="is-hidden"><% if(req.session.menu && req.session.menu.navbarmobile){ %><%- req.session.menu.navbarmobile %><% }else{ %><span></span><%}%></div>
-    <div id="navFull" class="is-hidden"><% if(req.session.menu && req.session.menu.navbar){ %><%- req.session.menu.navbar %><% }else{ %><span></span><%}%></div>
+    <div id="navmobile" class="is-hidden"><% if(req.session && req.session.menu && req.session.menu.navbarmobile){ %><%- req.session.menu.navbarmobile %><% }else{ %><span></span><%}%></div>
+    <div id="navFull" class="is-hidden"><% if(req.session && req.session.menu && req.session.menu.navbar){ %><%- req.session.menu.navbar %><% }else{ %><span></span><%}%></div>
     <div id="navbarContainer" class="navbar-menu">
     </div>
     <div class="navbar-end has-text-right">
-      <div class="navbar-item has-text-centered">        
+      <div class="navbar-item is-size-7 is-uppercase has-text-centered">
+        <div class="dropdown is-right is-hoverable">
+          <div class="dropdown-trigger">
+            <button id="account-menu" class="button is-size-7 is-black" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <% if(session && session.user === undefined) { %>
+                <span class="is-size-7 is-uppercase has-text-centered">INICIAR SESION</span>
+              <%}else{%>
+                <span class="is-size-7 is-uppercase has-text-centered">CUENTA</span>
+              <%}%>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+              <% if(session && session.user) { %>
+                <a href="/account" class="dropdown-item is-size-7 has-text-right">Mi Cuenta</a>
+                <a href="/addresses" class="dropdown-item is-size-7 has-text-right">Direcciones</a>
+                <hr class="dropdown-divider">
+                <a href="/logout" class="dropdown-item is-size-7 has-text-right">Cerrar Sesión</a>
+              <% } else { %>
+                <a href="/login" id="login" class="dropdown-item is-size-7 has-text-right">Iniciar Sesión</a>
+              <% }%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="navbar-item has-text-centered">        
         <div class="field has-addons is-inline">
             <form id="search-form" style="margin-left: auto; margin-right: auto;" class="is-marginless is-paddingless is-flex" method="GET" action="/buscar">
               <input style="min-width: 266px;" class="input is-dark is-small" type="text" name="q" placeholder="Buscar Productos" />
@@ -30,41 +48,17 @@
               </div>
             </form>
         </div>
-      </div>
+      </div>-->
       <div class="navbar-item is-inline-block">
           <div class="buttons">
-            <a href="/cart" id="cart-button" class="button">
-              <span title="Badge top right" class="badge is-info"><%if(session && session.cart){%><%=session.cart.items%> <%}else{%>0<%}%></span>
+            <a href="/cart" id="cart-button" class="button is-rounded is-danger px-2 mx-2">
+              <span class="badge is-danger"><%if(session && session.cart){%><%=session.cart.items%> <%}else{%>0<%}%></span>
               <i class='is-size-4 bx bxs-cart'></i>
             </a>
-            <div class="dropdown is-right is-hoverable">
-              <div class="dropdown-trigger">
-                <button id="account-menu" class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                  <% if(session && session.user === undefined) { %>
-                    <span><i class='is-size-4 bx bxs-user-detail'></i></span>
-                  <%}else{%>
-                    <span><i class="is-size-4 bx bxs-user"></i></span>
-                  <%}%>
-                </button>
-              </div>
-              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-                <div class="dropdown-content">
-                  <% if(session && session.user) { %>
-                    <a href="/account" class="dropdown-item">Mi Cuenta</a>
-                    <a href="/addresses" class="dropdown-item">Direcciones</a>
-                    <hr class="dropdown-divider">
-                    <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
-                  <% } else { %>
-                    <a href="/login" id="login" class="dropdown-item">Iniciar Sesión</a>
-                  <% }%>
-                </div>
-              </div>
-            </div>
           </div>
       </div>
     </div>
 </nav>
-</div>
 <script>
   live('#search','click',e=>{
     e.preventDefault();
@@ -120,10 +114,10 @@
   }
 
   document.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
+      document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
   });
 
   window.addEventListener('resize',() => {
-    document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
+     document.getElementById('navbarContainer').innerHTML = whichMenu(window.innerWidth);
   });
 </script>

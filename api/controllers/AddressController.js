@@ -9,11 +9,13 @@ module.exports = {
   addresses: async function(req, res){
     let error = req.param('error') ? req.param('error') : null;
     let addresses = null;
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
     addresses = await Address.find({user:req.session.user.id})
     .populate('country')
     .populate('region')
     .populate('city');
-    return res.view('pages/account/addresses',{addresses:addresses,error:error});
+    return res.view('pages/account/addresses',{addresses:addresses,error:error,seller});
   },
   address: async function(req, res){
     let id = req.param('id') ? req.param('id') : null;

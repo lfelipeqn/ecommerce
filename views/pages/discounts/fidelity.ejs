@@ -1,0 +1,59 @@
+<div class="container">
+    <% if (error != undefined || error != null) { %>
+      <div class="notification is-danger is-light" id="error">
+          <%= error %>
+      </div>
+    <% } %>
+      <div class="table-container">
+          <table class="table is-hoverable" id="fidelity-table">
+              <thead>
+              <tr>
+                  <th scope="col">Concepto</th>
+                  <th scope="col">Pedido</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Puntos</th>
+                  <th scope="col">Valor Punto</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Creado</th>
+              </tr>
+              </thead>
+              <tbody>
+                  <% fidelities.forEach(function(fidelity){ %>
+                      <tr>
+                          <td class="align-middle is-uppercase"><%= fidelity.concept %></td>
+                          <td class="align-middle"><%= fidelity.order.reference %></td>
+                          <td class="align-middle"><%= fidelity.user.fullName %></td>
+                          <td class="align-middle"><%= fidelity.points %></td>
+                          <td class="align-middle"><%= fidelity.pointvalue %></td>
+                          <td class="align-middle">$&nbsp;<%= (fidelity.points*fidelity.pointvalue).toFixed(2) %></td>
+                          <td class="align-middle"><%= moment(fidelity.createdAt).locale('es').format('DD MMMM YYYY HH:mm:ss'); %></td>
+                      </tr>
+                  <% }); %>
+              </tbody>
+          </table>
+      </div>
+      <script>
+          document.addEventListener('DOMContentLoaded', function(){
+              let table = new simpleDatatables.DataTable('#fidelity-table',{
+              searchable:true,
+              sortable:true,
+              paging:true,
+              perPageSelect:[5,10,20,30,50],
+              perPage:50,
+              labels: {
+                  placeholder: "Buscar...",
+                  perPage: "{select} registros por página",
+                  noRows: "No se encontraron datos",
+                  info: "Mostrando {start} a {end} de {rows} registros",
+              }
+              });  
+          });
+
+        setTimeout(function() {
+          var el = document.getElementById('error');
+          if(el){
+            el.style.display='none';
+          }
+        }, 6000);
+      </script>
+  </div>

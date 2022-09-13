@@ -146,3 +146,5 @@ config/datastores.js/
 /config/datastores.js
 .sass-cache
 package-lock.json
+
+config*.json

@@ -23,6 +23,10 @@ module.exports = {
       type:'number',
       defaultsTo:0
     },
+    totalPoints:{
+      type:'number',
+      defaultsTo:0
+    },
     totalDiscount:{
       type:'number',
       defaultsTo:0

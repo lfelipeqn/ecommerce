@@ -1,29 +1,31 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/drift-zoom@1.4.0/dist/drift-basic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/drift-zoom@1.4.0/dist/Drift.min.js"></script>
-<div class="container" itemscope itemtype="https://schema.org/Product">
+<div class="container my-6" itemscope itemtype="https://schema.org/Product">
     <div class="columns is-gapless">
         <div class="column is-two-fifths">
-            <div class="box">
+            <div style="background: none;" class="box is-transparent">
                 <span class="is-hidden" itemprop="productID"><%=product.id%></span>
                 <span class="is-hidden" itemprop="sku"><%=product.reference%></span>
                 <div class="media">
                     <div class="media-left">
                         <%product.images.forEach((image)=>{%>
                             <figure class="image is-64x64">
-                                <img itemprop="image" src="<%=cdnurl%>/images/products/<%=product.id%>/<%= image.file %>" alt="<%=product.name%>">
+                                <img itemprop="image" src="<%=cdnurl ? cdnurl : imgurl %>/images/products/<%=product.id%>/<%= image.file %>" alt="<%=product.name%>">
                             </figure>
                         <%})%>
                     </div>
                     <%product.images.forEach((image)=>{%>
                         <%if(image.cover==1){%>
-                            <div style="overflow-y: hidden;" class="media-content">
+                            <div class="media-content">
                                 <figure class="image is-square is-relative">
-                                    <img id="main" itemprop="image" src="<%=cdnurl%>/images/products/<%=product.id%>/<%= image.file %>" data-zoom="<%=cdnurl%>/images/products/<%=product.id%>/<%= image.file %>" alt="<%=product.name%>">
+                                    <img id="main" itemprop="image" src="<%=cdnurl ? cdnurl : imgurl %>/images/products/<%=product.id%>/<%= image.file %>" data-zoom="<%=cdnurl ? cdnurl : imgurl %>/images/products/<%=product.id%>/<%= image.file %>" alt="<%=product.name%>">
                                 </figure>                        
                             </div>
                         <%}%>
                     <%})%>
-                    <div style="z-index:30;" class="img-zoom"></div>
+                    <%if(product.type==='product'){%>
+                     <div style="z-index:30;" class="img-zoom"></div>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -32,31 +34,35 @@
                 <br>
                 <h2 itemprop="brand" class="is-capitalized"><%=product.manufacturer.name%></h2>
                 <h4 itemprop="name" class="is-uppercase is-size-4"><%=product.name%></h4>
-                <span class="is-x-small">Referencia: <%=product.reference.toUpperCase()%></span>
+                <!--<span class="is-x-small">Referencia: <%#=product.reference.toUpperCase()#%></span>-->
                 <br><br>
                 <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <meta itemprop="priceCurrency" content="COP">
                 <link itemprop="availability" href="https://schema.org/InStock" />
-                <table class="table is-size-6 is-fullwidth">
+                <table style="background: none;" class="table is-size-6 is-fullwidth has-text-white has-text-weight-bold">
                     <%if(discount!==null && discount!==undefined){%>
                         <div itemprop="itemOffered" itemscope itemtype="https://schema.org/AggregateOffer">
-                            <tr><td>Precio recomendado:</td><td class="has-text-right"><span itemprop="highPrice" class="is-size-7 has-text-danger old-price highPrice">$ <%= Math.round(product.variations[0].price).toLocaleString("es-CO");%></span></td></tr>
-                            <tr><td>Precio:</td><td class="has-text-right"><span itemprop="lowPrice" class="lowPrice">$ <%= Math.round(discount.price).toLocaleString("es-CO"); %></span></td></tr>
+                            <tr><td>Precio recomendado:</td><td class="has-text-right"><span itemprop="highPrice" class="is-size-7 has-text-white old-price highPrice">$ <%= Math.round(product.variations[0].price).toLocaleString("es-CO");%></span></td></tr>
+                            <tr><td>Precio:</td><td class="has-text-right"><span itemprop="lowPrice" class="lowPrice has-text-danger">$ <%= Math.round(discount.price).toLocaleString("es-CO"); %></span></td></tr>
                             <% let savings = parseInt(product.variations[0].price-discount.price) %>
-                            <tr><td>Ahorro:</td><td class="has-text-success has-text-right"><span class="savings">$ <%= savings.toLocaleString('es-CO'); %></span></td></tr>
+                            <tr><td>Ahorro:</td><td class="has-text-success has-text-right"><span class="savings has-text-danger">$ <%= savings.toLocaleString('es-CO'); %></span></td></tr>
                             <span class="is-hidden" itemprop="offerCount">1</span>
                             <span itemprop="price" content="<%= Math.round(discount.price) %>" data-price="<%= Math.round(discount.price) %>" class="is-hidden bestPrice"><%= Math.round(discount.price).toLocaleString("es-CO"); %></span>
                         </div>
                     <%}else{%>
-                      <tr><td>Precio:</td><td class="has-text-right"><span class="is-size-6 has-text-dark has-text-weight-bold">$ </span><span itemprop="price" content="<%= Math.round(product.variations[0].price)%>" data-price="<%= Math.round(product.variations[0].price)%>" class="bestPrice"><%= Math.round(product.variations[0].price).toLocaleString("es-CO"); %></span></td></tr>
+                        <% if(product.type==='prize'){ %>
+                            <tr><td>Puntos:</td><td class="has-text-right"><span itemprop="price" content="<%= Math.round(product.variations[0].price/500)%>" data-price="<%= Math.round(product.variations[0].price/500)%>" class="bestPrice"><%= Math.round(product.variations[0].price/500).toLocaleString("es-CO"); %></span></td></tr>
+                        <% } else { %>
+                            <tr><td>Precio:</td><td class="has-text-right"><span class="is-size-6 has-text-white has-text-weight-bold">$ </span><span itemprop="price" content="<%= Math.round(product.variations[0].price)%>" data-price="<%= Math.round(product.variations[0].price)%>" class="bestPrice"><%= Math.round(product.variations[0].price).toLocaleString("es-CO"); %></span></td></tr>
+                        <% } %>
                     <%}%>
                 </table>
                 <hr>
                 </div>
                 <div class="columns is-mobile">
                     <div class="column">
-                        <label class="label has-text-weight-bold is-size-7" for="variations">Talla:</label>
-                        <div class="select is-primary is-small">
+                        <label class="label has-text-white has-text-weight-bold is-size-7" for="variations">Presentaciones:</label>
+                        <div class="select is-danger is-small">
                         <select class="is-uppercase" name="variations">
                             <option class="is-capitalized" value="0">Seleccionar</option>
                             <% product.variations.forEach((vr)=>{%>
@@ -66,7 +72,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <label class="label has-text-weight-bold is-size-7" for="variations">Colores:</label>
+                        <label class="label has-text-white has-text-weight-bold is-size-7" for="variations">Colores:</label>
                         <span class="color-container is-right is-inline-block" color="<%=product.mainColor.name%>" style="background-color: <%= product.mainColor.code %>;border:solid 1px; <%= product.mainColor.code %>;"></span>                        
                         <span class="is-hidden" itemprop="color"><%=product.mainColor.name%></span>
                     </div>
@@ -77,14 +83,14 @@
             </div>
         </div>
         <div class="column is-one-fifth has-text-centered">
-            <div class="box">
-                <p id="avail" class="has-text-centered has-text-info">Para comprar elige <b>Talla</b></p>
+            <div class="box has-background-dark">
+                <p id="avail" class="has-text-centered has-text-white">Para comprar elige una <b>presentación</b></p>
                 <div class="select is-small is-hidden">                    
                 <select name="quantity">
                 </select>
                 </div>
                 <br><br>                
-                <a id="add-to-cart" product="<%=product.id%>" disabled="disabled" class="button has-text-weight-bold is-flex is-size-7-tablet is-fullwidth"><i class='bx bx-cart-alt is-dark'></i>&nbsp;Agregar al carrito</a>
+                <a id="add-to-cart" product="<%=product.id%>" disabled="disabled" class="button has-text-weight-bold is-flex is-size-7-tablet is-fullwidth"><i class='bx bx-cart-alt is-light'></i>&nbsp;Agregar al carrito</a>
             </div>
         </div>
     </div>
@@ -112,10 +118,12 @@
         f.addEventListener("click",showimage);
     }
     
-    let drift = new Drift(document.querySelector('#main'),{
-        inlineContainer: document.querySelector('.img-zoom'),
-        inlinePane: 320,
-    });
+    <%if(product.type==='product'){%>
+        let drift = new Drift(document.querySelector('#main'),{
+            inlineContainer: document.querySelector('.img-zoom'),
+            inlinePane: 320,
+        });
+    <%}%>
     
     live('select[name="variations"]','change',(e)=>{
         let variation = e.target.options[e.target.selectedIndex].getAttribute('value')!=='0' ? e.target.options[e.target.selectedIndex].getAttribute('value') : e.target.options[1].getAttribute('value');
@@ -197,7 +205,7 @@
             removeClass(add,'is-warning');
             add.setAttribute('disabled','disabled');
         }else{
-            label.innerHTML='Para comprar elige <b>Talla</b>';
+            label.innerHTML='Para comprar elige <b>Presentación</b>';
             removeClass(label, 'has-text-success');
             removeClass(label, 'has-text-danger');
             addClass(quantity.parentNode,'is-hidden');
@@ -214,35 +222,38 @@
             let qty = document.querySelector('select[name="quantity"]').value
             let vrt = document.querySelector('select[name="variations"]').value
             io.socket.put('/cart',{variation:vrt,quantity:qty,action:'create',hostname:window.location.hostname},(resData)=>{
-                dataLayer.push({ ecommerce: null });
-                dataLayer.push({
-                    'event': 'add_to_cart',
-                    'ecommerce': {
-                        'items': resData.products
-                    }
-                });
+                if(dataLayer){
+                    dataLayer.push({ ecommerce: null });
+                    dataLayer.push({
+                        'event': 'add_to_cart',
+                        'ecommerce': {
+                            'items': resData.products
+                        }
+                    });
+                }
                 window.location.href='/cart';
             });
         }
     })
-
-    dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-    dataLayer.push({
-    'ecommerce': {
-        'event': 'view_item',
+    if(dataLayer){
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
         'ecommerce': {
-            'items': [{
-                'item_name': '<%= product.name %>',
-                'item_id': '<%= product.id %>',
-                'item_brand': '<%= product.manufacturer.name %>',
-                'item_reference': '<%= product.reference %>',
-                'item_category': '<%= product.mainCategory.name %>',
-                'item_color': '<%= product.mainColor.name %>',
-                'price': '<%= discount && discount.price ? discount.price : product.variations[0].price %>',
-                'quantity':1
-            }]
+            'event': 'view_item',
+            'ecommerce': {
+                'items': [{
+                    'item_name': '<%= product.name %>',
+                    'item_id': '<%= product.id %>',
+                    'item_brand': '<%= product.manufacturer.name %>',
+                    'item_reference': '<%= product.reference %>',
+                    'item_category': '<%= product.mainCategory.name %>',
+                    'item_color': '<%= product.mainColor.name %>',
+                    'price': '<%= discount && discount.price ? discount.price : product.variations[0].price %>',
+                    'quantity':1
+                }]
+            }
         }
+        });
     }
-    });
 </script>
 <br><br>

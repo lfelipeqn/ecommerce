@@ -1,4 +1,35 @@
+.html-front{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/background.jpg');
+    background-repeat: repeat;
+    color:white;
+}
+.html-front{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/background.jpg');
+    background-repeat: repeat;
+    color:white;
+}
+.landing{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/BGLanding4000X6000.png');
+    background-repeat: repeat;
+    color:white;
+}
+.body-front{
+    color:white;
+}
+
+.is-transparent_{background: none !important;}
 .button{font-weight: bold;}
+#colores > a > label:hover{color:black;}
+/** Mega Menu */
+.navbar-item.is-mega {
+    position: static;
+  
+    .is-mega-menu-title {
+      margin-bottom: 0;
+      padding: .375rem 1rem;
+    }
+}
+/* Fin Mega menu */
 .menu{padding:7px 0px 7px 10px;}
 .menu-label{
     font-family: $family-sans-serif;
@@ -128,6 +159,25 @@
 .card-catalog{
     display: inline-block;
 }
+/*
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+.card:hover{
+    animation: shake 0.5s;
+    animation-iteration-count: infinite; 
+}*/
 
 @media only screen and (max-width: 483px){
     .card-catalog{
@@ -165,7 +215,103 @@
         width:24%;
         margin: 2px;
     }
+
+    .keen-slider{margin-top:-70px;}
+    .navbar{background: transparent !important; border-bottom: solid 1px lightgray;}
+    .navbar-menu{flex-grow: 1;flex-shrink: 0;align-content: center;justify-content: center;}
+    #account-menu{
+        background: none;
+        color: white;
+    }
+
+    #background-video {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        opacity: 0.4;
+    }
+
+    .pie{
+        background-image: url('https://s3.amazonaws.com/ultravape.co/Footer.png'); 
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: repeat;
+        padding: 1rem;
+    }
 }
+
+@media only screen and (max-width:1023px){
+    #background-video {
+        display:none;
+    }
+
+    .pie{
+        background: none;
+    }
+    .pie > .column{
+        background-image: url('https://s3.amazonaws.com/ultravape.co/Footer.png'); 
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: repeat;
+    }
+}
+
+.cart-background{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/fondocarrito-fire-grey.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
+    -moz-box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
+    box-shadow: -1px 4px 8px 0px rgba(255,255,255,0.44);
+}
+
+.mask{
+    background-image: url('https://s3.amazonaws.com/ultravape.co/dots.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    z-index: 10;
+}
+
+.video-container{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.navigation-wrapper {
+    position: relative;
+  }
+
+.dots {
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
+  }
+  
+  .dot {
+    border: none;
+    width: 10px;
+    height: 10px;
+    background: #c5c5c5;
+    border-radius: 50%;
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .dot:focus {
+    outline: none;
+  }
+  
+  .dot--active {
+    background: #000;
+  }
 
 .is-x-small{
     font-size: small;

@@ -16,15 +16,8 @@ module.exports = {
     let publicKey = '';
     let privateKey = '';
 
-    if(inputs.method==='CC' || inputs.method==='PSE'){
-      // Modelo Gateway
-      publicKey = '6a7d08a5cc7410769c22029ea34108f6';
-      privateKey = 'c4f2b4893fcb720b78f405e3a34cbc9c';
-    }else{
-      //Modelo Agregador
-      publicKey = '654321aa2d4ced997b799450ce3f4802';
-      privateKey = '6303de3a48c07a82a3c83c3ab0d76b44';
-    }
+    publicKey = 'af9068694b6f52fb537cb8fc0d4571b2';
+    privateKey = 'fbda2a06312c6917057ca6e120232ff2';
 
     const epayco = require('epayco-sdk-node')({
       apiKey: publicKey,

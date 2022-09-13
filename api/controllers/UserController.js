@@ -9,7 +9,14 @@ module.exports = {
   registerform: async function(req, res){
     let countries = await Country.find();
     let referer = req.param('referer') ? req.param('referer') : '/';
-    return res.view('pages/front/register',{referer:referer,countries:countries});
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
+    if(seller[0].domain='ultravape.co'){
+      seller[0].domain='6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3';
+    }else{
+      seller[0].domain='6Lc_lAMhAAAAALo4hSJvYIY7iVi0Sl2_LsH7YXGR';
+    }
+    return res.view('pages/front/register',{referer:referer,countries:countries,seller});
   },
   forgot: async (req, res)=>{
     return res.view('pages/front/forgot');
@@ -20,7 +27,9 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='1ecommerce.app'){secret = '6Leo7ccZAAAAAFZspurQhYQ8NGn58vZiNqovrSKf'}else{secret = '6LfK2-kUAAAAAF6eGv3Ykl2hiz1nxw7FexjIrqOt'}
+    if(req.hostname==='ultravape.co'){secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';}
+    if(req.hostname==='fidelizacion.ultraglobaldistribucion.com'){secret = '6Lc_lAMhAAAAAJukpBFzMbNacIQSRvTNqhsn1LKS';}
+
     let data = {secret:secret,response:req.body.token};
     let options = {
       hostname: 'www.google.com',
@@ -81,12 +90,13 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    if(req.hostname==='1ecommerce.app'){
-      secret = '6Leo7ccZAAAAAFZspurQhYQ8NGn58vZiNqovrSKf'
-    }else if(req.hostname==='iridio.co' || req.hostname==='demo.1ecommerce.app' || req.hostname==='localhost'){
-      secret = '6LfK2-kUAAAAAF6eGv3Ykl2hiz1nxw7FexjIrqOt'
-    }else if(req.hostname==='sanpolos.com'){
-      secret = '6Lc4ItEZAAAAALMZ79KoHAM2NK6gIS3WJTBl5X8f'
+    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let seller = await Seller.find({domain:filterdomain});
+
+    if(seller[0].domain==='ultravape.co'){
+      secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';
+    }else{
+      secret = '6Lc_lAMhAAAAAJukpBFzMbNacIQSRvTNqhsn1LKS';
     }
     let data = {secret:secret,response:req.body.token};
     let options = {
@@ -113,6 +123,13 @@ module.exports = {
           try{
             let country = await Country.findOne({id:req.body.country});
             let profile = await Profile.findOne({name:'customer'});
+            let referalCode = 0;
+            let repeated = 1;
+            do{
+              referalCode = randomize('0',6);
+              repeated = await User.count({referalCode});
+            }while(repeated>0);
+
             let user = await User.create({
               emailAddress:req.body.email,
               emailStatus:status,
@@ -121,6 +138,8 @@ module.exports = {
               verification:verification,
               dniType:req.body.dnitype,
               dni:req.body.dni ? req.body.dni.toString() : '',
+              referalCode: referalCode,
+              referred: req.body.referred ? parseInt(req.body.referred.trim()) : null,
               mobilecountry:country.id,
               mobile:req.body.mobile,
               mobileStatus:'unconfirmed',
@@ -135,6 +154,7 @@ module.exports = {
               return res.redirect('/account');
             }
           }catch(err){
+            console.log(err.message);
             switch(err.code){
               case 'E_UNIQUE':
                 msg = 'El email ya se encuentra registrado';

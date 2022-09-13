@@ -131,19 +131,22 @@ module.exports = {
   },
   account: async (req, res)=>{
     let seller = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
     return res.view('pages/account/account',{seller:seller});
   },
   user: async (req, res)=>{
     let seller = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
     let user = await User.findOne({id:req.param('id')});
     return res.view('pages/account/user',{user:user, seller:seller});
   },
   orders: async (req, res)=>{
     let moment = require('moment');
     let seller = null;
-    if(req.hostname!=='iridio.co' && req.hostname!=='demo.1ecommerce.app' && req.hostname!=='localhost' && req.hostname!=='1ecommerce.app'){seller = await Seller.findOne({domain:req.hostname/*'sanpolos.com'*/});}
+    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    seller = await Seller.find({domain:domain});
     let orders = await Order.find({customer:req.session.user.id})
     .populate('currentstatus')
     .populate('seller')

@@ -174,7 +174,7 @@ module.exports = {
         `<td class="align-middle is-uppercase"><a href="#" class="product-image" data-product="` + p.id + `">` + p.name + `</a></td>`,
         `<td class="align-middle">` + p.reference + `</td>`,
         `<td class="align-middle is-capitalized">` + (p.manufacturer ? p.manufacturer.name : '') + `</td>`,
-        `<td class="align-middle"> ` + (price ? formatter.format(price) : formatter.format(0)) + `</td>`,
+        /*`<td class="align-middle"> ` + (price ? formatter.format(price) : formatter.format(0)) + `</td>`,*/
         `<td class="align-middle is-capitalized">` + (p.mainColor ? p.mainColor.name : '') + `</td>`,
         `<td class="align-middle is-capitalized">` + (p.mainCategory ? p.mainCategory.name : '') + `</td>`,
         `<td class="align-middle">` + p.stock + `</td>`,
@@ -202,6 +202,7 @@ module.exports = {
     const brands = await Manufacturer.find();
     const colors = await Color.find();
     const genders = await Gender.find();
+    const fidelityplan = await FidelityPlan.find();
     let sellers = null;
     let helper = 'catalog';
     let integrations = null;
@@ -249,6 +250,7 @@ module.exports = {
         .populate('channels');
       for (let pv in product.variations) {
         product.variations[pv].variation = await Variation.findOne({ id: product.variations[pv].variation });
+        product.variations[pv].package = product.variations[pv].package ? await Packages.findOne({ id: product.variations[pv].package }) : '';
       }
       for (let c of product.categories) {
         let cat = await Category.findOne({id: c.id}).populate('features');
@@ -272,6 +274,7 @@ module.exports = {
       brands: brands,
       colors: colors,
       genders: genders,
+      fidelityplan,
       sellers: sellers,
       integrations: integrations,
       taxes: taxes,
@@ -304,19 +307,16 @@ module.exports = {
           reference: req.body.reference.toUpperCase().trim(),
           description: req.body.description,
           descriptionShort: req.body.descriptionshort,
-          group:req.body.group ? req.body.group : '',
+          group:req.body.group,
           active: req.body.active,
           tax: req.body.tax,
           mainCategory: req.body.mainCategory,
           mainColor: req.body.mainColor,
           manufacturer: req.body.manufacturer,
-          activity: req.body.activity || '',
+          activity: req.body.activity,
           gender: req.body.gender,
           seller: req.body.seller,
-          width: req.body.width,
-          height: req.body.height,
-          length: req.body.length,
-          weight: req.body.weight
+          fidelityplan: req.body.fidelityplan,
         }).fetch();
         await Product.addToCollection(product.id, 'categories', JSON.parse(req.body.categories));
       } else {
@@ -325,19 +325,16 @@ module.exports = {
           reference: req.body.reference.toUpperCase().trim(),
           description: req.body.description,
           descriptionShort: req.body.descriptionshort,
-          group:req.body.group ? req.body.group : '',
+          group:req.body.group,
           active: req.body.active,
           tax: req.body.tax,
           mainCategory: req.body.mainCategory,
           mainColor: req.body.mainColor,
           manufacturer: req.body.manufacturer,
-          activity: req.body.activity || '',
+          activity: req.body.activity,
           gender: req.body.gender,
           seller: req.body.seller,
-          width: req.body.width,
-          height: req.body.height,
-          length: req.body.length,
-          weight: req.body.weight
+          fidelityplan: req.body.fidelityplan
         });
         await Product.replaceCollection(product.id, 'categories').members(JSON.parse(req.body.categories));
         await sails.helpers.tools.productState(product.id,product.active,true,seller.active);
@@ -427,11 +424,11 @@ module.exports = {
     let error = false;
     let product = await Product.findOne({ id: req.body[0].product }).populate('seller');
     for (let list of req.body) {
-      ProductVariation.findOrCreate({ id: list.productvariation }, { product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id })
+      ProductVariation.findOrCreate({ id: list.productvariation }, { product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id, package: list.package })
         .exec(async (err, record, wasCreated) => {
           if (err) { error = true; return res.send('error'); }
           if (!wasCreated) {
-            await ProductVariation.updateOne({ id: record.id }).set({ product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id });
+            await ProductVariation.updateOne({ id: record.id }).set({ product: list.product, variation: list.variation, reference: list.reference, supplierreference: list.supplierreference, ean13: list.ean13, upc: list.upc, price: list.price, quantity: list.quantity, seller: product.seller.id, package: list.package });
           }
         });
     }
@@ -449,12 +446,19 @@ module.exports = {
     let variations = await Variation.find({ where: { manufacturer: product.manufacturer, gender: product.gender, seller: product.seller, category: { in: level2 } } });
     return res.send(variations);
   },
+  findpackages: async (req, res) => {
+    if (!req.isSocket) {
+      return res.badRequest();
+    }
+    let packages = await Packages.find({}).sort('updatedAt DESC');
+    return res.send(packages);
+  },
   findproductvariations: async (req, res) => {
     if (!req.isSocket) {
       return res.badRequest();
     }
     let productvariations = await ProductVariation.find({ product: req.param('id'), quantity: { '>': 0 } })
-      .populate('variation');
+      .populate('variation').sort('createdAt ASC');
 
     productvariations = productvariations.sort((a, b) => a.variation.name - b.variation.name);
 
@@ -1320,10 +1324,6 @@ module.exports = {
         if (gender.length > 0) { prod.gender = gender[0]; gen = await Gender.findOne({id:gender[0]});} else { throw new Error('No logramos identificar el género para este producto.'); }
         let eval = req.body.product.active.toLowerCase().trim();
         prod.active = (eval === 'true' || eval === '1' || eval === 'verdadero' || eval === 'si' || eval === 'sí') ? true : false;
-        prod.width = parseFloat(req.body.product.width.replace(',', '.'));
-        prod.height = parseFloat(req.body.product.height.replace(',', '.'));
-        prod.length = parseFloat(req.body.product.length.replace(',', '.'));
-        prod.weight = parseFloat(req.body.product.weight.replace(',', '.'));
         prod.seller = seller;
         prod.group = req.body.product.group || '';
         prod.description = req.body.product.description;
@@ -1490,10 +1490,6 @@ module.exports = {
       prod.externalId = req.body.product.externalId || '';
       prod.group = req.body.product.group || '';
       prod.active = req.body.product.active;
-      prod.width = (req.body.product.width === undefined || req.body.product.width === null || req.body.product.width < 1) ? 15 : req.body.product.width;
-      prod.height = (req.body.product.height === undefined || req.body.product.height === null || req.body.product.height < 1) ? 15 : req.body.product.height;
-      prod.length = (req.body.product.length === undefined || req.body.product.length === null || req.body.product.length < 1) ? 32 : req.body.product.length;
-      prod.weight = (req.body.product.weight === undefined || req.body.product.weight === null || req.body.product.weight === 0) ? 1 : req.body.product.weight;
       prod.description = req.body.product.description;
       prod.descriptionShort = req.body.product.descriptionShort;
       prod.seller = seller;

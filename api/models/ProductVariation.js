@@ -17,6 +17,9 @@ module.exports = {
     seller:{
       model:'seller'
     },
+    package:{
+      model:'packages'
+    },
     reference:{type:'string'},
     supplierreference:{type:'string'},
     ean13:{type:'string'},
