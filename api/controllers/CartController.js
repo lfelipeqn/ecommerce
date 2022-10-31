@@ -10,8 +10,9 @@ module.exports = {
     let cart = null;
     let seller = null;
     
-    let filterdomain = req.hostname ==='localhost' ? 'pruebas.ultraglobaldistribucion.com' : req.hostname;
-    seller = await Seller.find({domain:filterdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+
+    seller = await Seller.find({domain});
     
     
     if(req.session.cart!==undefined){

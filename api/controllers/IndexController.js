@@ -17,13 +17,13 @@ module.exports = {
     let sliderfilter = {active:true};
     let brands = null;
 
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
 
     //let iridio = null;
 
     //let now = moment().valueOf();
     //if(!req.session.menu || (req.session.menu && !req.session.menu.updated) || (req.session.menu && req.session.menu.updated && (now-req.session.menu.updated)>=259200000)){
-    req.session.menu = await sails.helpers.callMenu(filterdomain);
+    req.session.menu = await sails.helpers.callMenu(domain);
     //}
 
     brands = await Manufacturer.find({active:true}).sort('name ASC');
@@ -32,7 +32,7 @@ module.exports = {
     //iridio = await Channel.findOne({name:'iridio'});
 
     seller = await Seller.find({
-      where:{domain:filterdomain},
+      where:{domain},
       select:['name','domain','logo','phone','email'],
       limit:1
     });
@@ -484,8 +484,8 @@ module.exports = {
     }
 
     let seller = null;
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
-    seller = await Seller.find({domain:filterdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
 
     let addresses = null;
     addresses = await Address.find({user:req.session.user.id})
@@ -557,6 +557,7 @@ module.exports = {
             select:['id'],
             sort: 'updatedAt DESC'
           });
+
           object.route = '/images/categories/';
         }catch(err){
           return res.notFound(err);
@@ -658,9 +659,9 @@ module.exports = {
     let seller = null;
 
     let ename=req.param('q');
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
 
-    seller = await Seller.find({domain:filterdomain});
+    seller = await Seller.find({domain});
 
     let AWS = require('aws-sdk');
     AWS.config.loadFromPath('./config.json');
@@ -743,11 +744,10 @@ module.exports = {
   listproduct: async function(req, res){
     let seller = null;
     sellerdomain = req.hostname;
-    if(req.hostname==='localhost'){
-      sellerdomain = 'pruebas.ultraglobaldistribucion.com';
-    }
 
-    seller = await Seller.find({domain:sellerdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+
+    seller = await Seller.find({domain});
     let product = await Product.findOne({name:decodeURIComponent(req.param('name')),reference:decodeURIComponent(req.param('reference'))})
       .populate('manufacturer')
       .populate('mainColor')
@@ -831,8 +831,8 @@ module.exports = {
       url:req.param('route'),
       seller:seller
     };
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
-    seller = await Seller.find({domain:filterdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     contentfilter.seller=seller[0].id;
     cms = (await Cms.find(contentfilter))[0];
     return res.view('pages/front/cms',{content:cms.content,tag:await sails.helpers.getTag(req.hostname),seller:seller});
@@ -1177,8 +1177,8 @@ module.exports = {
     return res.send(response);
   },
   login: async (req, res) =>{
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
-    let seller = await Seller.find({domain:filterdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    let seller = await Seller.find({domain});
     return res.view('pages/configuration/login',{error:null,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   }
 };

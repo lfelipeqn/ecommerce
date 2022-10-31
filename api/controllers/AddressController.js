@@ -9,8 +9,8 @@ module.exports = {
   addresses: async function(req, res){
     let error = req.param('error') ? req.param('error') : null;
     let addresses = null;
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     addresses = await Address.find({user:req.session.user.id})
     .populate('country')
     .populate('region')

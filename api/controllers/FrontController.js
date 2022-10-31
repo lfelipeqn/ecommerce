@@ -131,22 +131,22 @@ module.exports = {
   },
   account: async (req, res)=>{
     let seller = null;
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     return res.view('pages/account/account',{seller:seller});
   },
   user: async (req, res)=>{
     let seller = null;
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     let user = await User.findOne({id:req.param('id')});
     return res.view('pages/account/user',{user:user, seller:seller});
   },
   orders: async (req, res)=>{
     let moment = require('moment');
     let seller = null;
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     let orders = await Order.find({customer:req.session.user.id})
     .populate('currentstatus')
     .populate('seller')

@@ -142,7 +142,7 @@
                             <i class='bx bx-mail-send'></i>
                           </span>
                         </div>
-                        <button class="button is-warning is-fullwidth mt-2">Suscribirme a las Novedades</button>
+                        <button class="button has-background-purple is-fullwidth mt-2">Suscribirme a las Novedades</button>
                       </form>
                    </div>
                  </div>
@@ -208,14 +208,12 @@
     })
     autoplay(true)
     
-    live('article > .subtitle','click',e=>{
-      let route = e.target.parentNode.getAttribute('destination');
+    live('article','click',e=>{
+      
+      let route = e.target.getAttribute('destination') || e.target.closest('article').getAttribute('destination');
       window.location.href=route;
     });
-    live('article > .content','click',e=>{
-      let route = e.target.parentNode.getAttribute('destination');
-      window.location.href=route;
-    });
+    
 
     live('#newsletter-form > button','click',(e) =>{
       e.preventDefault();

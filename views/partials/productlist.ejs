@@ -24,22 +24,22 @@
                         <% if(product.mainColor){ %>
                         <p <%if(product.type=='prize'){%>class="is-invisible" <%}%> ><span class="is-pulled-right"><span class="color is-hidden" itemprop="color"><%=product.mainColor.name%></span><span class="color-container" color="<%=product.mainColor.name%>" style="background-color: <%= product.mainColor.code %>;border:solid 1px <%= product.mainColor.code %>;"></span></span>
                         <%}%>
-                        <span itemprop="brand" brand="<%=product.manufacturer.name%>" class="brand is-7 is-capitalized"><%=product.manufacturer.name%></span></p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span itemprop="name" class="name has-text-weight-bold is-uppercase"><%=product.name%></span></p>
+                        <span itemprop="brand" brand="<%=product.manufacturer.name%>" class="brand is-size-5 is-capitalized"><%=product.manufacturer.name%></span></p>
+                        <p style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span itemprop="name" class="name is-size-6 has-text-weight-bold is-uppercase"><%=product.name%></span></p>
                         <p><span class="sku is-hidden" itemprop="sku"><%=product.reference%></span>
                         <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                             <meta itemprop="priceCurrency" content="COP">
                             <link itemprop="availability" href="https://schema.org/InStock" />
                             <%if(product.discount!==null && product.discount!==undefined){%>
                                 <div itemprop="itemOffered" itemscope itemtype="https://schema.org/AggregateOffer">
-                                    <span itemprop="highPrice" class="is-size-7 has-text-danger old-price highPrice">$ <%= Math.round(product.price).toLocaleString("es-CO");%></span>
-                                    <span itemprop="lowPrice" class="is-size-6 has-text-weight-bold lowPrice">$ <%= Math.round(product.discount.price).toLocaleString("es-CO");%></span>
+                                    <span itemprop="highPrice" class="is-size-6 has-text-danger old-price highPrice">$ <%= Math.round(product.price).toLocaleString("es-CO");%></span>
+                                    <span itemprop="lowPrice" class="is-size-5 has-text-weight-bold lowPrice">$ <%= Math.round(product.discount.price).toLocaleString("es-CO");%></span>
                                     <span class="is-hidden" itemprop="offerCount">1</span>
                                     <span class="is-hidden savings"></span>
                                 </div>
                                 <span itemprop="price" content="<%=Math.round(product.discount.price)%>" data-price="<%=Math.round(product.discount.price)%>" class="is-hidden bestPrice"><%= Math.round(product.discount.price).toLocaleString("es-CO");%></span>
                             <%}else{%>
-                                <span class="is-size-6 has-text-weight-bold"><%= product.type=='prize' ? '' : '$'%> </span><span itemprop="price" content="<%= Math.round(product.price)%>" data-price="<%= Math.round(product.price)%>" class="is-size-6 has-text-weight-bold price bestPrice"><%= Math.round(product.price).toLocaleString("es-CO");%></span>
+                                <span class="is-size-5 has-text-weight-bold"><%= product.type=='prize' ? '' : '$'%> </span><span itemprop="price" content="<%= Math.round(product.price)%>" data-price="<%= Math.round(product.price)%>" class="is-size-5 has-text-weight-bold price bestPrice"><%= Math.round(product.price).toLocaleString("es-CO");%></span>
                             <%}%>
                         </div>
                         </p>
@@ -60,7 +60,7 @@
                         </div>
                         <br>
                         <div class="buttons">
-                            <button id="push-to-cart" product="<%=product.id%>" disabled="disabled" class="button is-disabled is-size-7 is-right <% if(product.type=='prize'){ %>is-warning<% }else{ %>is-danger<% } %> is-fullwidth"><% if(product.type==='prize'){ %> REDIMIR <% }else{ %> COMPRAR <% } %></button>
+                            <button id="push-to-cart" product="<%=product.id%>" disabled="disabled" class="button is-disabled is-size-7 is-right <% if(product.type=='prize'){ %>is-warning<% }else{ %>has-background-purple<% } %> is-fullwidth"><% if(product.type==='prize'){ %> REDIMIR <% }else{ %> COMPRAR <% } %></button>
                         </div>
                 </div>
             </div>

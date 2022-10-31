@@ -173,7 +173,7 @@
                 removeClass(label, 'has-text-danger');
                 removeClass(quantity.parentNode, 'is-hidden');
                 addClass(label, 'has-text-success');
-                addClass(add,'is-warning');
+                addClass(add,'has-background-purple');
                 for(let i=1;i<=stock;i++){
                     let op = document.createElement('option');
                     op.value=i;
@@ -191,7 +191,7 @@
                 removeClass(label, 'has-text-success');
                 addClass(label, 'has-text-danger');
                 addClass(quantity.parentNode,'is-hidden');
-                removeClass(add,'is-warning');
+                removeClass(add,'has-background-purple');
                 add.setAttribute('disabled','disabled');
             }
         
@@ -202,7 +202,7 @@
             addClass(quantity.parentNode,'is-hidden');
             addClass(sizet,'is-hidden');
             sizet.innerHTML='';
-            removeClass(add,'is-warning');
+            removeClass(add,'has-background-purple');
             add.setAttribute('disabled','disabled');
         }else{
             label.innerHTML='Para comprar elige <b>Presentación</b>';
@@ -211,7 +211,7 @@
             addClass(quantity.parentNode,'is-hidden');
             addClass(sizet,'is-hidden');
             sizet.innerHTML='';
-            removeClass(add,'is-warning');
+            removeClass(add,'has-background-purple');
             add.setAttribute('disabled','disabled');
         }
     })

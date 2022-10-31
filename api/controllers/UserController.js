@@ -9,8 +9,8 @@ module.exports = {
   registerform: async function(req, res){
     let countries = await Country.find();
     let referer = req.param('referer') ? req.param('referer') : '/';
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     if(seller[0].domain='ultravape.co'){
       seller[0].domain='6Lc3zHsgAAAAALWJ8l3pI4GT6ZXAOWBpAzNJL__3';
     }else{
@@ -90,8 +90,8 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
-    let seller = await Seller.find({domain:filterdomain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    let seller = await Seller.find({domain});
 
     if(seller[0].domain==='ultravape.co'){
       secret = '6Lc3zHsgAAAAAJ4Go4ml1ITEl9I08RE-dclouYkj';

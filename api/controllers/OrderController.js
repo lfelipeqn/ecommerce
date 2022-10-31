@@ -70,8 +70,8 @@ module.exports = {
   },
   createorder:async function(req, res){
     let seller = null;
-    domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
-    seller = await Seller.find({domain:domain});
+    let domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
+    seller = await Seller.find({domain});
     let order = [];
     let payment = null;
     let address = await Address.findOne({id:req.body.deliveryAddress})

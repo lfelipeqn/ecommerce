@@ -55,19 +55,20 @@ module.exports = {
     }
     filter.id=cids;
 
-    let navbar = `<div class="navbar-item is-size-7 is-uppercase has-text-centered"><a href="/" class="has-text-white has-text-weight-bold">Inicio</a></div>
-    <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a href="/ver/marca/`+filterProducts[0].url+`" class="has-text-white has-text-weight-bold">Productos</a></div>
-      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="/ver/categoria/inicio-redenciones">Redención</a></div>
-      <div class="navbar-item is-size-7 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>`;
+    let navbar = `<div class="navbar-item is-size-5 is-uppercase has-text-centered"><a href="/" class="has-text-white has-text-weight-bold">Inicio</a></div>
+    <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a href="/ver/marca/`+filterProducts[0].url+`" class="has-text-white has-text-weight-bold">Productos</a></div>
+      <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="/ver/categoria/inicio-redenciones">Redención</a></div>
+      <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>`;
 
     let navbarmobile =`<aside class="menu has-text-centered"><ul class="menu-list">`;
 
 
     navbarmobile +=`
-        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="/">Inicio</a></li>
-        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="/ver/marca/`+filterProducts[0].url+`">Productos</a></li>
-        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="/ver/categoria/inicio-redenciones">Redención</a></li>
-        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-7 has-text-white" href="#">Contacto</a></li>`;
+        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-5 has-text-white" href="/">Inicio</a></li>
+                        </p>
+        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-5 has-text-white" href="/ver/marca/`+filterProducts[0].url+`">Productos</a></li>
+        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-5 has-text-white" href="/ver/categoria/inicio-redenciones">Redención</a></li>
+        <li class="menu-item menu-item-mobile"><a class="is-uppercase has-text-weight-bold is-inline-block is-size-5 has-text-white" href="#">Contacto</a></li>`;
 
     navbarmobile +=`</ul></aside>`;
 

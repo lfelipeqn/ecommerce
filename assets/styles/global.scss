@@ -151,7 +151,6 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
-        border: solid 1px #3595d9;
     }
 
 }
@@ -802,4 +801,25 @@ article > .content:hover{cursor:pointer;}
     .modal-terms {
         width: 950px !important;
     }
+}
+
+.is-purple{
+    color:$purple;
+}
+
+.has-background-purple{
+    background-color:$purple;
+    color:white;
+    text-decoration: none;
+}
+
+.has-background-purple:disabled{
+    color:black;
+    text-decoration: none;
+}
+
+.button > .push-to-cart:link{
+    color: $purple;
+    border: 1px solid $purple;
+    background-color: white;
 }
