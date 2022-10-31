@@ -813,13 +813,14 @@ article > .content:hover{cursor:pointer;}
     text-decoration: none;
 }
 
-.has-background-purple:disabled{
-    color:black;
+.has-background-purple:hover{
+    background-color:white;
+    color:$purple;
+    border: 1px $purple solid;
     text-decoration: none;
 }
 
-.button > .push-to-cart:link{
-    color: $purple;
-    border: 1px solid $purple;
-    background-color: white;
+.has-background-purple:disabled{
+    color:black;
+    text-decoration: none;
 }
