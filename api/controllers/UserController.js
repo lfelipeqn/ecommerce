@@ -90,7 +90,7 @@ module.exports = {
     let randomize = require('randomatic');
     const querystring = require('querystring');
     let secret = null;
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
     let seller = await Seller.find({domain:filterdomain});
 
     if(seller[0].domain==='ultravape.co'){

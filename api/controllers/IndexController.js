@@ -17,7 +17,7 @@ module.exports = {
     let sliderfilter = {active:true};
     let brands = null;
 
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
 
     //let iridio = null;
 
@@ -93,7 +93,7 @@ module.exports = {
     cms = await Cms.find(cmsfilter);
     slider = await Slider.find(sliderfilter).populate('textColor');
 
-    return res.view('pages/homepage',{slider:slider,tag:await sails.helpers.getTag(req.hostname),object:viewed,page:1,brands:brands, seller:seller,cms:cms});
+    return res.view('pages/homepage',{slider,tag:await sails.helpers.getTag(req.hostname),object:viewed,page:1,brands, seller,cms});
   },
   admin: async function(req, res){
     let rights = await sails.helpers.checkPermissions(req.session.user.profile);
@@ -484,7 +484,7 @@ module.exports = {
     }
 
     let seller = null;
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
     seller = await Seller.find({domain:filterdomain});
 
     let addresses = null;
@@ -535,7 +535,7 @@ module.exports = {
     let limit = (((page-1)*perPage)+perPage);
     //let now = moment().valueOf();
 
-    sellerfilter.domain = req.hostname==='localhost' ? 'ultravape.co' : req.hostname;
+    sellerfilter.domain = req.hostname==='localhost' ? sails.config.custom.DEFAULT_DOMAIN : req.hostname;
 
     seller = await Seller.find(sellerfilter);
 
@@ -658,7 +658,7 @@ module.exports = {
     let seller = null;
 
     let ename=req.param('q');
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
 
     seller = await Seller.find({domain:filterdomain});
 
@@ -803,7 +803,6 @@ module.exports = {
       return res.badRequest();
     }
     let prices ={};
-    
     let productvariation = await ProductVariation.findOne({ id: req.body.variation});
     if(productvariation){
       let product = await Product.findOne({id:productvariation.product});
@@ -832,7 +831,7 @@ module.exports = {
       url:req.param('route'),
       seller:seller
     };
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
     seller = await Seller.find({domain:filterdomain});
     contentfilter.seller=seller[0].id;
     cms = (await Cms.find(contentfilter))[0];
@@ -1178,7 +1177,7 @@ module.exports = {
     return res.send(response);
   },
   login: async (req, res) =>{
-    let filterdomain = req.hostname ==='localhost' ? 'ultravape.co' : req.hostname;
+    let filterdomain = req.hostname ==='localhost' ? sails.config.custom.DEFAULT_DOMAIN: req.hostname;
     let seller = await Seller.find({domain:filterdomain});
     return res.view('pages/configuration/login',{error:null,tag:await sails.helpers.getTag(req.hostname),seller:seller});
   }

@@ -26,7 +26,8 @@ module.exports.custom = {
   MAGENTO_CHANNEL : 'magento',
   DEFAULTPAGE: 300,
   APP_ID_ML: '376091216963139',
-  SECRET_KEY_ML: 'eP3O9LD9hxTBooRGmYSj0EiuC1c48LbS'
+  SECRET_KEY_ML: 'eP3O9LD9hxTBooRGmYSj0EiuC1c48LbS',
+  DEFAULT_DOMAIN: 'fidelizacion.ultraglobaldistribucion.com'
   /***************************************************************************
   *                                                                          *
   * Any other custom config this Sails app should use during development.    *
