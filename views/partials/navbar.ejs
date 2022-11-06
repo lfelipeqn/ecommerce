@@ -1,4 +1,4 @@
-<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+<nav class="navbar is-black ml-3 mr-3" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <%if(typeof seller === 'object' && seller!==null && seller[0].logo){%><a href="/"><img src="<%=imgurl%>/images/sellers/<%=seller[0].logo%>"></a>&nbsp;&nbsp;&nbsp;<%}%>
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -49,7 +49,7 @@
             </form>
         </div>
       </div>-->
-      <div class="navbar-item is-inline-block">
+      <div class="navbar-item is-inline-block mt-2">
           <div class="buttons">
             <a href="/cart" id="cart-button" class="button is-rounded has-background-purple px-2 mx-2">
               <span class="badge has-background-purple"><%if(session && session.cart){%><%=session.cart.items%> <%}else{%>0<%}%></span>

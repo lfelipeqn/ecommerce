@@ -1,18 +1,10 @@
 <div id="header" class="columns is-hidden-mobile is-centered has-background-black">
-    <div class="column is-5-desktop">
-      <ul class="has-text-left-desktop has-text-centered-mobile has-text-white">
-        <%if(req.hostname!=='localhost' && seller){%>
-        <!--<li class="is-inline">&nbsp;<a class="has-text-white" href=""><i class='bx bxl-facebook-circle is-size-5'></i></a></li>
-        <li class="is-inline"><span class="m-0">|</span></li>-->
-        <li class="is-inline">&nbsp;<a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><i class='bx bxl-instagram-alt is-size-5'></i></a></li>
-        <%}%>
-      </ul>
-    </div>
-    <div class="column is-5-desktop">
+    <div class="column is-10-desktop">
       <ul class="has-text-right-desktop has-text-centered-mobile has-text-white">
-        <%if(req.hostname!=='localhost' && seller){%>
-        <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57<%=seller[0].phone%>">&nbsp;<i class='bx bxl-whatsapp has-text-warning is-size-5 has-text-weight-bold' ></i> +57 <%=seller[0].phone%>&nbsp;</a></li>
-        <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="mailto:<%=seller[0].email%>">&nbsp;<i class='bx bxs-envelope has-text-warning is-size-5 has-text-weight-bold'></i>&nbsp;<%=seller[0].email%>&nbsp;</a></li>
+        <%if(seller){%>
+          <li class="is-inline">&nbsp;<a class="has-text-white" href="https://www.instagram.com/ultravapeglobal/" target="_blank"><i class='bx bxl-instagram-alt has-text-warning is-size-4'></i>@ultravapeglobal</a></li>
+          <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="https://api.whatsapp.com/send?phone=+57<%=seller[0].phone%>">&nbsp;<i class='bx bxl-whatsapp has-text-warning is-size-4 has-text-weight-bold' ></i> +57 <%=seller[0].phone%>&nbsp;</a></li>
+          <li class="is-inline is-size-7-mobile"><a class="has-text-white" target="_blank" href="mailto:<%=seller[0].email%>">&nbsp;<i class='bx bxs-envelope has-text-warning is-size-4 has-text-weight-bold'></i>&nbsp;<%=seller[0].email%>&nbsp;</a></li>
         <%}%>
       </ul>
     </div>
