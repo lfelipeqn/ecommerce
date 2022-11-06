@@ -9,7 +9,7 @@
         <%}%>
         <%if(main!==null && main.length>=1){%>
           <div class="navigation-wrapper">
-            <div id="carousel" class="keen-slider">
+            <div style="box-shadow: 0 3px 10px #ab0bc3;" id="carousel" class="keen-slider">
               <%for(let m of main){%>
                 <div class="keen-slider__slide"><a href="<%=m.url%>"><img src="<%= cdnurl ? cdnurl : imgurl%>/images/slides/<%= m.image %>" alt="<%=m.name%>" /></a></div>
               <%}%>
@@ -43,6 +43,7 @@
               <%}%>
             </div>
           </div>
+          
           <%for(let cm of cms){%>
               <%- cm.content %>
           <%}%>
@@ -51,7 +52,7 @@
             <%if(mosaic!==null && mosaic.length>=1){%>
                 <section class="section is-paddingless">
                 <p class="container has-text-centered">
-                  <div class="tile is-ancestor">
+                  <div class="tile is-ancestor" onclick="">
                     <%let vbm = mosaic.filter(el => el.position =='vertical' || el.position =='bottom'|| el.position =='middle' || el.position =='wide')%>
                       <%if(vbm.length>0){%>
                       <div class="tile is-vertical">

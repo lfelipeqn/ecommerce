@@ -824,3 +824,7 @@ article > .content:hover{cursor:pointer;}
     color:black;
     text-decoration: none;
 }
+
+.is-child:hover{
+    transform: scale(1.2);
+}
