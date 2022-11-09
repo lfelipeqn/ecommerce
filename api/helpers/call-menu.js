@@ -55,10 +55,10 @@ module.exports = {
     }
     filter.id=cids;
 
-    let navbar = `<div class="navbar-item is-size-5 is-uppercase has-text-centered"><a href="/" class="has-text-white has-text-weight-bold">Inicio</a></div>
-    <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a href="/ver/marca/`+filterProducts[0].url+`" class="has-text-white has-text-weight-bold">Productos</a></div>
-      <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="/ver/categoria/inicio-redenciones">Redención</a></div>
-      <div class="navbar-item is-size-5 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>`;
+    let navbar = `<div class="navbar-item is-size-4 is-uppercase has-text-centered"><a href="/" class="has-text-white has-text-weight-bold">Inicio</a></div>
+    <div class="navbar-item is-size-4 is-uppercase has-text-centered"><a href="/ver/marca/`+filterProducts[0].url+`" class="has-text-white has-text-weight-bold">Productos</a></div>
+      <div class="navbar-item is-size-4 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="/ver/categoria/inicio-redenciones">Redención</a></div>
+      <div class="navbar-item is-size-4 is-uppercase has-text-centered"><a rel="nofollow" class="has-text-white has-text-weight-bold" href="#">Contacto</a></div>`;
 
     let navbarmobile =`<aside class="menu has-text-centered"><ul class="menu-list">`;
 
