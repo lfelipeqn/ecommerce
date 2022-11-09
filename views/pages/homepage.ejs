@@ -18,9 +18,9 @@
           <div id="dots" class="dots"></div>
         <%}%>
           <%if(featured!==null && featured.length>=1){%>
-          <div class="columns is-gapless is-centered m-0">
+          <div class="columns is-centered m-1">
             <div class="column">
-                <section class="section is-paddingless is-gapless">
+                <section class="section is-paddingless">
                   <div class="columns">
                     <%for(let f of featured){%>
                       <div class="column">
@@ -50,7 +50,7 @@
           <div class="columns is-gapless is-centered m-0">
             <div class="column">
             <%if(mosaic!==null && mosaic.length>=1){%>
-                <section class="section is-paddingless">
+                <section style="background-color: black; padding: 2px;" class="section is-paddingless">
                 <p class="container has-text-centered">
                   <div class="tile is-ancestor" onclick="">
                     <%let vbm = mosaic.filter(el => el.position =='vertical' || el.position =='bottom'|| el.position =='middle' || el.position =='wide')%>
@@ -124,7 +124,8 @@
             </div>
           </div>
           <div class="columns is-centered mb-3">
-            <div class="column is-10-desktop">
+            <div class="column is-12-desktop">
+              <div style="background-color: rgba(0, 0, 0, 0.4); box-shadow: 0 3px 10px #ab0bc3; border-radius: 23px;" class="box">
                <section class="my-6 p-5">
                  <div class="columns is-centered">
                    <div class="column is-6">
@@ -144,6 +145,7 @@
                    </div>
                  </div>
                </section>
+              </div>
             </div>
           </div>
 <script src="https://cdn.jsdelivr.net/npm/keen-slider@5.5.1/keen-slider.min.js"></script>
