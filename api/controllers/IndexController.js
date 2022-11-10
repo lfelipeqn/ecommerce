@@ -354,7 +354,7 @@ module.exports = {
     try {
       const doc = new jsPDF({orientation: 'p', unit: 'mm', format: 'a4'});
       if (data.seller.logo) {
-        let response = await axios.get(`https://s3.amazonaws.com/iridio.co/images/sellers/${data.seller.logo}`, { responseType: 'arraybuffer' });
+        let response = await axios.get(`https://d3so2uoutsowqc.cloudfront.net/images/sellers/${data.seller.logo}`, { responseType: 'arraybuffer' });
         buffer = Buffer.from(response.data).toString('base64');
         doc.addImage(buffer, 135, 5, 60, 0);
       }

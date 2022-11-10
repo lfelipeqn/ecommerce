@@ -3,7 +3,7 @@
     <% let position = ((page*32)-32)+1; %>
     <% for(let product of object.products){ %>
         <%if(product && product.id){%>
-            <div style="<% if(product.type==='prize'){ %>background-image: url('https://s3.amazonaws.com/ultravape.co/brillo.gif'); background-size:cover; <%}%> border:solid grey 1px;" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product" class="card card-catalog is-size-7 has-text-white">
+            <div style="<% if(product.type==='prize'){ %>background-image: url('https://d3so2uoutsowqc.cloudfront.net/brillo.gif'); background-size:cover; <%}%> border:solid grey 1px;" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product" class="card card-catalog is-size-7 has-text-white">
                 <span class="is-hidden productid" itemprop="productID"><%=product.id%></span>
                 <span class="is-hidden position"><%=position%></span>
                 <span class="is-hidden category"><%=product.mainCategory.name%></span>
