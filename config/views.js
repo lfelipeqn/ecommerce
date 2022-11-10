@@ -37,8 +37,8 @@ module.exports.views = {
   ***************************************************************************/
   layout: 'layouts/layout',
   locals:{
-    imgurl:'https://s3.amazonaws.com/ultravape.co',
-    cdnurl: null, //'https://static.ultravape.co',
-    bucket: 'ultravape.co'
+    imgurl:'https://s3.amazonaws.com/ultra-file',
+    cdnurl: 'https://d3so2uoutsowqc.cloudfront.net',
+    bucket: 'ultra-file'
   }
 };

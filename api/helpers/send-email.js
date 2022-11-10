@@ -53,7 +53,7 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     let AWS = require('aws-sdk');
-    AWS.config.loadFromPath('./config1.json');
+    AWS.config.loadFromPath('./config.json');
 
     var path = require('path');
     var url = require('url');
